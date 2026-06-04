@@ -1,0 +1,263 @@
+.badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.alignStart {
+  align-items: flex-start;
+}
+
+.badgeLight .eyebrow {
+  color: #6b7368;
+}
+
+.badgeLight .word {
+  color: #0a0a0a;
+}
+
+.badgeLight .mark:hover .word,
+.badgeLight .mark:focus-visible .word {
+  color: #000000;
+}
+
+.badgeLight .division {
+  color: #6b7368;
+}
+
+.badgeLight:has(.mark:hover) .eyebrow,
+.badgeLight:has(.mark:focus-visible) .eyebrow {
+  color: #3d443c;
+}
+
+.eyebrow {
+  font-family: var(--font-condensed);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sage-dim);
+  transition: color 0.25s ease;
+}
+
+.mark,
+.markStatic {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.12rem;
+  margin: 0;
+  padding: 0.35rem 0.5rem 0.5rem;
+  text-decoration: none;
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mark::after {
+  content: '';
+  position: absolute;
+  left: 0.5rem;
+  right: 0.5rem;
+  bottom: 0.2rem;
+  height: 1px;
+  background: var(--deloitte-green);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mark:hover,
+.mark:focus-visible {
+  transform: translateY(-2px);
+}
+
+.mark:hover::after,
+.mark:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.badge:has(.mark:hover) .eyebrow,
+.badge:has(.mark:focus-visible) .eyebrow {
+  color: var(--sage);
+}
+
+.word {
+  font-family: var(--font);
+  font-size: clamp(1.35rem, 4vw, 1.85rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #f5f5f5;
+  transition: color 0.25s ease;
+}
+
+.dot {
+  width: 0.42em;
+  height: 0.42em;
+  margin-left: 0.05em;
+  margin-bottom: 0.12em;
+  border-radius: 50%;
+  background: var(--deloitte-green);
+  flex-shrink: 0;
+  align-self: center;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+}
+
+.mark:hover .dot,
+.mark:focus-visible .dot {
+  transform: scale(1.2);
+  box-shadow: 0 0 12px rgba(134, 188, 37, 0.45);
+}
+
+.mark:hover .word,
+.mark:focus-visible .word {
+  color: #ffffff;
+}
+
+.division {
+  font-family: var(--font-condensed);
+  font-size: clamp(0.85rem, 2.2vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sage-dim);
+  margin-left: 0.35rem;
+  transition:
+    color 0.25s ease,
+    letter-spacing 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.mark:hover .division,
+.mark:focus-visible .division {
+  color: var(--deloitte-green);
+  letter-spacing: 0.16em;
+}
+
+.mark:focus-visible {
+  outline: 2px solid var(--deloitte-green);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Hero split — @ Deloitte· (GPS) under & ANALYST */
+.heroRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.45rem;
+  width: 100%;
+  margin: 0.2rem 0 0;
+  padding-right: clamp(0.35rem, 1vw, 0.65rem);
+}
+
+.heroAt {
+  font-family: var(--font-condensed);
+  font-size: clamp(2rem, 5.5vw, 3.75rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #0a0a0a;
+}
+
+.heroMark,
+.heroMarkStatic {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.06em;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  position: relative;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.heroMark::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.08em;
+  height: 2px;
+  background: var(--deloitte-green);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.heroMark:hover,
+.heroMark:focus-visible {
+  transform: translateY(-2px);
+}
+
+.heroMark:hover::after,
+.heroMark:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.heroWord {
+  font-family: var(--font);
+  font-size: clamp(2.35rem, 6.5vw, 4.25rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #0a0a0a;
+  line-height: 1;
+  transition: color 0.25s ease;
+}
+
+.heroDot {
+  width: 0.38em;
+  height: 0.38em;
+  margin-left: 0.02em;
+  margin-bottom: 0.14em;
+  border-radius: 50%;
+  background: var(--deloitte-green);
+  flex-shrink: 0;
+  align-self: center;
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s ease;
+}
+
+.heroMark:hover .heroDot,
+.heroMark:focus-visible .heroDot {
+  transform: scale(1.15);
+  box-shadow: 0 0 16px rgba(134, 188, 37, 0.5);
+}
+
+.heroDivision {
+  font-family: var(--font-condensed);
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6b7368;
+  margin-left: 0.25rem;
+  align-self: baseline;
+}
+
+.heroMark:focus-visible {
+  outline: 2px solid var(--deloitte-green);
+  outline-offset: 6px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mark,
+  .mark::after,
+  .dot,
+  .division {
+    transition: none;
+  }
+
+  .mark:hover,
+  .mark:focus-visible {
+    transform: none;
+  }
+
+  .mark:hover .dot,
+  .mark:focus-visible .dot {
+    transform: none;
+    box-shadow: none;
+  }
+}

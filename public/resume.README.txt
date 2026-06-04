@@ -1,0 +1,3 @@
+Drop your web-safe resume here as resume.pdf (omit street address).
+
+The site links to /resume.pdf from the footer and About page.

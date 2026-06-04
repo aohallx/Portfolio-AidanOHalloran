@@ -1,0 +1,89 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  display: flex;
+  align-items: center;
+  background: transparent;
+  pointer-events: none;
+}
+
+.inner {
+  width: 100%;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  pointer-events: auto;
+}
+
+.logo {
+  font-family: var(--font-condensed);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--sage);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.logo span {
+  color: var(--sage-dim);
+  font-weight: 500;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.75rem);
+}
+
+.link {
+  font-family: var(--font-condensed);
+  font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f4f2ec;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.link:hover {
+  color: var(--nav-link-active);
+}
+
+.linkActive {
+  color: var(--nav-link-active);
+  font-weight: 500;
+}
+
+/* Light page/section behind nav — match logo sage palette */
+.onLight .link {
+  color: var(--sage-dim);
+}
+
+.onLight .link:hover {
+  color: var(--sage);
+}
+
+.onLight .linkActive {
+  color: var(--teal-dim);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .nav {
+    gap: 0.85rem;
+  }
+
+  .link {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+  }
+}

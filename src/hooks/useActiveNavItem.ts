@@ -1,0 +1,51 @@
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+
+export type NavItemId = 'home' | 'projects' | 'about' | 'contact'
+
+const SECTION_IDS: NavItemId[] = ['home', 'projects', 'contact']
+
+function routeNavItem(pathname: string): NavItemId | null {
+  if (pathname.startsWith('/projects')) return 'projects'
+  if (pathname === '/about') return 'about'
+  return null
+}
+
+export function useActiveNavItem(): NavItemId {
+  const { pathname } = useLocation()
+  const [scrollSection, setScrollSection] = useState<NavItemId>('home')
+
+  useEffect(() => {
+    const elements = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+      (el): el is HTMLElement => el != null,
+    )
+
+    if (elements.length === 0) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+
+        if (visible.length > 0) {
+          setScrollSection(visible[0].target.id as NavItemId)
+        }
+      },
+      {
+        rootMargin: '-72px 0px -55% 0px',
+        threshold: [0, 0.15, 0.35, 0.55, 0.75],
+      },
+    )
+
+    elements.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [pathname])
+
+  const routeItem = routeNavItem(pathname)
+
+  if (scrollSection === 'contact') return 'contact'
+  if (routeItem) return routeItem
+
+  return scrollSection
+}

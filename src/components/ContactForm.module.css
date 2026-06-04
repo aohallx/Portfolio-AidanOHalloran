@@ -1,0 +1,116 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: min(100%, 36rem);
+  margin: 0 auto;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.fieldMessage {
+  gap: 1rem;
+}
+
+.label {
+  font-family: var(--font-condensed);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-on-light);
+}
+
+.input,
+.textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--text-on-light);
+  background: transparent;
+  padding: 0.35rem 0 0.65rem;
+  font-family: var(--font);
+  font-size: 1rem;
+  color: var(--text-on-light);
+  outline: none;
+  border-radius: 0;
+  resize: vertical;
+}
+
+.input:focus,
+.textarea:focus {
+  border-bottom-color: var(--teal-dim);
+  border-bottom-width: 2px;
+  padding-bottom: calc(0.65rem - 1px);
+}
+
+.topicField {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  margin-top: 0.5rem;
+}
+
+.topic {
+  font-family: var(--font-condensed);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.45rem 1rem;
+  border: 1px solid var(--text-on-light);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-on-light-muted);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.topic:hover {
+  border-color: var(--teal-dim);
+  color: var(--text-on-light);
+}
+
+.topicActive {
+  background: var(--bg-light-card);
+  color: var(--text-on-light);
+  border-color: var(--text-on-light);
+  font-weight: 600;
+}
+
+.submit {
+  align-self: center;
+  min-width: min(100%, 14rem);
+  margin-top: 0.5rem;
+  padding: 0.85rem 2.5rem;
+  font-family: var(--font-condensed);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-on-light);
+  background: transparent;
+  border: 1px solid var(--text-on-light);
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.submit:hover {
+  background: var(--text-on-light);
+  color: var(--bg-light);
+}

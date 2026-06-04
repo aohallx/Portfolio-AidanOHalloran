@@ -1,0 +1,22 @@
+.page {
+  padding: calc(var(--nav-height) + 2rem) 1rem 4rem;
+  width: min(100% - 2rem, var(--max-width));
+  margin: 0 auto;
+}
+
+.intro {
+  max-width: 42ch;
+  color: var(--text-muted);
+  margin-bottom: 2.5rem;
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-bottom: 0.75rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}

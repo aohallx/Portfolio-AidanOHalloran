@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
+  <rect width="1280" height="800" fill="#12141a"/>
+  <polyline points="80,600 280,480 480,520 680,320 880,380 1080,200 1200,260" fill="none" stroke="#2dd4bf" stroke-width="4"/>
+  <rect x="80" y="120" width="200" height="120" fill="#161922" stroke="#d4a853" stroke-width="1"/>
+  <text x="80" y="80" font-family="system-ui,sans-serif" font-size="36" fill="#f2f4f8">Stock Time-Series</text>
+  <text x="80" y="280" font-family="system-ui,sans-serif" font-size="20" fill="#9aa3b2">Jupyter + Tableau  replace with screenshot</text>
+</svg>
