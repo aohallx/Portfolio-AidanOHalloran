@@ -2,60 +2,14 @@
   position: relative;
   min-height: 100vh;
   min-height: 100dvh;
-  padding: calc(var(--nav-height) + 2rem) 1.25rem 4rem;
-  background: linear-gradient(
-    175deg,
-    var(--bg-sage) 0%,
-    var(--nav-gradient-end) 38%,
-    var(--bg-light) 72%,
-    var(--bg-light) 100%
-  );
-  overflow: hidden;
-}
-
-.page::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(
-      ellipse 75% 45% at 15% 25%,
-      rgba(255, 255, 255, 0.22),
-      transparent 58%
-    ),
-    radial-gradient(
-      ellipse 55% 35% at 85% 65%,
-      rgba(255, 255, 255, 0.12),
-      transparent 52%
-    );
-  pointer-events: none;
+  padding: calc(var(--nav-height) + 1.5rem) clamp(0.75rem, 2vw, 1.25rem) clamp(3rem, 8vw, 5rem);
+  background: var(--bg-light);
+  color: var(--text-on-light);
 }
 
 .inner {
   position: relative;
   z-index: 1;
-  width: min(100%, var(--max-width));
+  width: min(100%, 1320px);
   margin: 0 auto;
-}
-
-.intro {
-  max-width: 42ch;
-  color: var(--text-on-light-muted);
-  margin-bottom: 2.5rem;
-}
-
-.title {
-  font-family: var(--font-condensed);
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--text-on-light);
-  margin-bottom: 0.75rem;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
-  gap: 1.5rem;
 }

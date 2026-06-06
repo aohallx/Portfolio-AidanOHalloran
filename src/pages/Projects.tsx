@@ -1,5 +1,5 @@
 import { PageMeta } from '../components/PageMeta'
-import { ProjectCard } from '../components/ProjectCard'
+import { ProjectsMagazine } from '../components/ProjectsMagazine'
 import { projects } from '../data/projects'
 import styles from './Projects.module.css'
 
@@ -12,16 +12,7 @@ export function Projects() {
       />
       <div className={styles.page} data-nav-surface="light">
         <div className={styles.inner}>
-          <h1 className={styles.title}>Projects</h1>
-          <p className={styles.intro}>
-            Games, data science, and web — each with a detail page for media and
-            links.
-          </p>
-          <div className={styles.grid}>
-            {projects.map((project) => (
-              <ProjectCard key={project.slug} project={project} tone="light" />
-            ))}
-          </div>
+          <ProjectsMagazine projects={projects} headingId="projects-heading" />
         </div>
       </div>
     </>

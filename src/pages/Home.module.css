@@ -7,7 +7,7 @@
 .beyond {
   border-top: 1px solid var(--border);
   text-align: center;
-  max-width: 40rem;
+  width: min(100% - 2rem, var(--max-width));
 }
 
 .beyondEyebrow {
@@ -26,32 +26,62 @@
   letter-spacing: 0.03em;
   text-transform: uppercase;
   color: var(--sage);
-  margin: 0 0 1.25rem;
-}
-
-.beyondBody {
-  font-size: 1.05rem;
-  line-height: 1.65;
-  color: var(--text-muted);
   margin: 0 0 2rem;
 }
 
-.beyondChips {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.65rem 0.85rem;
+.hobbyGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.65rem, 1.5vw, 1.25rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.beyondChip {
+.hobbyCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+}
+
+.hobbyMedia {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+}
+
+.hobbyMedia img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.hobbyLabel {
+  margin: 0.75rem 0 0;
   font-family: var(--font-condensed);
-  font-size: 0.8rem;
+  font-size: clamp(0.62rem, 1.1vw, 0.78rem);
+  font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  padding: 0.4rem 0.85rem;
-  border: 1px solid rgba(184, 201, 173, 0.35);
-  border-radius: 999px;
   color: var(--sage);
+  line-height: 1.25;
+  max-width: 14ch;
+}
+
+@media (max-width: 720px) {
+  .hobbyGrid {
+    gap: 0.5rem;
+  }
+
+  .hobbyLabel {
+    font-size: 0.58rem;
+    margin-top: 0.55rem;
+  }
 }
 
 .contact {

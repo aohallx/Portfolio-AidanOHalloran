@@ -26,11 +26,13 @@ export function Home() {
         <h2 id="beyond-heading" className={styles.beyondTitle}>
           {site.beyond.title}
         </h2>
-        <p className={styles.beyondBody}>{site.beyond.body}</p>
-        <ul className={styles.beyondChips} aria-label="Personal interests">
-          {site.beyond.highlights.map((item) => (
-            <li key={item} className={styles.beyondChip}>
-              {item}
+        <ul className={styles.hobbyGrid} aria-label="Side hobbies">
+          {site.beyond.hobbies.map((hobby) => (
+            <li key={hobby.id} className={styles.hobbyCard}>
+              <div className={styles.hobbyMedia}>
+                <img src={hobby.image} alt={hobby.imageAlt} loading="lazy" />
+              </div>
+              <p className={styles.hobbyLabel}>{hobby.label}</p>
             </li>
           ))}
         </ul>

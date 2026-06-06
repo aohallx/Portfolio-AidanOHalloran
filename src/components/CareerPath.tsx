@@ -1,19 +1,40 @@
-import { useEffect, useRef, useState } from 'react'
-import { motion, useReducedMotion, useScroll, useMotionValueEvent } from 'framer-motion'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
   experiencePhases,
-  getActivePhaseIndex,
-  phaseScrollWeights,
   type ExperiencePhase,
   type ExperienceRole,
 } from '../data/experience'
 import styles from './CareerPath.module.css'
 
-const SNAP_SPRING = { type: 'spring' as const, stiffness: 160, damping: 24 }
+type ScrollState = {
+  progress: number
+  activeIndex: number
+}
 
-function railSnapTop(index: number, count: number): string {
-  if (count <= 1) return '50%'
-  return `${(index / (count - 1)) * 100}%`
+function getScrollStateFromTrack(
+  track: HTMLElement,
+  phaseCount: number,
+): ScrollState {
+  if (phaseCount <= 1) return { progress: 0, activeIndex: 0 }
+
+  const rect = track.getBoundingClientRect()
+  const viewport = window.innerHeight
+  const scrollable = track.offsetHeight - viewport
+
+  if (scrollable <= 0) return { progress: 0, activeIndex: 0 }
+  if (rect.top > 0) return { progress: 0, activeIndex: 0 }
+  if (rect.bottom <= viewport) {
+    return { progress: 1, activeIndex: phaseCount - 1 }
+  }
+
+  const scrolled = Math.min(scrollable, Math.max(0, -rect.top))
+  const progress = scrolled / scrollable
+  const activeIndex = Math.min(
+    phaseCount - 1,
+    Math.max(0, Math.round(progress * (phaseCount - 1))),
+  )
+
+  return { progress, activeIndex }
 }
 
 function logoClassFor(role: ExperienceRole): string {
@@ -22,6 +43,7 @@ function logoClassFor(role: ExperienceRole): string {
     role.logoTone === 'light' && styles.logoLight,
     role.logoTone === 'dark' && styles.logoDark,
     role.logoTone === 'seal' && styles.logoSeal,
+    role.logoTone === 'embedded' && styles.logoEmbedded,
   ]
     .filter(Boolean)
     .join(' ')
@@ -38,10 +60,16 @@ function RoleCard({ role }: { role: ExperienceRole }) {
           loading="lazy"
         />
       </div>
-      <p className={styles.org}>{role.org}</p>
+      <p className={styles.org}>
+        {role.org}
+        <span className={styles.orgSep} aria-hidden="true">
+          {' '}
+          ·{' '}
+        </span>
+        <span className={styles.orgLocation}>{role.location}</span>
+      </p>
       <p className={styles.title}>{role.title}</p>
       <p className={styles.meta}>{role.note}</p>
-      <p className={styles.location}>{role.location}</p>
     </article>
   )
 }
@@ -61,23 +89,10 @@ function PhaseBody({ phase }: { phase: ExperiencePhase }) {
 }
 
 function TimelineRail({ activeIndex }: { activeIndex: number }) {
-  const count = experiencePhases.length
-  const snapTop = railSnapTop(activeIndex, count)
-
   return (
     <div className={styles.railWrap}>
       <div className={styles.line} aria-hidden="true">
-        <motion.span
-          className={styles.lineFill}
-          animate={{ height: snapTop }}
-          transition={SNAP_SPRING}
-        />
-        <motion.span
-          className={styles.scrollNeedle}
-          animate={{ top: snapTop }}
-          transition={SNAP_SPRING}
-          aria-hidden="true"
-        />
+        <span className={styles.lineGradient} />
       </div>
 
       <ol className={styles.rail} aria-label="Career timeline">
@@ -93,7 +108,6 @@ function TimelineRail({ activeIndex }: { activeIndex: number }) {
             }
           >
             <span className={styles.year}>{phase.year}</span>
-            <span className={styles.marker} aria-hidden="true" />
           </li>
         ))}
       </ol>
@@ -112,8 +126,8 @@ function TimelineContent({ activeIndex }: { activeIndex: number }) {
         <div className={styles.timeline}>
           <TimelineRail activeIndex={activeIndex} />
 
-          <div className={styles.contentCol} key={activePhase.id}>
-            <PhaseBody phase={activePhase} />
+          <div className={styles.contentCol} aria-live="polite">
+            <PhaseBody key={activePhase.id} phase={activePhase} />
           </div>
         </div>
       </div>
@@ -143,21 +157,53 @@ function StaticTimeline() {
 
 export function CareerPath() {
   const scrollRef = useRef<HTMLDivElement>(null)
-  const reduceMotion = useReducedMotion()
+  const activeIndexRef = useRef(0)
   const [activeIndex, setActiveIndex] = useState(0)
-
-  const { scrollYProgress } = useScroll({
-    target: scrollRef,
-    offset: ['start start', 'end end'],
-  })
-
-  useMotionValueEvent(scrollYProgress, 'change', (progress) => {
-    setActiveIndex(getActivePhaseIndex(progress, phaseScrollWeights))
-  })
+  const [reduceMotion, setReduceMotion] = useState(false)
 
   useEffect(() => {
-    setActiveIndex(getActivePhaseIndex(scrollYProgress.get(), phaseScrollWeights))
-  }, [scrollYProgress])
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const syncMotion = () => setReduceMotion(media.matches)
+    syncMotion()
+    media.addEventListener('change', syncMotion)
+    return () => media.removeEventListener('change', syncMotion)
+  }, [])
+
+  useLayoutEffect(() => {
+    if (reduceMotion) return
+
+    const track = scrollRef.current
+    if (!track) return
+
+    const phaseCount = experiencePhases.length
+
+    const syncScroll = () => {
+      const { progress, activeIndex: next } = getScrollStateFromTrack(track, phaseCount)
+      track.style.setProperty('--timeline-progress', `${progress * 100}%`)
+
+      if (next !== activeIndexRef.current) {
+        activeIndexRef.current = next
+        setActiveIndex(next)
+      }
+    }
+
+    syncScroll()
+
+    window.addEventListener('scroll', syncScroll, { passive: true })
+    window.addEventListener('resize', syncScroll, { passive: true })
+    window.addEventListener('scrollend', syncScroll, { passive: true })
+
+    const observer = new ResizeObserver(syncScroll)
+    observer.observe(track)
+
+    return () => {
+      window.removeEventListener('scroll', syncScroll)
+      window.removeEventListener('resize', syncScroll)
+      window.removeEventListener('scrollend', syncScroll)
+      observer.disconnect()
+      track.style.removeProperty('--timeline-progress')
+    }
+  }, [reduceMotion])
 
   if (reduceMotion) {
     return <StaticTimeline />

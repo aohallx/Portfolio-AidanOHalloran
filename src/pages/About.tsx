@@ -21,9 +21,9 @@ export function About() {
           ))}
         </div>
         <div className={styles.interests} aria-label="Interests">
-          {site.beyond.highlights.map((item) => (
-            <span key={item} className={styles.chip}>
-              {item}
+          {site.beyond.hobbies.map((hobby) => (
+            <span key={hobby.id} className={styles.chip}>
+              {hobby.label}
             </span>
           ))}
         </div>

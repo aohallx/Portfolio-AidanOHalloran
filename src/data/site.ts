@@ -42,16 +42,39 @@ export const site = {
     ],
   },
   beyond: {
-    eyebrow: 'Beyond the desk',
+    eyebrow: 'Side hobbies',
     title: 'Music, games, and salt water',
-    body: 'Guitarist and composer in a few bands, film scores on the side, and usually building something in Unreal or on the web between surf sessions.',
-    highlights: [
-      'Guitarist & composer',
-      'Bands & film scores',
-      'Unreal Engine game dev',
-      'Video editing',
-      'Lacrosse',
-      'Surfing',
+    hobbies: [
+      {
+        id: 'guitarist',
+        label: 'Guitarist in 3 bands',
+        image: '/hobbies/placeholder.svg',
+        imageAlt: 'Guitarist photo placeholder',
+      },
+      {
+        id: 'film',
+        label: 'Film composer',
+        image: '/hobbies/placeholder.svg',
+        imageAlt: 'Film composer photo placeholder',
+      },
+      {
+        id: 'dev',
+        label: 'Video game & app dev',
+        image: '/hobbies/placeholder.svg',
+        imageAlt: 'Game and app development photo placeholder',
+      },
+      {
+        id: 'surf',
+        label: 'Surfer',
+        image: '/hobbies/placeholder.svg',
+        imageAlt: 'Surfing photo placeholder',
+      },
+      {
+        id: 'lacrosse',
+        label: 'Lacrosse',
+        image: '/hobbies/placeholder.svg',
+        imageAlt: 'Lacrosse photo placeholder',
+      },
     ],
   },
   contact: {
