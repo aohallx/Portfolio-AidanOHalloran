@@ -1,10 +1,8 @@
-import { Link } from 'react-router-dom'
 import { ContactForm } from '../components/ContactForm'
 import { HeroLanding } from '../components/HeroLanding'
 import { HeroSignature } from '../components/HeroSignature'
 import { PageMeta } from '../components/PageMeta'
-import { ProjectCard } from '../components/ProjectCard'
-import { featuredProjects } from '../data/projects'
+import { ProjectsSection } from '../components/ProjectsSection'
 import { site } from '../data/site'
 import { ToolsStack } from '../components/ToolsStack'
 import styles from './Home.module.css'
@@ -15,26 +13,7 @@ export function Home() {
       <PageMeta />
       <HeroLanding />
 
-      <section
-        id="projects"
-        data-nav-surface="light"
-        className={`${styles.section} ${styles.sectionLight}`}
-        aria-labelledby="featured-heading"
-      >
-        <div className={styles.sectionHeader}>
-          <h2 id="featured-heading" className={styles.sectionTitle}>
-            Featured work
-          </h2>
-          <Link to="/projects" className={styles.viewAll}>
-            All projects
-          </Link>
-        </div>
-        <div className={styles.grid}>
-          {featuredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} tone="light" />
-          ))}
-        </div>
-      </section>
+      <ProjectsSection />
 
       <ToolsStack />
 

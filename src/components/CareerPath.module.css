@@ -1,0 +1,367 @@
+.scrollTrack {
+  position: relative;
+  z-index: 1;
+  height: 360vh;
+}
+
+.staticTrack {
+  position: relative;
+  z-index: 1;
+  padding-bottom: 2rem;
+}
+
+.staticTrack .sticky {
+  position: relative;
+  min-height: auto;
+  padding-bottom: 2rem;
+}
+
+.staticList {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.staticPhase {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-light);
+}
+
+.staticYear {
+  font-family: var(--font-condensed);
+  font-size: clamp(2.5rem, 10vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--text-on-light);
+  margin: 0 0 1.5rem;
+  line-height: 0.9;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  padding: calc(var(--nav-height) + 1rem) clamp(0.75rem, 2vw, 1.25rem) 1.5rem
+    clamp(0.5rem, 2vw, 1rem);
+}
+
+.inner {
+  width: min(100%, 1320px);
+  margin: 0 auto;
+}
+
+.eyebrow {
+  font-family: var(--font-condensed);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  color: var(--text-on-light-muted);
+  margin: 0 0 clamp(1.5rem, 4vh, 2.5rem);
+  padding-left: 0.15rem;
+}
+
+.timeline {
+  display: grid;
+  grid-template-columns: minmax(10.5rem, 16vw) 1fr;
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+
+.railWrap {
+  position: relative;
+  min-height: clamp(28rem, 72vh, 42rem);
+  align-self: center;
+  margin-left: -0.25rem;
+}
+
+.line {
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  right: 0;
+  width: 2px;
+  background: rgba(26, 29, 26, 0.12);
+  pointer-events: none;
+}
+
+.lineFill {
+  display: block;
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    var(--accent-dark) 0%,
+    var(--deloitte-green) 100%
+  );
+  border-radius: 1px;
+}
+
+.scrollNeedle {
+  position: absolute;
+  left: 50%;
+  width: 1.5rem;
+  height: 3px;
+  margin-left: -0.75rem;
+  background: var(--text-on-light);
+  border-radius: 1px;
+  transform: translateY(-50%);
+  box-shadow:
+    0 0 0 2px rgba(244, 242, 236, 0.92),
+    0 2px 10px rgba(26, 29, 26, 0.2);
+  z-index: 3;
+}
+
+.scrollNeedle::before,
+.scrollNeedle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 0.35rem;
+  height: 1px;
+  background: var(--text-on-light-muted);
+  transform: translateY(-50%);
+}
+
+.scrollNeedle::before {
+  left: -0.55rem;
+}
+
+.scrollNeedle::after {
+  right: -0.55rem;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-height: inherit;
+  margin: 0;
+  padding: 0 1.5rem 0 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 3.5rem;
+}
+
+.year {
+  font-family: var(--font-condensed);
+  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--text-on-light-muted);
+  opacity: 0.38;
+  line-height: 0.95;
+  transition:
+    font-size 0.35s ease,
+    opacity 0.35s ease,
+    color 0.35s ease;
+}
+
+.rowActive .year {
+  font-size: clamp(3.75rem, 12vw, 7rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--text-on-light);
+  opacity: 1;
+}
+
+.rowPast .year {
+  opacity: 0.55;
+}
+
+.marker {
+  flex-shrink: 0;
+  width: 0.75rem;
+  height: 2px;
+  margin-right: -0.375rem;
+  background: rgba(26, 29, 26, 0.22);
+  border-radius: 1px;
+  z-index: 1;
+  transition:
+    width 0.35s ease,
+    height 0.35s ease,
+    background 0.35s ease;
+}
+
+.rowActive .marker {
+  width: 1.5rem;
+  height: 3px;
+  background: var(--text-on-light);
+}
+
+.rowPast .marker {
+  width: 0.9rem;
+  background: var(--accent-dark);
+}
+
+.contentCol {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: clamp(28rem, 72vh, 42rem);
+  align-self: center;
+  width: 100%;
+}
+
+.parallelGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(2rem, 4vw, 3rem);
+  width: 100%;
+}
+
+.parallelGrid .roleCard + .roleCard {
+  border-left: 1px solid var(--border-light);
+  padding-left: clamp(2rem, 4vw, 3rem);
+}
+
+.roleCard {
+  margin: 0;
+  padding: 0;
+}
+
+.logoWrap {
+  margin-bottom: clamp(1.5rem, 3vh, 2.25rem);
+}
+
+.logo {
+  display: block;
+  height: clamp(5.25rem, 17vh, 10rem);
+  width: auto;
+  max-width: min(26rem, 100%);
+  object-fit: contain;
+}
+
+.logoLight {
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.logoDark {
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.logoSeal {
+  height: clamp(6.25rem, 19vh, 11rem);
+  width: clamp(6.25rem, 19vh, 11rem);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.org {
+  font-family: var(--font-condensed);
+  font-size: clamp(0.8rem, 1.5vw, 0.95rem);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-on-light-muted);
+  margin: 0 0 0.75rem;
+  line-height: 1.2;
+}
+
+.title {
+  font-family: var(--font-condensed);
+  font-size: clamp(2.25rem, 6.5vw, 4.25rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: var(--text-on-light);
+  margin: 0 0 1.15rem;
+  line-height: 0.9;
+}
+
+.meta {
+  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+  line-height: 1.5;
+  color: var(--text-on-light-muted);
+  margin: 0;
+  max-width: 40ch;
+}
+
+.location {
+  margin: 1.15rem 0 0;
+  font-family: var(--font-condensed);
+  font-size: clamp(0.72rem, 1.4vw, 0.82rem);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-on-light-dim);
+}
+
+@media (max-width: 900px) {
+  .timeline {
+    grid-template-columns: minmax(8.5rem, 22vw) 1fr;
+    gap: 1.25rem;
+  }
+
+  .title {
+    font-size: clamp(1.85rem, 7.5vw, 3rem);
+  }
+
+  .logo {
+    height: clamp(4.25rem, 14vh, 7.5rem);
+  }
+
+  .logoSeal {
+    height: clamp(5rem, 16vh, 8rem);
+    width: clamp(5rem, 16vh, 8rem);
+  }
+}
+
+@media (max-width: 720px) {
+  .scrollTrack {
+    height: 320vh;
+  }
+
+  .rowActive .year {
+    font-size: clamp(2.75rem, 16vw, 4.25rem);
+  }
+
+  .parallelGrid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .parallelGrid .roleCard + .roleCard {
+    border-left: none;
+    padding-left: 0;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border-light);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollTrack {
+    height: auto;
+  }
+
+  .sticky {
+    position: relative;
+    min-height: auto;
+    padding-bottom: 2rem;
+  }
+
+  .year,
+  .marker {
+    transition: none;
+  }
+
+  .scrollNeedle {
+    display: none;
+  }
+}
