@@ -33,21 +33,15 @@ export function HeroLanding() {
             </div>
 
             <div className={styles.bio}>
-              <p className={styles.bioLead}>{hero.bioLead}</p>
-              <p className={styles.bioDetail}>{hero.bioDetail}</p>
-              <a href="#projects" className={styles.workLink}>
-                {hero.scrollLabel}
-                <span className={styles.workArrow} aria-hidden="true">
-                  →
-                </span>
-              </a>
+              <p className={styles.bioLocation}>{hero.bioLocation}</p>
+              <p className={styles.bioMemo}>{hero.bioMemo}</p>
             </div>
           </div>
         </div>
 
         <h1 className={styles.srOnly}>
-          {site.name} — {hero.titleDark} {hero.titleLight} {hero.titleSub} at{' '}
-          {site.employer.name} {site.employer.division}
+          {site.name} — {site.jobTitle} at {site.employer.name}{' '}
+          {site.employer.division} · {site.employer.sector}
         </h1>
       </div>
 

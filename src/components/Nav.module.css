@@ -73,7 +73,7 @@
 }
 
 .onLight .linkActive {
-  color: var(--teal-dim);
+  color: var(--accent-dark);
   font-weight: 600;
 }
 

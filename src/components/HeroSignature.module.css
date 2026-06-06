@@ -57,8 +57,8 @@
 }
 
 .socialLink:hover {
-  color: var(--teal);
-  border-color: var(--teal);
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
 .email {
@@ -76,7 +76,7 @@
 }
 
 .email a:hover {
-  color: var(--teal);
+  color: var(--accent);
 }
 
 .roleLine {
@@ -127,12 +127,12 @@
   color: var(--sage-dim);
   text-decoration: underline;
   text-underline-offset: 5px;
-  text-decoration-color: rgba(45, 212, 191, 0.45);
+  text-decoration-color: var(--accent-soft);
   transition: color 0.2s ease;
 }
 
 .scrollCta:hover {
-  color: var(--teal);
+  color: var(--accent);
 }
 
 @media (max-width: 640px) {

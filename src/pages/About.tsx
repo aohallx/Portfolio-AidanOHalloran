@@ -7,18 +7,18 @@ export function About() {
     <>
       <PageMeta
         title="About"
-        description="Aspiring data scientist — surf, games, ML, and building things."
+        description={`${site.jobTitle} at Deloitte GPS. Long Island native — HSI NYC, Power Device Corp, surf, and build.`}
       />
       <div className={styles.page}>
         <h1 className={styles.title}>{site.name}</h1>
-        <p className={styles.role}>Aspiring data scientist</p>
+        <p className={styles.role}>
+          {site.jobTitle} · {site.employer.name} {site.employer.division} (
+          {site.employer.sector})
+        </p>
         <div className={styles.body}>
-          <p>
-            I am 22 and graduating soon. I build across games, machine learning,
-            and the web — from a full Unreal Engine title to Jupyter-driven ML
-            projects and a live surf forecast product at Reef Radar.
-          </p>
-          <p>{site.beyond.body}</p>
+          {site.about.paragraphs.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
         <div className={styles.interests} aria-label="Interests">
           {site.beyond.highlights.map((item) => (

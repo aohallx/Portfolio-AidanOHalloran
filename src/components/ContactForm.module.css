@@ -42,7 +42,7 @@
 
 .input:focus,
 .textarea:focus {
-  border-bottom-color: var(--teal-dim);
+  border-bottom-color: var(--accent-dark);
   border-bottom-width: 2px;
   padding-bottom: calc(0.65rem - 1px);
 }
@@ -78,7 +78,7 @@
 }
 
 .topic:hover {
-  border-color: var(--teal-dim);
+  border-color: var(--accent-dark);
   color: var(--text-on-light);
 }
 

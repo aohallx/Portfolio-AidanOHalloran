@@ -19,8 +19,10 @@
   --nav-gradient-start: #555d50;
   --nav-gradient-end: #9ca595;
   --nav-link-active: #d4e8c8;
-  --teal: #2dd4bf;
-  --teal-dim: #14b8a6;
+  --accent: #8fa386;
+  --accent-dark: #5c6b54;
+  --accent-soft: rgba(143, 163, 134, 0.4);
+  --accent-soft-bg: rgba(143, 163, 134, 0.1);
   --deloitte-green: #86bc25;
   --gold: #d4a853;
   --silver: #c0c5ce;
@@ -70,7 +72,7 @@ body {
 }
 
 a {
-  color: var(--teal);
+  color: var(--accent);
   text-decoration: none;
   transition: color 0.2s ease;
 }

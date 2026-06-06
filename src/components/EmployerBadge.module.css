@@ -140,7 +140,7 @@
   border-radius: 2px;
 }
 
-/* Hero split — @ Deloitte· (GPS) under & ANALYST */
+/* Hero split — @ Deloitte· GPS under SOLUTIONS ANALYST */
 .heroRow {
   display: flex;
   align-items: baseline;
@@ -164,20 +164,24 @@
 .heroMarkStatic {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.06em;
+  gap: 0.2em;
   margin: 0;
-  padding: 0;
+  padding: 0.22em 0.55em 0.28em;
+  background: #0a0a0a;
+  border-radius: 3px;
   text-decoration: none;
   position: relative;
-  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.25s ease;
 }
 
 .heroMark::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0.08em;
+  left: 0.55em;
+  right: 0.55em;
+  bottom: 0.2em;
   height: 2px;
   background: var(--deloitte-green);
   transform: scaleX(0);
@@ -188,6 +192,7 @@
 .heroMark:hover,
 .heroMark:focus-visible {
   transform: translateY(-2px);
+  background: #000000;
 }
 
 .heroMark:hover::after,
@@ -200,7 +205,7 @@
   font-size: clamp(2.35rem, 6.5vw, 4.25rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  color: #0a0a0a;
+  color: #ffffff;
   line-height: 1;
   transition: color 0.25s ease;
 }
@@ -231,15 +236,15 @@
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #6b7368;
-  margin-left: 0.25rem;
+  color: rgba(255, 255, 255, 0.72);
+  margin-left: 0.15rem;
   align-self: baseline;
 }
 
 .heroMark:focus-visible {
   outline: 2px solid var(--deloitte-green);
-  outline-offset: 6px;
-  border-radius: 2px;
+  outline-offset: 4px;
+  border-radius: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {

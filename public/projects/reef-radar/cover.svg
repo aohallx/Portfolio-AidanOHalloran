@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
   <rect width="1280" height="800" fill="#0d1117"/>
-  <rect x="0" y="520" width="1280" height="280" fill="#14b8a6" opacity="0.25"/>
-  <text x="80" y="120" font-family="system-ui,sans-serif" font-size="28" letter-spacing="0.2em" fill="#2dd4bf">REEF RADAR</text>
+  <rect x="0" y="520" width="1280" height="280" fill="#6d7d64" opacity="0.25"/>
+  <text x="80" y="120" font-family="system-ui,sans-serif" font-size="28" letter-spacing="0.2em" fill="#8fa386">REEF RADAR</text>
   <text x="80" y="220" font-family="system-ui,sans-serif" font-size="64" font-weight="700" fill="#f2f4f8">Surf forecasts</text>
   <text x="80" y="280" font-family="system-ui,sans-serif" font-size="22" fill="#9aa3b2">reefradar.com  replace with screenshot</text>
 </svg>

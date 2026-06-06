@@ -11,7 +11,7 @@
 
 .role {
   font-size: 1.25rem;
-  color: var(--teal);
+  color: var(--accent);
   margin-bottom: 2rem;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .chip:nth-child(3n + 1) {
-  border-color: rgba(45, 212, 191, 0.35);
+  border-color: var(--accent-soft);
 }
 
 .chip:nth-child(3n + 2) {
