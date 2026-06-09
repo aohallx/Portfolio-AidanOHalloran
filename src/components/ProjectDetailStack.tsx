@@ -5,13 +5,17 @@ import styles from './ProjectDetailStack.module.css'
 
 type ProjectDetailStackProps = {
   ids: SkillId[]
+  className?: string
 }
 
-export function ProjectDetailStack({ ids }: ProjectDetailStackProps) {
+export function ProjectDetailStack({ ids, className }: ProjectDetailStackProps) {
   if (ids.length === 0) return null
 
   return (
-    <ul className={styles.grid} aria-label="Skills used">
+    <ul
+      className={[styles.grid, className].filter(Boolean).join(' ')}
+      aria-label="Skills used"
+    >
       {ids.map((id) => (
         <li key={id} className={styles.item}>
           <span

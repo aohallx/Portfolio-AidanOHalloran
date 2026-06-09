@@ -18,12 +18,14 @@ export function ConceptIcon({ id, className }: ConceptIconProps) {
   switch (id) {
     case 'calculus':
       return (
-        <svg {...props}>
-          <path
-            fill="currentColor"
-            d="M5 18c2-4 4-8 7-8s5 4 7 8H5zm2.2-2h9.6c-1.2-2-2.8-4-4.8-4s-3.6 2-4.8 4zM8 6h8v2H8V6z"
-          />
-        </svg>
+        <img
+          src="/tool-icons/calculus.png"
+          alt=""
+          className={[styles.calculusLogo, className].filter(Boolean).join(' ')}
+          loading="lazy"
+          decoding="async"
+          aria-hidden
+        />
       )
     case 'linear-algebra':
       return (

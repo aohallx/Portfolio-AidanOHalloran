@@ -117,7 +117,7 @@ export const site = {
       },
       {
         hobbyId: 'dev',
-        title: 'Coming soon',
+        title: 'Releasing soon',
         placeholder: true,
         coverArt: '/hobbies/music-blank.svg',
         coverAlt: 'Upcoming release artwork placeholder',
@@ -125,7 +125,7 @@ export const site = {
       },
       {
         hobbyId: 'surf',
-        title: 'Coming soon',
+        title: 'Releasing soon',
         placeholder: true,
         coverArt: '/hobbies/music-blank.svg',
         coverAlt: 'Upcoming release artwork placeholder',

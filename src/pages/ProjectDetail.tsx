@@ -53,15 +53,19 @@ export function ProjectDetail() {
           <ProjectMedia media={project.media} autoplay={isVideo} />
         </div>
 
-        <ProjectDetailStack ids={project.stackIds} />
+        <div className={styles.detailsRow}>
+          <section className={styles.highlightsSection} aria-label="Project highlights">
+            <ul className={styles.highlights}>
+              {project.highlights.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </section>
 
-        <section className={styles.highlightsSection} aria-label="Project highlights">
-          <ul className={styles.highlights}>
-            {project.highlights.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </section>
+          <aside className={styles.stackAside}>
+            <ProjectDetailStack ids={project.stackIds} className={styles.stack} />
+          </aside>
+        </div>
 
         {(project.links.live || project.links.github) && (
           <div className={styles.actions}>

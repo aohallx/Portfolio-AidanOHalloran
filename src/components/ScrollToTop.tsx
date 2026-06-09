@@ -1,26 +1,18 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
-import { HOME_PROJECT_SCROLL_KEY } from '../lib/homeScroll'
+import {
+  HOME_PROJECT_SCROLL_KEY,
+  clearReturnToHomeProjects,
+  markReturnToHomeProjects,
+  scrollToHomeProjectsSection,
+  shouldReturnToHomeProjects,
+} from '../lib/homeScroll'
 
 function scrollToId(id: string) {
   const el = document.getElementById(id)
   if (el) {
     el.scrollIntoView({ behavior: 'instant', block: 'start' })
   }
-}
-
-function scrollToProjectsOnHome() {
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      const slug = sessionStorage.getItem(HOME_PROJECT_SCROLL_KEY)
-      const projectEl = slug ? document.getElementById(`project-${slug}`) : null
-      if (projectEl) {
-        projectEl.scrollIntoView({ behavior: 'instant', block: 'start' })
-        return
-      }
-      scrollToId('projects-magazine')
-    })
-  })
 }
 
 /** Route-aware scroll — project pages start at top; home restores context */
@@ -41,25 +33,32 @@ export function ScrollToTop() {
     prevPath.current = pathname
     const homeState = state as HomeLocationState | null
 
-    const snapTop = () => window.scrollTo(0, 0)
+    if (from === '/' && (pathname === '/projects' || pathname.startsWith('/projects/'))) {
+      markReturnToHomeProjects()
+    }
+
+    if (pathname === '/projects') {
+      sessionStorage.removeItem(HOME_PROJECT_SCROLL_KEY)
+    }
 
     if (pathname !== '/') {
-      snapTop()
+      window.scrollTo(0, 0)
       return
     }
 
-    if (homeState?.scrollToTop || from !== '/') {
-      if (from === '/projects' || from.startsWith('/projects/')) {
-        if (!homeState?.scrollToTop) {
-          scrollToProjectsOnHome()
-          return
-        }
-      }
+    if (homeState?.scrollToTop) {
+      clearReturnToHomeProjects()
+      window.scrollTo(0, 0)
+      return
+    }
 
-      if (homeState?.scrollToTop || from === '/contact') {
-        snapTop()
-        return
-      }
+    const fromProjects = from === '/projects' || from.startsWith('/projects/')
+    const shouldScrollToProjects = fromProjects || shouldReturnToHomeProjects()
+
+    if (shouldScrollToProjects) {
+      clearReturnToHomeProjects()
+      scrollToHomeProjectsSection(from !== '/projects')
+      return
     }
 
     if (hash) {

@@ -1,37 +1,4 @@
 .accentChrome {
-  font-weight: 600;
-  background: linear-gradient(
-    105deg,
-    #6b7078 0%,
-    #c8ccd2 12%,
-    #ffffff 28%,
-    #9aa0a8 42%,
-    #f0f2f5 56%,
-    #b4b8be 70%,
-    #ffffff 84%,
-    #7a8088 100%
-  );
-  background-size: 220% 100%;
-  background-position: 0% center;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: chromeDrift 5s ease-in-out infinite alternate;
-}
-
-@keyframes chromeDrift {
-  from {
-    background-position: 0% center;
-  }
-
-  to {
-    background-position: 100% center;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .accentChrome {
-    animation: none;
-    background-position: 50% center;
-  }
+  font-weight: 700;
+  color: #2d4538;
 }
