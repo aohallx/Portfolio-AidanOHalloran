@@ -25,7 +25,8 @@ export const projects: Project[] = [
   {
     slug: 'unreal-game',
     title: 'Unreal Engine Game',
-    tagline: 'Full game built in Unreal — gameplay, systems, and polish.',
+    tagline:
+      'Full Unreal game built by hand, before the surge of IDE LLMs and coding assistants.',
     coverImage: '/projects/unreal/poster.svg',
     coverAlt: 'Unreal Engine game preview',
     media: {
@@ -34,13 +35,15 @@ export const projects: Project[] = [
       poster: '/projects/unreal/poster.svg',
       alt: 'Gameplay footage from Unreal Engine project',
     },
-    links: {},
+    links: {
+      github: 'https://github.com/aohallx/UE5-3D-demo1',
+    },
     stack: ['Unreal Engine', 'C++', 'Blueprints'],
     tools: [],
     highlights: [
-      'End-to-end game development from design through implementation',
-      'Showcased here with gameplay video — no external demo link',
-      'Systems, level design, and iteration in a production-style workflow',
+      'End-to-end game development from design through implementation, all manual',
+      'Predates the IDE LLM wave: systems, C++, and Blueprints written by hand',
+      'Showcased here with gameplay video — docs and media on GitHub',
     ],
     featured: true,
   },
@@ -71,12 +74,13 @@ export const projects: Project[] = [
     slug: 'stellar-classification',
     title: 'Stellar Classification',
     tagline: 'HR diagram analysis with log-scaled features for star typing.',
-    coverImage: '/projects/stellar/cover.svg',
-    coverAlt: 'Stellar classification project visualization',
+    coverImage: '/projects/stellar/poster.webp',
+    coverAlt: 'Stellar classification Hertzsprung–Russell diagram preview',
     media: {
-      type: 'image',
-      src: '/projects/stellar/cover.svg',
-      alt: 'Notebook output from stellar classification analysis',
+      type: 'video',
+      src: '/video/stellar-hertzsprung.mp4',
+      poster: '/projects/stellar/poster.webp',
+      alt: 'Hertzsprung–Russell diagram analysis preview',
     },
     links: {
       github:
@@ -95,12 +99,13 @@ export const projects: Project[] = [
     slug: 'stock-time-series',
     title: 'Stock Time-Series Analysis',
     tagline: 'Exploratory and predictive analysis on equity time series.',
-    coverImage: '/projects/stocks/cover.svg',
-    coverAlt: 'Stock time-series analysis charts',
+    coverImage: '/projects/stocks/poster.webp',
+    coverAlt: 'Tesla stock time-series analysis preview',
     media: {
-      type: 'image',
-      src: '/projects/stocks/cover.svg',
-      alt: 'Stock analysis charts and dashboards',
+      type: 'video',
+      src: '/video/stock-timeseries-tesla.mp4',
+      poster: '/projects/stocks/poster.webp',
+      alt: 'Tesla stock time-series analysis preview',
     },
     links: {
       github: 'https://github.com/aohallx/time-series-stock-analysis',

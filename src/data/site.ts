@@ -17,12 +17,13 @@ export const site = {
     titleSub: 'SOLUTIONS ANALYST',
     bioLocation: 'Orlando-based.',
     bioMemo:
-      'I build end-to-end data pipelines, ML workflows, and analytics solutions in consulting. Surfer, film composer, musician, and game developer.',
+      'I work in consulting on data engineering — pipelines and analytics for public-sector clients.',
     employerPrefix: '@',
   },
-  /** Short line under email on the signature block */
-  roleLine:
-    'AI & Data Engineering Solutions Analyst · Deloitte GPS (Consulting) · Orlando, FL',
+  projects: {
+    headshotSrc: '/headshot-professional.png',
+    headshotAlt: "Aidan O'Halloran — professional headshot",
+  },
   /** Large low-contrast watermark on the signature block */
   roleGhost: 'AI & DATA ENGINEERING SOLUTIONS ANALYST',
   email: 'aohalloran716@gmail.com',
@@ -80,8 +81,6 @@ export const site = {
   contact: {
     eyebrow: '( Contact )',
     title: 'Open to any chat',
-    subtitle:
-      'Work, music, projects, or just saying hi — send a note and I will get back to you.',
     topics: ['Work', 'Music', 'Projects', 'Just saying hi'] as const,
   },
 } as const

@@ -49,21 +49,7 @@ export function Home() {
           <h2 id="contact-heading" className={styles.contactTitle}>
             {site.contact.title}
           </h2>
-          <p className={styles.contactRule} aria-hidden="true" />
-          <p className={styles.contactSub}>{site.contact.subtitle}</p>
           <ContactForm />
-          <nav className={styles.contactLinks} aria-label="Contact links">
-            <a href={`mailto:${site.email}`}>Email</a>
-            <a href={site.github} target="_blank" rel="noopener noreferrer">
-              GitHub
-            </a>
-            <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
-              LinkedIn
-            </a>
-            <a href={site.resumePath} target="_blank" rel="noopener noreferrer">
-              Resume
-            </a>
-          </nav>
         </div>
       </section>
 

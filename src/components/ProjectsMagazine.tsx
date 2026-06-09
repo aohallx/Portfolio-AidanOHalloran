@@ -1,3 +1,4 @@
+import { ProjectCover } from './ProjectCover'
 import { type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import type { Project } from '../data/projects'
@@ -7,6 +8,7 @@ type ProjectsMagazineProps = {
   projects: Project[]
   showHeader?: boolean
   headingId?: string
+  headshot?: { src: string; alt: string }
 }
 
 const layoutClass = [
@@ -20,15 +22,23 @@ export function ProjectsMagazine({
   projects,
   showHeader = true,
   headingId,
+  headshot,
 }: ProjectsMagazineProps) {
   return (
     <div className={styles.wrap}>
       {showHeader && (
         <header className={styles.header}>
-          <p className={styles.eyebrow}>( Projects )</p>
-          <h2 id={headingId} className={styles.heading}>
-            Projects
-          </h2>
+          <div className={styles.headerMain}>
+            <p className={styles.eyebrow}>( Projects )</p>
+            <h2 id={headingId} className={styles.heading}>
+              Projects
+            </h2>
+          </div>
+          {headshot && (
+            <figure className={styles.headshot}>
+              <img src={headshot.src} alt={headshot.alt} loading="eager" />
+            </figure>
+          )}
         </header>
       )}
 
@@ -48,9 +58,7 @@ export function ProjectsMagazine({
                   {String(index + 1).padStart(2, '0')}
                 </span>
 
-                <div className={styles.media}>
-                  <img src={project.coverImage} alt={project.coverAlt} loading="lazy" />
-                </div>
+                <ProjectCover project={project} />
 
                 <div className={styles.copy}>
                   <p className={styles.stack}>{stackLine}</p>

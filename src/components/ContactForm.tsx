@@ -10,6 +10,11 @@ export function ContactForm() {
   const [message, setMessage] = useState('')
   const [topic, setTopic] = useState<Topic>(site.contact.topics[0])
 
+  const isReady =
+    name.trim().length > 0 &&
+    email.trim().length > 0 &&
+    message.trim().length > 0
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const subject = encodeURIComponent(`Portfolio — ${topic}`)
@@ -71,14 +76,20 @@ export function ContactForm() {
         <textarea
           name="message"
           required
-          rows={4}
+          rows={2}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           className={styles.textarea}
         />
       </label>
 
-      <button type="submit" className={styles.submit}>
+      <button
+        type="submit"
+        className={
+          isReady ? `${styles.submit} ${styles.submitReady}` : styles.submit
+        }
+        disabled={!isReady}
+      >
         Send message
       </button>
     </form>

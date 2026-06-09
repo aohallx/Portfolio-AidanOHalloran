@@ -7,20 +7,333 @@
 
 .image,
 .video {
+  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }
 
-.hint {
-  margin: 0;
-  padding: 0.75rem 1rem;
-  font-size: 0.8rem;
-  color: var(--text-dim);
-  border-top: 1px solid var(--border);
+.videoShell {
+  position: relative;
+  cursor: pointer;
+  background: #000;
+  outline: none;
 }
 
-.hint code {
-  font-size: 0.75rem;
-  color: var(--silver);
+.videoShell:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px rgba(143, 163, 134, 0.25);
+}
+
+.videoShell:fullscreen,
+.videoShell:-webkit-full-screen {
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  background: #000;
+}
+
+.videoShell:fullscreen .video,
+.videoShell:-webkit-full-screen .video {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: contain;
+}
+
+.tapLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.overlayVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, transparent 28%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.75) 0%, transparent 42%);
+  pointer-events: none;
+}
+
+.playToggle {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: auto 0;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(10, 11, 13, 0.55);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  cursor: pointer;
+  transform: scale(0.92);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+.playToggle svg {
+  width: 1.65rem;
+  height: 1.65rem;
+}
+
+.playIcon {
+  display: flex;
+  margin-left: 0.15rem;
+}
+
+.overlayVisible .playToggle {
+  transform: scale(1);
+}
+
+.playToggle:hover {
+  background: rgba(143, 163, 134, 0.22);
+  color: #fff;
+  box-shadow:
+    0 0 0 1px rgba(184, 201, 173, 0.45),
+    0 16px 48px rgba(0, 0, 0, 0.5);
+}
+
+.playRing {
+  position: absolute;
+  inset: -6px;
+  border-radius: 999px;
+  border: 1px solid rgba(184, 201, 173, 0.35);
+  opacity: 0;
+  transform: scale(0.85);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.playToggle:hover .playRing {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.chrome {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 1.25rem 1.35rem 1.1rem;
+  transform: translateY(0.35rem);
+  opacity: 0.85;
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+}
+
+.overlayVisible .chrome {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.progressTrack {
+  position: relative;
+  height: 0.35rem;
+  margin-bottom: 0.75rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  overflow: visible;
+}
+
+.progressTrack::before {
+  content: '';
+  position: absolute;
+  inset: -0.55rem 0;
+}
+
+.progressGlow {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 100%;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(143, 163, 134, 0.15),
+    rgba(143, 163, 134, 0.45)
+  );
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.progressFill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent-dark), var(--sage));
+  pointer-events: none;
+}
+
+.progressThumb {
+  position: absolute;
+  top: 50%;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin-left: -0.375rem;
+  border-radius: 999px;
+  background: var(--text);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.35);
+  transform: translateY(-50%) scale(0);
+  transition: transform 0.2s ease;
+  pointer-events: none;
+}
+
+.progressTrack:hover .progressThumb,
+.overlayVisible .progressThumb {
+  transform: translateY(-50%) scale(1);
+}
+
+.metaRow {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  font-family: var(--font-condensed);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.timeCurrent {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.timeDivider {
+  width: 1.25rem;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.25);
+  align-self: center;
+}
+
+.timeDuration {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.fullscreenBtn {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.35rem;
+  height: 2.35rem;
+  padding: 0;
+  border: 1px solid rgba(184, 201, 173, 0.35);
+  border-radius: 6px;
+  background: rgba(10, 11, 13, 0.45);
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.fullscreenBtn svg {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.fullscreenBtn:hover {
+  background: rgba(143, 163, 134, 0.2);
+  border-color: rgba(184, 201, 173, 0.55);
+  color: #fff;
+  transform: scale(1.04);
+}
+
+.progressPeek {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+
+.progressPeek .progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-dark), var(--sage));
+}
+
+@media (max-width: 640px) {
+  .playToggle {
+    width: 3.75rem;
+    height: 3.75rem;
+  }
+
+  .playToggle svg {
+    width: 1.35rem;
+    height: 1.35rem;
+  }
+
+  .chrome {
+    padding: 1rem 1rem 0.85rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .chrome,
+  .playToggle,
+  .playRing,
+  .progressThumb {
+    transition: none;
+  }
+
+  .overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .playToggle {
+    transform: scale(1);
+  }
 }

@@ -1,16 +1,22 @@
+import { type CSSProperties } from 'react'
 import { toolCategories } from '../data/tools'
-import { SkillIcon } from './SkillIcon'
+import { ToolBrandIcon } from './ToolBrandIcon'
 import styles from './ToolsStack.module.css'
 
-function ToolCard({ id, name }: (typeof toolCategories)[number]['items'][number]) {
-  const iconClass = styles.icon
+const categoryLayout = [
+  styles.blockPrimary,
+  styles.blockSecondary,
+  styles.blockTertiary,
+  styles.blockInfra,
+] as const
 
+function ToolTile({ id, name }: (typeof toolCategories)[number]['items'][number]) {
   return (
-    <li className={styles.card}>
-      <span className={styles.iconWrap} aria-hidden="true">
-        <SkillIcon id={id} className={iconClass} />
+    <li className={styles.tile}>
+      <span className={styles.tileIcon} aria-hidden="true">
+        <ToolBrandIcon id={id} className={styles.logo} />
       </span>
-      <span className={styles.name}>{name}</span>
+      <span className={styles.tileName}>{name}</span>
     </li>
   )
 }
@@ -19,27 +25,36 @@ export function ToolsStack() {
   return (
     <section
       className={styles.section}
+      data-nav-surface="light"
       aria-labelledby="tools-heading"
     >
-      <header className={styles.header}>
-        <h2 id="tools-heading" className={styles.title}>
-          Tools & stack
-        </h2>
-        <p className={styles.lead}>
-          Languages, ML tooling, and what I ship on the web and in engines.
-        </p>
-      </header>
-      <div className={styles.categories}>
-        {toolCategories.map((cat) => (
-          <div key={cat.title} className={styles.category}>
-            <h3 className={styles.categoryTitle}>{cat.title}</h3>
-            <ul className={styles.grid}>
-              {cat.items.map((tool) => (
-                <ToolCard key={tool.id} {...tool} />
-              ))}
-            </ul>
-          </div>
-        ))}
+      <div className={styles.inner}>
+        <header className={styles.header}>
+          <p className={styles.eyebrow}>( Tools )</p>
+          <h2 id="tools-heading" className={styles.heading}>
+            Tools
+          </h2>
+        </header>
+
+        <div className={styles.magazine}>
+          {toolCategories.map((category, index) => (
+            <article
+              key={category.title}
+              className={`${styles.block} ${categoryLayout[index] ?? styles.blockDefault}`}
+              style={{ '--i': index } as CSSProperties}
+            >
+              <div className={styles.blockHead}>
+                <h3 className={styles.blockTitle}>{category.title}</h3>
+              </div>
+
+              <ul className={styles.logoGrid}>
+                {category.items.map((tool) => (
+                  <ToolTile key={tool.id} {...tool} />
+                ))}
+              </ul>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   )

@@ -30,6 +30,21 @@ export const toolCategories: { title: string; items: ToolEntry[] }[] = [
       { id: 'typescript', name: 'TypeScript' },
       { id: 'unreal', name: 'Unreal Engine' },
       { id: 'git', name: 'Git' },
+      { id: 'after-effects', name: 'After Effects' },
+    ],
+  },
+  {
+    title: 'Infrastructure & IT',
+    items: [
+      { id: 'aws', name: 'AWS' },
+      { id: 'ubuntu', name: 'Ubuntu' },
+      { id: 'powershell', name: 'PowerShell' },
+      { id: 'azure', name: 'Azure' },
+      { id: 'cisco', name: 'Cisco' },
+      { id: 'virtualbox', name: 'VirtualBox' },
+      { id: 'kali', name: 'Kali Linux' },
+      { id: 'wireshark', name: 'Wireshark' },
+      { id: 'nmap', name: 'Nmap' },
     ],
   },
 ]

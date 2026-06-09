@@ -11,6 +11,15 @@ export type SkillId =
   | 'git'
   | 'tableau'
   | 'cpp'
+  | 'aws'
+  | 'ubuntu'
+  | 'powershell'
+  | 'azure'
+  | 'cisco'
+  | 'virtualbox'
+  | 'kali'
+  | 'wireshark'
+  | 'nmap'
 
 export type Skill = {
   id: SkillId

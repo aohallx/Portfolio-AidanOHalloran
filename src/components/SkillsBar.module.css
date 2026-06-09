@@ -1,5 +1,6 @@
 .bar {
   width: 100%;
+  flex-shrink: 0;
   background: #0a0a0a;
   border-block: 1px solid rgba(255, 255, 255, 0.06);
   overflow: hidden;
