@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: calc(var(--nav-height) + 1.5rem) clamp(0.75rem, 2vw, 1.25rem)
+  padding: calc(var(--nav-height) + 1.25rem) clamp(0.75rem, 2vw, 1.25rem)
     clamp(2rem, 5vw, 3rem);
   overflow: hidden;
   color: var(--text);
@@ -56,9 +56,13 @@
 .inner {
   position: relative;
   z-index: 1;
-  width: min(100%, var(--max-width));
+  width: min(100%, 42rem);
   margin: 0 auto;
   text-align: center;
+}
+
+.hero {
+  margin-bottom: clamp(1rem, 2.5vw, 1.35rem);
 }
 
 .eyebrow {
@@ -67,17 +71,17 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gold);
-  margin: 0 0 0.65rem;
+  margin: 0 0 0.55rem;
 }
 
 .title {
   font-family: var(--font-condensed);
-  font-size: clamp(1.75rem, 6vw, 3rem);
+  font-size: clamp(1.75rem, 6vw, 2.75rem);
   font-weight: 700;
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: var(--text);
-  margin: 0 auto 1.35rem;
+  margin: 0 auto 0.65rem;
   max-width: 18ch;
   line-height: 1.05;
   text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
@@ -88,6 +92,66 @@
   display: block;
   width: 3.5rem;
   height: 2px;
-  margin: 0.85rem auto 0;
+  margin: 0.65rem auto 0;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.role {
+  margin: 0;
+  font-family: var(--font-condensed);
+  font-size: clamp(0.82rem, 2vw, 0.95rem);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.72);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
+}
+
+.roleSep {
+  margin: 0 0.4rem;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+}
+
+.emphasis {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.prose {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.85rem, 2vw, 1.1rem);
+  margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+  text-align: left;
+}
+
+.copy {
+  margin: 0;
+  font-size: clamp(0.92rem, 1.8vw, 1rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.78);
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
+}
+
+.projectLink {
+  color: var(--text);
+}
+
+.social {
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  padding-top: clamp(1.25rem, 3vw, 1.5rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  justify-content: center;
+}
+
+@media (min-width: 720px) {
+  .inner {
+    width: min(100%, 44rem);
+  }
+
+  .prose {
+    columns: 1;
+  }
 }

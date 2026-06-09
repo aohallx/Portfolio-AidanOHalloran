@@ -15,7 +15,6 @@ type NavItem = {
 const NAV_ITEMS: NavItem[] = [
   { id: 'home', label: 'HOME', to: '/', sectionId: 'home' },
   { id: 'projects', label: 'PROJECTS', to: '/projects' },
-  { id: 'about', label: 'ABOUT', to: '/about' },
   { id: 'contact', label: 'CONTACT', to: '/contact' },
 ]
 

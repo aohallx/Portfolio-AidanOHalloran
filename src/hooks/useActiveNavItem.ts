@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 
-export type NavItemId = 'home' | 'projects' | 'about' | 'contact'
+export type NavItemId = 'home' | 'projects' | 'contact'
 
 const SECTION_IDS: NavItemId[] = ['home', 'projects', 'contact']
 
 function routeNavItem(pathname: string): NavItemId | null {
   if (pathname.startsWith('/projects')) return 'projects'
-  if (pathname === '/about') return 'about'
   if (pathname === '/contact') return 'contact'
   return null
 }

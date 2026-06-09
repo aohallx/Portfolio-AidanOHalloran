@@ -13,7 +13,7 @@ export function HeroSignature() {
     >
       <div className={styles.inner}>
         <h2 className={styles.nameHeading}>
-          <Link to="/about" className={`chrome-link ${styles.name}`}>
+          <Link to="/contact" className={`chrome-link ${styles.name}`}>
             {site.name.toUpperCase()}
           </Link>
         </h2>

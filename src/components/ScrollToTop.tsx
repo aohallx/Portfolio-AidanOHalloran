@@ -56,7 +56,7 @@ export function ScrollToTop() {
         }
       }
 
-      if (homeState?.scrollToTop || from === '/contact' || from === '/about') {
+      if (homeState?.scrollToTop || from === '/contact') {
         snapTop()
         return
       }
