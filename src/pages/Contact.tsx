@@ -1,52 +1,10 @@
-import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import { ContactForm } from '../components/ContactForm'
 import { PageMeta } from '../components/PageMeta'
+import { ReefRadarName } from '../components/ReefRadarName'
 import { SocialIconRow } from '../components/SocialIconRow'
 import { site } from '../data/site'
 import styles from './Contact.module.css'
-
-function ContactIntro() {
-  return (
-    <p className={styles.copy}>
-      I&apos;m from Long Island, New York. Before{' '}
-      <strong className={styles.emphasis}>{site.employer.name}</strong>, I spent
-      two years volunteering as a program manager at{' '}
-      <strong className={styles.emphasis}>
-        Homeland Security Investigations
-      </strong>{' '}
-      in NYC, at the same time a test technician at{' '}
-      <strong className={styles.emphasis}>Power Device Corporation</strong> in
-      Bohemia.
-    </p>
-  )
-}
-
-function ContactProjectLinks() {
-  const { buildLead, projectLinks } = site.about
-
-  return (
-    <p className={styles.copy}>
-      {buildLead}{' '}
-      {projectLinks.map((project, index) => {
-        const isLast = index === projectLinks.length - 1
-        const isSecondLast = index === projectLinks.length - 2
-
-        return (
-          <Fragment key={project.slug}>
-            <Link
-              to={`/projects/${project.slug}`}
-              className={`chrome-link ${styles.projectLink}`}
-            >
-              {project.label}
-            </Link>
-            {isSecondLast ? ', and ' : isLast ? '.' : ', '}
-          </Fragment>
-        )
-      })}
-    </p>
-  )
-}
 
 export function Contact() {
   return (
@@ -68,25 +26,63 @@ export function Contact() {
 
         <div className={styles.inner}>
           <header className={styles.hero}>
-            <p className={styles.eyebrow}>{site.contact.eyebrow}</p>
             <h1 id="contact-heading" className={styles.title}>
               {site.contact.title}
             </h1>
-            <p className={styles.role}>
-              {site.jobTitle}
-              <span className={styles.roleSep} aria-hidden="true">
-                ·
-              </span>
-              <strong className={styles.emphasis}>
-                {site.employer.name} ({site.employer.sector})
-              </strong>
-            </p>
           </header>
 
           <div className={styles.prose}>
-            <ContactIntro />
-            <ContactProjectLinks />
-            <p className={styles.copy}>{site.about.outro}</p>
+            <p className={styles.copy}>
+              I&apos;m from Long Island, New York. From 2024–2026, I volunteered
+              as a program manager at{' '}
+              <strong className={styles.emphasis}>
+                Homeland Security Investigations
+              </strong>{' '}
+              in NYC while working as a test technician at{' '}
+              <strong className={styles.emphasis}>
+                Power Device Corporation
+              </strong>{' '}
+              in Bohemia.
+            </p>
+
+            <p className={styles.copy}>
+              I work for{' '}
+              <strong className={styles.emphasis}>
+                Deloitte Government &amp; Public Services
+              </strong>
+              , where I build data pipelines and present technical work to
+              clients. I like talking through ideas with people, at work or
+              outside it. On my own time I&apos;ve built a{' '}
+              <Link
+                to="/projects/unreal-game"
+                className={`chrome-link ${styles.projectLink}`}
+              >
+                video game
+              </Link>
+              ,{' '}
+              <Link
+                to="/projects/stock-time-series"
+                className={`chrome-link ${styles.projectLink}`}
+              >
+                stock analyzer
+              </Link>
+              ,{' '}
+              <Link
+                to="/projects/stellar-classification"
+                className={`chrome-link ${styles.projectLink}`}
+              >
+                exoplanet research project
+              </Link>
+              , and{' '}
+              <Link
+                to="/projects/reef-radar"
+                className={`chrome-link ${styles.projectLink}`}
+              >
+                <ReefRadarName />
+              </Link>
+              . I also surf, write music, score films, play guitar in a few
+              bands, and play lacrosse.
+            </p>
           </div>
 
           <ContactForm variant="dark" />

@@ -1,0 +1,35 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  line-height: 0;
+  text-decoration: none;
+}
+
+.logo {
+  display: block;
+  width: auto;
+  height: 100%;
+  object-fit: contain;
+}
+
+.inlineSize {
+  height: 1.35em;
+  margin: 0 0.1em;
+  transform: translateY(-0.08em);
+}
+
+.titleSize {
+  height: clamp(2.75rem, 5.5vw, 3.75rem);
+  max-width: 100%;
+}
+
+.titleSize .logo {
+  height: clamp(2.75rem, 5.5vw, 3.75rem);
+  width: auto;
+  max-width: min(100%, 20rem);
+}
+
+.brand:hover .logo {
+  filter: brightness(1.08);
+}

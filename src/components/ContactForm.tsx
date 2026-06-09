@@ -35,31 +35,33 @@ export function ContactForm({ variant = 'light' }: ContactFormProps) {
       }
       onSubmit={handleSubmit}
     >
-      <label className={styles.field}>
-        <span className={styles.label}>Your name*</span>
-        <input
-          type="text"
-          name="name"
-          required
-          autoComplete="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className={styles.input}
-        />
-      </label>
+      <div className={styles.fieldRow}>
+        <label className={styles.field}>
+          <span className={styles.label}>Your name*</span>
+          <input
+            type="text"
+            name="name"
+            required
+            autoComplete="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className={styles.input}
+          />
+        </label>
 
-      <label className={styles.field}>
-        <span className={styles.label}>Your email*</span>
-        <input
-          type="email"
-          name="email"
-          required
-          autoComplete="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={styles.input}
-        />
-      </label>
+        <label className={styles.field}>
+          <span className={styles.label}>Your email*</span>
+          <input
+            type="email"
+            name="email"
+            required
+            autoComplete="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={styles.input}
+          />
+        </label>
+      </div>
 
       <fieldset className={styles.topicField}>
         <legend className={styles.label}>What&apos;s this about?</legend>

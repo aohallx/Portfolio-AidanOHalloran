@@ -57,11 +57,11 @@
 }
 
 .blockTertiary {
-  grid-column: 1 / 6;
+  grid-column: 1 / 8;
 }
 
-.blockInfra {
-  grid-column: 6 / 13;
+.blockWeb {
+  grid-column: 8 / 13;
 }
 
 .blockDefault {
@@ -94,7 +94,7 @@
   list-style: none;
 }
 
-.blockInfra .logoGrid {
+.blockWeb .logoGrid {
   grid-template-columns: repeat(auto-fill, minmax(6rem, 1fr));
 }
 
@@ -106,27 +106,29 @@
   gap: 0.65rem;
   min-height: 7.1rem;
   padding: 1.05rem 0.55rem 0.95rem;
-  background: linear-gradient(
-    155deg,
-    rgba(232, 197, 120, 0.72) 0%,
-    rgba(201, 162, 90, 0.55) 38%,
-    rgba(143, 163, 134, 0.62) 72%,
-    rgba(110, 160, 32, 0.38) 100%
-  );
-  border: 1px solid rgba(92, 107, 84, 0.28);
+  background: #14161a;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   clip-path: polygon(50% 0%, 100% 16%, 100% 84%, 50% 100%, 0% 84%, 0% 16%);
   transition:
     transform 0.22s ease,
     box-shadow 0.22s ease,
-    border-color 0.22s ease,
-    filter 0.22s ease;
+    border-color 0.22s ease;
+}
+
+.tileLight {
+  background: #f4f2ec;
+  border-color: rgba(26, 29, 26, 0.12);
 }
 
 .tile:hover {
   transform: translateY(-2px);
-  border-color: rgba(92, 107, 84, 0.5);
-  box-shadow: 0 8px 22px rgba(26, 29, 26, 0.12);
-  filter: saturate(1.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 24px rgba(10, 11, 13, 0.22);
+}
+
+.tileLight:hover {
+  border-color: rgba(26, 29, 26, 0.22);
+  box-shadow: 0 10px 24px rgba(26, 29, 26, 0.12);
 }
 
 .tileIcon {
@@ -141,6 +143,36 @@
   width: 100%;
   height: 100%;
   display: block;
+  object-fit: contain;
+  animation: logoSparkle 6.5s ease-in-out infinite;
+  will-change: filter;
+}
+
+.tile:nth-child(2n) .logo {
+  animation-delay: -2.1s;
+}
+
+.tile:nth-child(3n) .logo {
+  animation-delay: -4.3s;
+}
+
+@keyframes logoSparkle {
+  0%,
+  100% {
+    filter: brightness(1) saturate(1);
+  }
+
+  30% {
+    filter: brightness(1.04) saturate(1.03);
+  }
+
+  55% {
+    filter: brightness(0.99) saturate(0.98);
+  }
+
+  78% {
+    filter: brightness(1.025) saturate(1.015);
+  }
 }
 
 .tileName {
@@ -150,9 +182,13 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   text-align: center;
-  color: var(--accent-dark);
+  color: rgba(255, 255, 255, 0.82);
   line-height: 1.15;
-  max-width: 9ch;
+  max-width: 11ch;
+}
+
+.tileNameDark {
+  color: var(--accent-dark);
 }
 
 @keyframes blockRise {
@@ -174,20 +210,20 @@
   .blockPrimary,
   .blockSecondary,
   .blockTertiary,
-  .blockInfra,
+  .blockWeb,
   .blockDefault {
     grid-column: 1 / -1;
   }
 
   .logoGrid,
-  .blockInfra .logoGrid {
+  .blockWeb .logoGrid {
     grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
   }
 }
 
 @media (max-width: 480px) {
   .logoGrid,
-  .blockInfra .logoGrid {
+  .blockWeb .logoGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
@@ -195,6 +231,11 @@
 @media (prefers-reduced-motion: reduce) {
   .block {
     animation: none;
+  }
+
+  .logo {
+    animation: none;
+    filter: none;
   }
 
   .tile {

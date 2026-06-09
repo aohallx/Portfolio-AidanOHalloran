@@ -1,50 +1,77 @@
 import type { SkillId } from './skills'
 
-export type ToolEntry = {
+export type ConceptId =
+  | 'calculus'
+  | 'linear-algebra'
+  | 'probability-stats'
+  | 'optimization'
+  | 'game-physics'
+  | 'machine-learning'
+  | 'feature-engineering'
+  | 'eda'
+  | 'etl'
+  | 'time-series'
+
+export type ToolSkillItem = {
+  kind: 'skill'
   id: SkillId
   name: string
 }
 
-export const toolCategories: { title: string; items: ToolEntry[] }[] = [
+export type ToolConceptItem = {
+  kind: 'concept'
+  id: ConceptId
+  name: string
+}
+
+export type ToolItem = ToolSkillItem | ToolConceptItem
+
+export const toolCategories: { title: string; items: ToolItem[] }[] = [
   {
-    title: 'Languages & Data',
+    title: 'Mathematics',
     items: [
-      { id: 'python', name: 'Python' },
-      { id: 'cpp', name: 'C++' },
-      { id: 'sql', name: 'SQL' },
+      { kind: 'concept', id: 'calculus', name: 'Calculus (I-III)' },
+      { kind: 'concept', id: 'linear-algebra', name: 'Linear Algebra' },
+      { kind: 'concept', id: 'probability-stats', name: 'Probability & Statistics' },
+      { kind: 'concept', id: 'optimization', name: 'Optimization' },
+      { kind: 'concept', id: 'game-physics', name: 'Game Physics' },
     ],
   },
   {
-    title: 'ML & Notebooks',
+    title: 'Data Science',
     items: [
-      { id: 'jupyter', name: 'Jupyter' },
-      { id: 'sklearn', name: 'scikit-learn' },
-      { id: 'pandas', name: 'pandas' },
-      { id: 'tableau', name: 'Tableau' },
+      { kind: 'concept', id: 'machine-learning', name: 'Machine Learning' },
+      { kind: 'concept', id: 'feature-engineering', name: 'Feature Engineering' },
+      { kind: 'concept', id: 'eda', name: 'Exploratory Data Analysis' },
+      { kind: 'concept', id: 'etl', name: 'ETL Pipelines' },
+      { kind: 'concept', id: 'time-series', name: 'Time Series Forecasting' },
+    ],
+  },
+  {
+    title: 'Tools & Tech',
+    items: [
+      { kind: 'skill', id: 'python', name: 'Python' },
+      { kind: 'skill', id: 'pandas', name: 'pandas' },
+      { kind: 'skill', id: 'numpy', name: 'NumPy' },
+      { kind: 'skill', id: 'matplotlib', name: 'Matplotlib' },
+      { kind: 'skill', id: 'seaborn', name: 'Seaborn' },
+      { kind: 'skill', id: 'sklearn', name: 'scikit-learn' },
+      { kind: 'skill', id: 'sql-server', name: 'SQL Server' },
+      { kind: 'skill', id: 'cpp', name: 'C++' },
+      { kind: 'skill', id: 'java', name: 'Java' },
+      { kind: 'skill', id: 'git', name: 'GitHub' },
+      { kind: 'skill', id: 'tableau', name: 'Tableau' },
+      { kind: 'skill', id: 'jupyter', name: 'Jupyter' },
     ],
   },
   {
     title: 'Web & Game Dev',
     items: [
-      { id: 'react', name: 'React' },
-      { id: 'typescript', name: 'TypeScript' },
-      { id: 'unreal', name: 'Unreal Engine' },
-      { id: 'git', name: 'Git' },
-      { id: 'after-effects', name: 'After Effects' },
-    ],
-  },
-  {
-    title: 'Infrastructure & IT',
-    items: [
-      { id: 'aws', name: 'AWS' },
-      { id: 'ubuntu', name: 'Ubuntu' },
-      { id: 'powershell', name: 'PowerShell' },
-      { id: 'azure', name: 'Azure' },
-      { id: 'cisco', name: 'Cisco' },
-      { id: 'virtualbox', name: 'VirtualBox' },
-      { id: 'kali', name: 'Kali Linux' },
-      { id: 'wireshark', name: 'Wireshark' },
-      { id: 'nmap', name: 'Nmap' },
+      { kind: 'skill', id: 'react', name: 'React' },
+      { kind: 'skill', id: 'typescript', name: 'TypeScript' },
+      { kind: 'skill', id: 'firebase', name: 'Firebase' },
+      { kind: 'skill', id: 'unreal', name: 'Unreal Engine' },
+      { kind: 'skill', id: 'after-effects', name: 'After Effects' },
     ],
   },
 ]

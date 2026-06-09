@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { ExperienceRichText } from './ExperienceRichText'
 import {
   experiencePhases,
   type ExperiencePhase,
@@ -69,7 +70,15 @@ function RoleCard({ role }: { role: ExperienceRole }) {
         <span className={styles.orgLocation}>{role.location}</span>
       </p>
       <p className={styles.title}>{role.title}</p>
-      <p className={styles.meta}>{role.note}</p>
+      <div className={styles.copy}>
+        {role.paragraphs.map((paragraph, index) => (
+          <ExperienceRichText
+            key={index}
+            paragraph={paragraph}
+            className={styles.paragraph}
+          />
+        ))}
+      </div>
     </article>
   )
 }

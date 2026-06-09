@@ -16,7 +16,7 @@ export type HobbyMusic = {
 export const site = {
   name: "Aidan O'Halloran",
   jobTitle: 'AI & Data Engineering Solutions Analyst',
-  tagline: 'Consulting at Deloitte GPS · games, data, and the web',
+  tagline: 'Data, solutions, and the people side of technical work',
   employer: {
     label: 'Currently at',
     sector: 'Government & Public Services',
@@ -32,7 +32,7 @@ export const site = {
     titleSub: 'SOLUTIONS ANALYST',
     bioLocation: 'Based in Orlando, Florida.',
     bioMemo:
-      'I work in consulting on data engineering — pipelines and analytics for public-sector clients.',
+      'I build data pipelines and analytics for government clients, working directly with stakeholders to turn data into decisions.',
     employerPrefix: '@',
   },
   projects: {
@@ -50,18 +50,6 @@ export const site = {
     { label: 'GitHub', href: 'https://github.com/aohallx' },
     { label: 'Resume', href: '/resume.pdf' },
   ],
-  about: {
-    outro:
-      'When I\'m not at a keyboard I surf, write music, score films, play guitar in a few bands, or play lacrosse.',
-    buildLead:
-      "These days I build data pipelines in consulting. On my own time I've built a",
-    projectLinks: [
-      { label: 'video game', slug: 'unreal-game' },
-      { label: 'stock analyzer', slug: 'stock-time-series' },
-      { label: 'exoplanet research project', slug: 'stellar-classification' },
-      { label: 'Reef Radar', slug: 'reef-radar' },
-    ],
-  },
   beyond: {
     eyebrow: 'Side hobbies',
     title: 'What I do in my free time',

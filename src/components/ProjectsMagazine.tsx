@@ -1,5 +1,7 @@
 import { ProjectCover } from './ProjectCover'
 import { ProjectStackIcons } from './ProjectStackIcons'
+import { ProjectTagline } from './ProjectTagline'
+import { ProjectTitle } from './ProjectTitle'
 import { type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import type { Project } from '../data/projects'
@@ -58,8 +60,15 @@ export function ProjectsMagazine({
 
                 <div className={styles.copy}>
                   <ProjectStackIcons ids={project.stackIds} />
-                  <h3 className={styles.title}>{project.title}</h3>
-                  <p className={styles.tagline}>{project.tagline}</p>
+                  <h3 className={styles.title}>
+                    <ProjectTitle project={project} />
+                  </h3>
+                  <ProjectTagline
+                    project={project}
+                    className={styles.tagline}
+                    nested
+                    tone="light"
+                  />
                 </div>
               </Link>
             </article>

@@ -1,4 +1,6 @@
 import { ProjectCover } from './ProjectCover'
+import { ProjectTagline } from './ProjectTagline'
+import { ProjectTitle } from './ProjectTitle'
 import { Link } from 'react-router-dom'
 import type { Project } from '../data/projects'
 import styles from './ProjectCard.module.css'
@@ -19,8 +21,10 @@ export function ProjectCard({ project, tone = 'dark' }: ProjectCardProps) {
     >
       <ProjectCover project={project} />
       <div className={styles.body}>
-        <h3 className={styles.title}>{project.title}</h3>
-        <p className={styles.tagline}>{project.tagline}</p>
+        <h3 className={styles.title}>
+          <ProjectTitle project={project} />
+        </h3>
+        <ProjectTagline project={project} className={styles.tagline} nested />
         <div className={styles.tags}>
           {primaryTag && <span className={styles.tag}>{primaryTag}</span>}
           {toolTag && (

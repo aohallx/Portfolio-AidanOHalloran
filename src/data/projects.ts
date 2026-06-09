@@ -53,8 +53,9 @@ export const projects: Project[] = [
   },
   {
     slug: 'reef-radar',
-    title: 'Reef Radar',
-    tagline: 'Surf forecast web app — conditions, spots, and trip planning.',
+    title: 'Reef Radar LLC',
+    tagline:
+      'Reef Radar LLC is a surf forecast web app built for reading conditions, spotting breaks, and planning trips.',
     coverImage: '/projects/reef-radar/cover.svg',
     coverAlt: 'Reef Radar surf forecast interface',
     media: {

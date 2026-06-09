@@ -1,5 +1,7 @@
 import { type CSSProperties } from 'react'
-import { toolCategories } from '../data/tools'
+import { SKILL_WHITE_TILE_IDS } from '../data/skillAssets'
+import { toolCategories, type ToolItem } from '../data/tools'
+import { ConceptIcon } from './ConceptIcon'
 import { ToolBrandIcon } from './ToolBrandIcon'
 import styles from './ToolsStack.module.css'
 
@@ -7,16 +9,35 @@ const categoryLayout = [
   styles.blockPrimary,
   styles.blockSecondary,
   styles.blockTertiary,
-  styles.blockInfra,
+  styles.blockWeb,
 ] as const
 
-function ToolTile({ id, name }: (typeof toolCategories)[number]['items'][number]) {
+function ToolTile({ item }: { item: ToolItem }) {
+  if (item.kind === 'concept') {
+    return (
+      <li className={styles.tile}>
+        <span className={styles.tileIcon} aria-hidden="true">
+          <ConceptIcon id={item.id} className={styles.logo} />
+        </span>
+        <span className={styles.tileName}>{item.name}</span>
+      </li>
+    )
+  }
+
+  const useLightTile = SKILL_WHITE_TILE_IDS.has(item.id)
+
   return (
-    <li className={styles.tile}>
+    <li
+      className={useLightTile ? `${styles.tile} ${styles.tileLight}` : styles.tile}
+    >
       <span className={styles.tileIcon} aria-hidden="true">
-        <ToolBrandIcon id={id} className={styles.logo} />
+        <ToolBrandIcon id={item.id} className={styles.logo} />
       </span>
-      <span className={styles.tileName}>{name}</span>
+      <span
+        className={useLightTile ? `${styles.tileName} ${styles.tileNameDark}` : styles.tileName}
+      >
+        {item.name}
+      </span>
     </li>
   )
 }
@@ -48,8 +69,13 @@ export function ToolsStack() {
               </div>
 
               <ul className={styles.logoGrid}>
-                {category.items.map((tool) => (
-                  <ToolTile key={tool.id} {...tool} />
+                {category.items.map((item) => (
+                  <ToolTile
+                    key={`${category.title}-${
+                      item.kind === 'skill' ? item.id : item.id
+                    }`}
+                    item={item}
+                  />
                 ))}
               </ul>
             </article>

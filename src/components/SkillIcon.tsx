@@ -131,6 +131,59 @@ export function SkillIcon({ id, className }: SkillIconProps) {
           />
         </svg>
       )
+    case 'java':
+      return (
+        <svg {...props}>
+          <path
+            fill="currentColor"
+            d="M8.85 18.2s-.55.32 1.24.44c1.44.1 2.18.09 3.77-.1 0 0 .63.39 1.51.73-3.55 1.51-8.3 1.38-10.47.02 0 0 .83-.45 1.95-.99l1-.1zm-.42-2.9s-.61.45 1.03.54c1.87.17 3.35.15 5.9-.16 0 0 .42.43 1.08.66-5.18 1.35-11.02 1.18-13.8-.05 0 0 .74-.5 1.79-.99zM12 3.5c3.12 3.64 2.07 6.92 1.04 8.86.23.06.45.12.64.2 1.56-1.56 2.2-3.66 2.2-5.74 0-1.28-.28-2.48-.78-3.52-.7-.36-1.48-.66-2.3-.8h-.8z"
+          />
+        </svg>
+      )
+    case 'numpy':
+      return (
+        <svg {...props}>
+          <path
+            fill="currentColor"
+            d="M4 4h16v16H4V4zm2 2v12h12V6H6zm2 2h8v2H8V8zm0 4h8v2H8v-2z"
+          />
+        </svg>
+      )
+    case 'matplotlib':
+      return (
+        <svg {...props}>
+          <path
+            fill="currentColor"
+            d="M4 18V6h2v10h12v2H4zm3-3 3-4 3 3 4-6 3 7H7z"
+          />
+        </svg>
+      )
+    case 'seaborn':
+      return (
+        <svg {...props}>
+          <path
+            fill="currentColor"
+            d="M4 18h16v2H4v-2zm2-4h3v3H6v-3zm5-2h3v5h-3v-5zm5-3h3v8h-3V9z"
+          />
+        </svg>
+      )
+    case 'firebase':
+      return (
+        <svg {...props}>
+          <path
+            fill="currentColor"
+            d="M12 2 4 20h4.5l1.2-3h5.6l1.2 3H20L12 2zm0 6.5 2.8 6.5H9.2L12 8.5z"
+          />
+        </svg>
+      )
+    case 'sql-server':
+      return (
+        <svg {...props}>
+          <ellipse cx="12" cy="6" fill="currentColor" rx="7" ry="2.5" />
+          <path fill="currentColor" d="M5 6v5c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5V6" />
+          <path fill="currentColor" d="M5 11v5c0 1.4 3.1 2.5 7 2.5s7-1.1 7-2.5v-5c-1.8 1.2-4.5 1.8-7 1.8S6.8 12.2 5 11z" />
+        </svg>
+      )
     default:
       return null
   }

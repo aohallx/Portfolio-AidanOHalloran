@@ -3,6 +3,8 @@ import { Link, useParams } from 'react-router-dom'
 import { PageMeta } from '../components/PageMeta'
 import { ProjectDetailStack } from '../components/ProjectDetailStack'
 import { ProjectMedia } from '../components/ProjectMedia'
+import { ProjectTagline } from '../components/ProjectTagline'
+import { ProjectTitle } from '../components/ProjectTitle'
 import { getProjectBySlug } from '../data/projects'
 import { HOME_PROJECT_SCROLL_KEY } from '../lib/homeScroll'
 import styles from './ProjectDetail.module.css'
@@ -37,12 +39,14 @@ export function ProjectDetail() {
       <article className={styles.page}>
         <header className={styles.header}>
           <div className={styles.titleRow}>
-            <h1 className={styles.title}>{project.title}</h1>
+            <h1 className={styles.title}>
+              <ProjectTitle project={project} />
+            </h1>
             <Link to="/projects" className={styles.back}>
               All projects
             </Link>
           </div>
-          <p className={styles.tagline}>{project.tagline}</p>
+          <ProjectTagline project={project} className={styles.tagline} />
         </header>
 
         <div className={styles.mediaBlock}>

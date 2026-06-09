@@ -136,7 +136,12 @@ button {
   transition: color 0.25s ease;
 }
 
-.chrome-link:hover {
+.chrome-link-on-light {
+  color: var(--text-on-light);
+}
+
+.chrome-link:hover,
+:is(a, .link, .card):hover .chrome-link {
   background: linear-gradient(
     105deg,
     #6b7078 0%,
