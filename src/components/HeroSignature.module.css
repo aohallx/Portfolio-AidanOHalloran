@@ -22,6 +22,10 @@
   width: min(100%, 42rem);
 }
 
+.nameHeading {
+  margin: 0;
+}
+
 .name {
   font-family: var(--font-condensed);
   font-size: clamp(2.25rem, 9vw, 4.5rem);
@@ -31,42 +35,7 @@
   color: var(--sage);
   text-transform: uppercase;
   margin: 0;
-}
-
-.iconRow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.iconLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.85rem;
-  height: 2.85rem;
-  color: var(--sage);
-  border: 1px solid rgba(184, 201, 173, 0.35);
-  border-radius: 999px;
-  text-decoration: none;
-  transition:
-    color 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease,
-    transform 0.2s ease;
-}
-
-.iconLink svg {
-  width: 1.35rem;
-  height: 1.35rem;
-}
-
-.iconLink:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  background: rgba(143, 163, 134, 0.08);
-  transform: translateY(-1px);
+  cursor: pointer;
 }
 
 .email {

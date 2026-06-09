@@ -29,6 +29,9 @@ export type Skill = {
 /** Icons that need a wider slot in compact ribbons */
 export const WORDMARK_SKILL_IDS = new Set<SkillId>(['pandas', 'sklearn'])
 
+/** Stack tiles on project cards — light surface when the mark is dark-dominant */
+export const SKILL_LIGHT_TILE_IDS = new Set<SkillId>(['pandas', 'nmap'])
+
 /** Order shown in the skills ribbon (left → right) */
 export const skills: Skill[] = [
   { id: 'after-effects', name: 'Adobe After Effects' },

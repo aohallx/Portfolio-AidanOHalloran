@@ -6,7 +6,7 @@ type PageMetaProps = {
   description?: string
 }
 
-const DEFAULT_DESCRIPTION = `${site.jobTitle} at Deloitte GPS (Consulting). Unreal Engine game, Reef Radar, and ML projects.`
+const DEFAULT_DESCRIPTION = `${site.jobTitle} at Deloitte GPS. Game Development, Data Engineering, and ML projects.`
 
 function setMetaProperty(property: string, content: string) {
   let el = document.querySelector(`meta[property="${property}"]`)

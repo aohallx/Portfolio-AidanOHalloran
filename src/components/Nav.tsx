@@ -14,9 +14,9 @@ type NavItem = {
 
 const NAV_ITEMS: NavItem[] = [
   { id: 'home', label: 'HOME', to: '/', sectionId: 'home' },
-  { id: 'projects', label: 'PROJECTS', to: '/projects', sectionId: 'projects' },
+  { id: 'projects', label: 'PROJECTS', to: '/projects' },
   { id: 'about', label: 'ABOUT', to: '/about' },
-  { id: 'contact', label: 'CONTACT', to: '/#contact', sectionId: 'contact' },
+  { id: 'contact', label: 'CONTACT', to: '/contact' },
 ]
 
 export function Nav() {
@@ -25,15 +25,36 @@ export function Nav() {
   const activeId = useActiveNavItem()
   const onLight = useNavOnLight()
 
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [])
+
   const scrollToSection = useCallback((sectionId: string) => {
     const el = document.getElementById(sectionId)
     if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      el.scrollIntoView({ behavior: 'instant', block: 'start' })
     }
   }, [])
 
+  const goHomeTop = useCallback(
+    (e: MouseEvent<HTMLAnchorElement>) => {
+      e.preventDefault()
+      if (location.pathname === '/') {
+        scrollToTop()
+        return
+      }
+      navigate('/', { state: { scrollToTop: true } })
+    },
+    [location.pathname, navigate, scrollToTop],
+  )
+
   const handleNavClick = useCallback(
     (item: NavItem, e: MouseEvent<HTMLAnchorElement>) => {
+      if (item.id === 'home') {
+        goHomeTop(e)
+        return
+      }
+
       if (!item.sectionId) return
 
       const onHome = location.pathname === '/'
@@ -41,29 +62,9 @@ export function Nav() {
       if (onHome) {
         e.preventDefault()
         scrollToSection(item.sectionId)
-        return
-      }
-
-      if (item.id === 'home') return
-
-      if (item.sectionId === 'contact') {
-        e.preventDefault()
-        navigate('/')
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => scrollToSection('contact'))
-        })
-        return
-      }
-
-      if (item.id === 'projects' && item.sectionId === 'projects') {
-        e.preventDefault()
-        navigate('/')
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => scrollToSection('projects'))
-        })
       }
     },
-    [location.pathname, navigate, scrollToSection],
+    [goHomeTop, location.pathname, scrollToSection],
   )
 
   return (
@@ -71,7 +72,7 @@ export function Nav() {
       className={onLight ? `${styles.header} ${styles.onLight}` : styles.header}
     >
       <div className={styles.inner}>
-        <NavLink to="/" className={styles.logo} end>
+        <NavLink to="/" className={styles.logo} end onClick={goHomeTop}>
           {site.name.split(' ')[0]}{' '}
           <span>{site.name.split(' ').slice(1).join(' ')}</span>
         </NavLink>
@@ -81,19 +82,6 @@ export function Nav() {
             const className = isActive
               ? `${styles.link} ${styles.linkActive}`
               : styles.link
-
-            if (item.id === 'contact') {
-              return (
-                <a
-                  key={item.id}
-                  href={item.to}
-                  className={className}
-                  onClick={(e) => handleNavClick(item, e)}
-                >
-                  {item.label}
-                </a>
-              )
-            }
 
             return (
               <NavLink

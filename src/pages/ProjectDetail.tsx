@@ -1,19 +1,30 @@
+import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { PageMeta } from '../components/PageMeta'
+import { ProjectDetailStack } from '../components/ProjectDetailStack'
 import { ProjectMedia } from '../components/ProjectMedia'
 import { getProjectBySlug } from '../data/projects'
+import { HOME_PROJECT_SCROLL_KEY } from '../lib/homeScroll'
 import styles from './ProjectDetail.module.css'
 
 export function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>()
   const project = slug ? getProjectBySlug(slug) : undefined
 
+  useEffect(() => {
+    if (slug) {
+      sessionStorage.setItem(HOME_PROJECT_SCROLL_KEY, slug)
+    }
+  }, [slug])
+
   if (!project) {
     return (
       <div className={styles.notFound}>
         <PageMeta title="Not found" />
         <p>Project not found.</p>
-        <Link to="/projects">Back to projects</Link>
+        <Link to="/projects" className={styles.back}>
+          All projects
+        </Link>
       </div>
     )
   }
@@ -24,11 +35,13 @@ export function ProjectDetail() {
     <>
       <PageMeta title={project.title} description={project.tagline} />
       <article className={styles.page}>
-        <Link to="/projects" className={styles.back}>
-          ← Projects
-        </Link>
         <header className={styles.header}>
-          <h1 className={styles.title}>{project.title}</h1>
+          <div className={styles.titleRow}>
+            <h1 className={styles.title}>{project.title}</h1>
+            <Link to="/projects" className={styles.back}>
+              All projects
+            </Link>
+          </div>
           <p className={styles.tagline}>{project.tagline}</p>
         </header>
 
@@ -36,31 +49,15 @@ export function ProjectDetail() {
           <ProjectMedia media={project.media} autoplay={isVideo} />
         </div>
 
-        <div className={styles.meta}>
-          <div>
-            <h2 className={styles.blockTitle}>Stack</h2>
-            <div className={styles.stack}>
-              {project.stack.map((item) => (
-                <span key={item} className={`${styles.pill} ${styles.pillAccent}`}>
-                  {item}
-                </span>
-              ))}
-              {project.tools.map((item) => (
-                <span key={item} className={`${styles.pill} ${styles.pillGold}`}>
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h2 className={styles.blockTitle}>Highlights</h2>
-            <ul className={styles.highlights}>
-              {project.highlights.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <ProjectDetailStack ids={project.stackIds} />
+
+        <section className={styles.highlightsSection} aria-label="Project highlights">
+          <ul className={styles.highlights}>
+            {project.highlights.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </section>
 
         {(project.links.live || project.links.github) && (
           <div className={styles.actions}>
@@ -71,13 +68,13 @@ export function ProjectDetail() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Visit live site
+                Live site
               </a>
             )}
             {project.links.github && (
               <a
                 href={project.links.github}
-                className={`${styles.btn} ${styles.btnGit}`}
+                className={`${styles.btn} ${styles.btnGithub}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >

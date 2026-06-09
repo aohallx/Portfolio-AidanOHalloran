@@ -4,7 +4,11 @@ import styles from './ContactForm.module.css'
 
 type Topic = (typeof site.contact.topics)[number]
 
-export function ContactForm() {
+type ContactFormProps = {
+  variant?: 'light' | 'dark'
+}
+
+export function ContactForm({ variant = 'light' }: ContactFormProps) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
@@ -25,7 +29,12 @@ export function ContactForm() {
   }
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form
+      className={
+        variant === 'dark' ? `${styles.form} ${styles.formDark}` : styles.form
+      }
+      onSubmit={handleSubmit}
+    >
       <label className={styles.field}>
         <span className={styles.label}>Your name*</span>
         <input

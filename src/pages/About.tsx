@@ -1,44 +1,93 @@
+import { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import { PageMeta } from '../components/PageMeta'
+import { SocialIconRow } from '../components/SocialIconRow'
 import { site } from '../data/site'
 import styles from './About.module.css'
 
+function AboutIntro() {
+  return (
+    <p className={styles.copy}>
+      I&apos;m from Long Island, New York. Before{' '}
+      <strong className={styles.emphasis}>{site.employer.name}</strong>, I spent
+      two years volunteering as a program manager at{' '}
+      <strong className={styles.emphasis}>
+        Homeland Security Investigations
+      </strong>{' '}
+      in NYC, at the same time a test technician at{' '}
+      <strong className={styles.emphasis}>Power Device Corporation</strong> in
+      Bohemia.
+    </p>
+  )
+}
+
+function AboutProjectLinks() {
+  const { buildLead, projectLinks } = site.about
+
+  return (
+    <p className={styles.copy}>
+      {buildLead}{' '}
+      {projectLinks.map((project, index) => {
+        const isLast = index === projectLinks.length - 1
+        const isSecondLast = index === projectLinks.length - 2
+
+        return (
+          <Fragment key={project.slug}>
+            <Link
+              to={`/projects/${project.slug}`}
+              className={`chrome-link ${styles.projectLink}`}
+            >
+              {project.label}
+            </Link>
+            {isSecondLast ? ', and ' : isLast ? '.' : ', '}
+          </Fragment>
+        )
+      })}
+    </p>
+  )
+}
+
 export function About() {
+
   return (
     <>
       <PageMeta
         title="About"
-        description={`${site.jobTitle} at Deloitte GPS. Long Island native — HSI NYC, Power Device Corp, surf, and build.`}
+        description={`${site.jobTitle} at Deloitte (${site.employer.sector}). Long Island native, HSI NYC, Power Device Corp, surf, and build.`}
       />
       <div className={styles.page}>
-        <h1 className={styles.title}>{site.name}</h1>
-        <p className={styles.role}>
-          {site.jobTitle} · {site.employer.name} {site.employer.division} (
-          {site.employer.sector})
-        </p>
-        <div className={styles.body}>
-          {site.about.paragraphs.map((paragraph) => (
-            <p key={paragraph}>{paragraph}</p>
-          ))}
-        </div>
-        <div className={styles.interests} aria-label="Interests">
-          {site.beyond.hobbies.map((hobby) => (
-            <span key={hobby.id} className={styles.chip}>
-              {hobby.label}
+        <header className={styles.hero}>
+          <p className={styles.eyebrow}>( About )</p>
+          <h1 className={styles.title}>{site.name}</h1>
+          <p className={styles.role}>
+            {site.jobTitle}
+            <span className={styles.roleSep} aria-hidden="true">
+              ·
             </span>
-          ))}
+            <strong className={styles.emphasis}>
+              {site.employer.name} ({site.employer.sector})
+            </strong>
+          </p>
+        </header>
+
+        <figure className={styles.portrait}>
+          <img
+            src={site.projects.headshotSrc}
+            alt={site.projects.headshotAlt}
+            loading="eager"
+          />
+          <figcaption className={styles.portraitCaption}>
+            {site.hero.bioLocation}
+          </figcaption>
+        </figure>
+
+        <div className={styles.prose}>
+          <AboutIntro />
+          <AboutProjectLinks />
+          <p className={styles.copy}>{site.about.outro}</p>
         </div>
-        <div className={styles.links}>
-          <a href={`mailto:${site.email}`}>Email</a>
-          <a href={site.github} target="_blank" rel="noopener noreferrer">
-            GitHub
-          </a>
-          <a href={site.linkedin} target="_blank" rel="noopener noreferrer">
-            LinkedIn
-          </a>
-          <a href={site.resumePath} target="_blank" rel="noopener noreferrer">
-            Resume
-          </a>
-        </div>
+
+        <SocialIconRow className={styles.social} />
       </div>
     </>
   )

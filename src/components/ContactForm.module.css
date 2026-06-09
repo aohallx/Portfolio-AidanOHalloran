@@ -136,3 +136,45 @@
 .submit:disabled {
   cursor: default;
 }
+
+.formDark .label {
+  color: var(--silver);
+}
+
+.formDark .input,
+.formDark .textarea {
+  color: var(--text);
+  border-bottom-color: rgba(255, 255, 255, 0.45);
+}
+
+.formDark .input:focus,
+.formDark .textarea:focus {
+  border-bottom-color: var(--gold);
+}
+
+.formDark .topic {
+  border-color: rgba(255, 255, 255, 0.35);
+  color: var(--text-muted);
+}
+
+.formDark .topic:hover {
+  border-color: var(--gold);
+  color: var(--text);
+}
+
+.formDark .topicActive {
+  background: rgba(212, 168, 83, 0.15);
+  color: var(--text);
+  border-color: var(--gold);
+}
+
+.formDark .submit {
+  color: var(--text);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.formDark .submitReady:hover {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--bg);
+}

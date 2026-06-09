@@ -1,4 +1,5 @@
 import { ProjectCover } from './ProjectCover'
+import { ProjectStackIcons } from './ProjectStackIcons'
 import { type CSSProperties } from 'react'
 import { Link } from 'react-router-dom'
 import type { Project } from '../data/projects'
@@ -10,13 +11,6 @@ type ProjectsMagazineProps = {
   headingId?: string
   headshot?: { src: string; alt: string }
 }
-
-const layoutClass = [
-  styles.itemHero,
-  styles.itemSideTop,
-  styles.itemSideBottom,
-  styles.itemStrip,
-] as const
 
 export function ProjectsMagazine({
   projects,
@@ -44,13 +38,15 @@ export function ProjectsMagazine({
 
       <div className={styles.grid}>
         {projects.map((project, index) => {
-          const layout = layoutClass[index] ?? styles.itemDefault
-          const stackLine = project.stack.slice(0, 3).join(' · ')
+          const mediaFirst = index % 2 === 0
 
           return (
             <article
               key={project.slug}
-              className={`${styles.item} ${layout}`}
+              id={`project-${project.slug}`}
+              className={`${styles.item} ${styles.itemRow} ${
+                mediaFirst ? styles.itemMediaFirst : styles.itemCopyFirst
+              }`}
               style={{ '--i': index } as CSSProperties}
             >
               <Link to={`/projects/${project.slug}`} className={styles.link}>
@@ -61,10 +57,9 @@ export function ProjectsMagazine({
                 <ProjectCover project={project} />
 
                 <div className={styles.copy}>
-                  <p className={styles.stack}>{stackLine}</p>
+                  <ProjectStackIcons ids={project.stackIds} />
                   <h3 className={styles.title}>{project.title}</h3>
                   <p className={styles.tagline}>{project.tagline}</p>
-                  <span className={styles.cta}>View project</span>
                 </div>
               </Link>
             </article>

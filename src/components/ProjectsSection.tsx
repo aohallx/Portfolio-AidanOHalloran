@@ -15,7 +15,7 @@ export function ProjectsSection() {
 
       <CareerPath />
 
-      <div className={styles.projectsBlock}>
+      <div id="projects-magazine" className={styles.projectsBlock}>
         <div className={styles.projectsInner}>
           <ProjectsMagazine
             projects={featuredProjects}

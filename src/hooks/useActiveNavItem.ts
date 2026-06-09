@@ -8,6 +8,7 @@ const SECTION_IDS: NavItemId[] = ['home', 'projects', 'contact']
 function routeNavItem(pathname: string): NavItemId | null {
   if (pathname.startsWith('/projects')) return 'projects'
   if (pathname === '/about') return 'about'
+  if (pathname === '/contact') return 'contact'
   return null
 }
 
@@ -44,8 +45,8 @@ export function useActiveNavItem(): NavItemId {
 
   const routeItem = routeNavItem(pathname)
 
-  if (scrollSection === 'contact') return 'contact'
   if (routeItem) return routeItem
+  if (scrollSection === 'contact') return 'contact'
 
   return scrollSection
 }

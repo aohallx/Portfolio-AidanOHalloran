@@ -1,0 +1,52 @@
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  min-width: 4.5rem;
+}
+
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 8px;
+}
+
+.tileDark {
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.tileLight {
+  background: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.icon {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+.label {
+  font-family: var(--font-condensed);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text-muted);
+  line-height: 1.2;
+  max-width: 6.5rem;
+}

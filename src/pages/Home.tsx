@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { ContactForm } from '../components/ContactForm'
 import { HeroLanding } from '../components/HeroLanding'
 import { HeroSignature } from '../components/HeroSignature'
+import { HobbyMusicPlayer } from '../components/HobbyMusicPlayer'
 import { PageMeta } from '../components/PageMeta'
 import { ProjectsSection } from '../components/ProjectsSection'
 import { site } from '../data/site'
@@ -8,6 +10,8 @@ import { ToolsStack } from '../components/ToolsStack'
 import styles from './Home.module.css'
 
 export function Home() {
+  const [activeMusicId, setActiveMusicId] = useState<string | null>(null)
+
   return (
     <>
       <PageMeta />
@@ -26,6 +30,7 @@ export function Home() {
         <h2 id="beyond-heading" className={styles.beyondTitle}>
           {site.beyond.title}
         </h2>
+
         <ul className={styles.hobbyGrid} aria-label="Side hobbies">
           {site.beyond.hobbies.map((hobby) => (
             <li key={hobby.id} className={styles.hobbyCard}>
@@ -36,6 +41,18 @@ export function Home() {
             </li>
           ))}
         </ul>
+
+        <div className={styles.musicGrid} aria-label="Music demos">
+          {site.beyond.musicDemos.map((demo) => (
+            <HobbyMusicPlayer
+              key={demo.hobbyId}
+              id={demo.hobbyId}
+              music={demo}
+              isActive={activeMusicId === demo.hobbyId}
+              onActivate={setActiveMusicId}
+            />
+          ))}
+        </div>
       </section>
 
       <section

@@ -1,3 +1,5 @@
+import type { SkillId } from './skills'
+
 export type ProjectMedia =
   | { type: 'image'; src: string; alt: string }
   | { type: 'video'; src: string; poster: string; alt: string }
@@ -16,6 +18,7 @@ export type Project = {
   media: ProjectMedia
   links: ProjectLinks
   stack: string[]
+  stackIds: SkillId[]
   tools: string[]
   highlights: string[]
   featured: boolean
@@ -24,26 +27,27 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'unreal-game',
-    title: 'Unreal Engine Game',
+    title: 'Unreal Engine 5 Video Game',
     tagline:
       'Full Unreal game built by hand, before the surge of IDE LLMs and coding assistants.',
-    coverImage: '/projects/unreal/poster.svg',
-    coverAlt: 'Unreal Engine game preview',
+    coverImage: '/projects/unreal/poster.webp',
+    coverAlt: 'UE5 third-person action prototype gameplay preview',
     media: {
       type: 'video',
-      src: '/video/game-demo.mp4',
-      poster: '/projects/unreal/poster.svg',
-      alt: 'Gameplay footage from Unreal Engine project',
+      src: '/video/unreal-ue5-zombie.mp4',
+      poster: '/projects/unreal/poster.webp',
+      alt: 'Gameplay footage from UE5 third-person action prototype',
     },
     links: {
       github: 'https://github.com/aohallx/UE5-3D-demo1',
     },
     stack: ['Unreal Engine', 'C++', 'Blueprints'],
+    stackIds: ['unreal', 'cpp'],
     tools: [],
     highlights: [
-      'End-to-end game development from design through implementation, all manual',
-      'Predates the IDE LLM wave: systems, C++, and Blueprints written by hand',
-      'Showcased here with gameplay video — docs and media on GitHub',
+      'Developed 3D maps and 30+ assets in Unreal Engine/Blender, with survival mechanics inspired by Call of Duty: Zombies.',
+      'Scripted 1000+ Blueprint/C++ functions to enhance animation, 3D-object modeling and optimized performance.',
+      'Engineered 3 AI-enemy types with pathfinding, perception and combat-state logic for responsive gameplay.',
     ],
     featured: true,
   },
@@ -62,6 +66,7 @@ export const projects: Project[] = [
       live: 'https://reefradar.com',
     },
     stack: ['React', 'TypeScript', 'Web APIs'],
+    stackIds: ['react', 'typescript'],
     tools: [],
     highlights: [
       'Live product at reefradar.com',
@@ -73,7 +78,8 @@ export const projects: Project[] = [
   {
     slug: 'stellar-classification',
     title: 'Stellar Classification',
-    tagline: 'HR diagram analysis with log-scaled features for star typing.',
+    tagline:
+      'Exoplanet research via Hertzsprung–Russell diagram analysis.',
     coverImage: '/projects/stellar/poster.webp',
     coverAlt: 'Stellar classification Hertzsprung–Russell diagram preview',
     media: {
@@ -87,6 +93,7 @@ export const projects: Project[] = [
         'https://github.com/aohallx/Stellar-Classification-via-Log-Scaled-HR-Diagram-Analysis',
     },
     stack: ['Python', 'scikit-learn', 'pandas', 'matplotlib'],
+    stackIds: ['python', 'sklearn', 'pandas', 'jupyter'],
     tools: ['Jupyter'],
     highlights: [
       'Log-scaled Hertzsprung–Russell diagram feature engineering',
@@ -97,7 +104,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'stock-time-series',
-    title: 'Stock Time-Series Analysis',
+    title: 'Time-Series Stock Analysis',
     tagline: 'Exploratory and predictive analysis on equity time series.',
     coverImage: '/projects/stocks/poster.webp',
     coverAlt: 'Tesla stock time-series analysis preview',
@@ -111,6 +118,7 @@ export const projects: Project[] = [
       github: 'https://github.com/aohallx/time-series-stock-analysis',
     },
     stack: ['Python', 'pandas', 'statsmodels'],
+    stackIds: ['python', 'pandas', 'jupyter', 'tableau'],
     tools: ['Jupyter', 'Tableau'],
     highlights: [
       'Time-series decomposition, trends, and forecasting experiments',

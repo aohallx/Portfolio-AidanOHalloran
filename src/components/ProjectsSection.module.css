@@ -31,7 +31,7 @@
 .projectsBlock {
   position: relative;
   z-index: 1;
-  padding: 0 clamp(0.75rem, 2vw, 1.25rem) clamp(4rem, 10vw, 6rem);
+  padding: 0 clamp(0.75rem, 2vw, 1.25rem) clamp(2rem, 5vw, 3rem);
 }
 
 .projectsInner {

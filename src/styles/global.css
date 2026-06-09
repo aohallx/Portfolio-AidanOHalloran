@@ -44,11 +44,13 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 [id='home'],
 [id='projects'],
+[id='projects-magazine'],
+[id^='project-'],
 [id='contact'],
 [id='signature'] {
   scroll-margin-top: var(--nav-height);
@@ -125,6 +127,43 @@ button {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.chrome-link {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.25s ease;
+}
+
+.chrome-link:hover {
+  background: linear-gradient(
+    105deg,
+    #6b7078 0%,
+    #c8ccd2 12%,
+    #ffffff 28%,
+    #9aa0a8 42%,
+    #f0f2f5 56%,
+    #b4b8be 70%,
+    #ffffff 84%,
+    #7a8088 100%
+  );
+  background-size: 220% 100%;
+  background-position: 100% center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: chromeSweep 0.7s ease forwards;
+}
+
+@keyframes chromeSweep {
+  from {
+    background-position: 0% center;
+  }
+
+  to {
+    background-position: 100% center;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
