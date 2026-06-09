@@ -1,42 +1,26 @@
-import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type MutableRefObject,
+  type RefObject,
+} from 'react'
 import { ExperienceRichText } from './ExperienceRichText'
 import {
   experiencePhases,
   type ExperiencePhase,
   type ExperienceRole,
 } from '../data/experience'
+import {
+  getCareerScrollState,
+  getPhaseVisuals,
+  nearestPhaseIndex,
+  yearRailStyle,
+} from '../lib/careerScroll'
 import styles from './CareerPath.module.css'
 
-type ScrollState = {
-  progress: number
-  activeIndex: number
-}
-
-function getScrollStateFromTrack(
-  track: HTMLElement,
-  phaseCount: number,
-): ScrollState {
-  if (phaseCount <= 1) return { progress: 0, activeIndex: 0 }
-
-  const rect = track.getBoundingClientRect()
-  const viewport = window.innerHeight
-  const scrollable = track.offsetHeight - viewport
-
-  if (scrollable <= 0) return { progress: 0, activeIndex: 0 }
-  if (rect.top > 0) return { progress: 0, activeIndex: 0 }
-  if (rect.bottom <= viewport) {
-    return { progress: 1, activeIndex: phaseCount - 1 }
-  }
-
-  const scrolled = Math.min(scrollable, Math.max(0, -rect.top))
-  const progress = scrolled / scrollable
-  const activeIndex = Math.min(
-    phaseCount - 1,
-    Math.max(0, Math.round(progress * (phaseCount - 1))),
-  )
-
-  return { progress, activeIndex }
-}
+const PHASE_COUNT = experiencePhases.length
 
 function logoClassFor(role: ExperienceRole): string {
   return [
@@ -48,6 +32,39 @@ function logoClassFor(role: ExperienceRole): string {
   ]
     .filter(Boolean)
     .join(' ')
+}
+
+function compactLogoClassFor(role: ExperienceRole): string {
+  return [
+    styles.compactLogo,
+    role.logoTone === 'seal' && styles.compactLogoSeal,
+    role.logoTone === 'light' && styles.compactLogoLight,
+    role.logoTone === 'embedded' && styles.compactLogoWide,
+  ]
+    .filter(Boolean)
+    .join(' ')
+}
+
+function PhaseCompact({ phase }: { phase: ExperiencePhase }) {
+  return (
+    <div className={styles.compactRow}>
+      <span className={styles.compactYear}>{phase.year}</span>
+      <div className={styles.compactRoles}>
+        {phase.roles.map((role) => (
+          <div key={role.org} className={styles.compactRole}>
+            <img
+              src={role.logo}
+              alt=""
+              className={compactLogoClassFor(role)}
+              loading="lazy"
+              aria-hidden
+            />
+            <span className={styles.compactTitle}>{role.title}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 function RoleCard({ role }: { role: ExperienceRole }) {
@@ -97,7 +114,12 @@ function PhaseBody({ phase }: { phase: ExperiencePhase }) {
   return <RoleCard role={phase.roles[0]} />
 }
 
-function TimelineRail({ activeIndex }: { activeIndex: number }) {
+type TimelineRailProps = {
+  rowRefs: MutableRefObject<(HTMLLIElement | null)[]>
+  yearRefs: MutableRefObject<(HTMLSpanElement | null)[]>
+}
+
+function TimelineRail({ rowRefs, yearRefs }: TimelineRailProps) {
   return (
     <div className={styles.railWrap}>
       <div className={styles.line} aria-hidden="true">
@@ -108,15 +130,19 @@ function TimelineRail({ activeIndex }: { activeIndex: number }) {
         {experiencePhases.map((phase, index) => (
           <li
             key={phase.id}
-            className={
-              index === activeIndex
-                ? `${styles.row} ${styles.rowActive}`
-                : index < activeIndex
-                  ? `${styles.row} ${styles.rowPast}`
-                  : styles.row
-            }
+            ref={(el) => {
+              rowRefs.current[index] = el
+            }}
+            className={styles.row}
           >
-            <span className={styles.year}>{phase.year}</span>
+            <span
+              ref={(el) => {
+                yearRefs.current[index] = el
+              }}
+              className={styles.year}
+            >
+              {phase.year}
+            </span>
           </li>
         ))}
       </ol>
@@ -124,19 +150,47 @@ function TimelineRail({ activeIndex }: { activeIndex: number }) {
   )
 }
 
-function TimelineContent({ activeIndex }: { activeIndex: number }) {
-  const activePhase = experiencePhases[activeIndex]
+type TimelineContentProps = {
+  activeIndex: number
+  panelRefs: MutableRefObject<(HTMLDivElement | null)[]>
+  innerRef: RefObject<HTMLDivElement | null>
+  rowRefs: MutableRefObject<(HTMLLIElement | null)[]>
+  yearRefs: MutableRefObject<(HTMLSpanElement | null)[]>
+}
 
+function TimelineContent({
+  activeIndex,
+  panelRefs,
+  innerRef,
+  rowRefs,
+  yearRefs,
+}: TimelineContentProps) {
   return (
     <div className={styles.sticky}>
-      <div className={styles.inner}>
+      <div ref={innerRef} className={styles.inner}>
         <p className={styles.eyebrow}>( Where I&apos;ve worked )</p>
 
         <div className={styles.timeline}>
-          <TimelineRail activeIndex={activeIndex} />
+          <TimelineRail rowRefs={rowRefs} yearRefs={yearRefs} />
 
           <div className={styles.contentCol} aria-live="polite">
-            <PhaseBody key={activePhase.id} phase={activePhase} />
+            <div className={styles.phaseStack}>
+              {experiencePhases.map((phase, index) => (
+                <div
+                  key={phase.id}
+                  ref={(el) => {
+                    panelRefs.current[index] = el
+                  }}
+                  className={styles.phaseBlock}
+                  aria-hidden={index !== activeIndex}
+                >
+                  <PhaseCompact phase={phase} />
+                  <div className={styles.phaseFull}>
+                    <PhaseBody phase={phase} />
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -164,8 +218,61 @@ function StaticTimeline() {
   )
 }
 
+function applyScrollVisuals(
+  track: HTMLElement,
+  inner: HTMLDivElement | null,
+  panelRefs: (HTMLDivElement | null)[],
+  rowRefs: (HTMLLIElement | null)[],
+  yearRefs: (HTMLSpanElement | null)[],
+) {
+  const { progress, phaseProgress, enterProgress } = getCareerScrollState(
+    track,
+    PHASE_COUNT,
+  )
+
+  track.style.setProperty('--timeline-progress', `${progress * 100}%`)
+  track.style.setProperty('--phase-progress', String(phaseProgress))
+
+  if (inner) {
+    inner.style.opacity = '1'
+    inner.style.transform = `translateY(${(1 - enterProgress) * 40}px) scale(${0.94 + enterProgress * 0.06})`
+    inner.style.transformOrigin = 'left top'
+  }
+
+  panelRefs.forEach((panel, index) => {
+    if (!panel) return
+
+    const { compact, open, minimize, pop } = getPhaseVisuals(
+      phaseProgress,
+      index,
+      PHASE_COUNT,
+    )
+    panel.style.setProperty('--compact-show', String(compact))
+    panel.style.setProperty('--minimize', String(minimize))
+    panel.style.setProperty('--open', String(open))
+    panel.style.setProperty('--pop', String(pop))
+  })
+
+  rowRefs.forEach((row, index) => {
+    const year = yearRefs[index]
+    if (!row || !year) return
+
+    const { topPercent, emphasis } = yearRailStyle(
+      phaseProgress,
+      index,
+      PHASE_COUNT,
+    )
+    row.style.top = `${topPercent}%`
+    year.style.setProperty('--year-emphasis', String(emphasis))
+  })
+}
+
 export function CareerPath() {
   const scrollRef = useRef<HTMLDivElement>(null)
+  const innerRef = useRef<HTMLDivElement>(null)
+  const panelRefs = useRef<(HTMLDivElement | null)[]>([])
+  const rowRefs = useRef<(HTMLLIElement | null)[]>([])
+  const yearRefs = useRef<(HTMLSpanElement | null)[]>([])
   const activeIndexRef = useRef(0)
   const [activeIndex, setActiveIndex] = useState(0)
   const [reduceMotion, setReduceMotion] = useState(false)
@@ -184,11 +291,19 @@ export function CareerPath() {
     const track = scrollRef.current
     if (!track) return
 
-    const phaseCount = experiencePhases.length
+    let frame = 0
 
     const syncScroll = () => {
-      const { progress, activeIndex: next } = getScrollStateFromTrack(track, phaseCount)
-      track.style.setProperty('--timeline-progress', `${progress * 100}%`)
+      applyScrollVisuals(
+        track,
+        innerRef.current,
+        panelRefs.current,
+        rowRefs.current,
+        yearRefs.current,
+      )
+
+      const { phaseProgress } = getCareerScrollState(track, PHASE_COUNT)
+      const next = nearestPhaseIndex(phaseProgress, PHASE_COUNT)
 
       if (next !== activeIndexRef.current) {
         activeIndexRef.current = next
@@ -196,21 +311,54 @@ export function CareerPath() {
       }
     }
 
+    const onScroll = () => {
+      if (frame) return
+      frame = requestAnimationFrame(() => {
+        syncScroll()
+        frame = 0
+      })
+    }
+
     syncScroll()
 
-    window.addEventListener('scroll', syncScroll, { passive: true })
-    window.addEventListener('resize', syncScroll, { passive: true })
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll, { passive: true })
     window.addEventListener('scrollend', syncScroll, { passive: true })
 
-    const observer = new ResizeObserver(syncScroll)
+    const observer = new ResizeObserver(onScroll)
     observer.observe(track)
 
     return () => {
-      window.removeEventListener('scroll', syncScroll)
-      window.removeEventListener('resize', syncScroll)
+      if (frame) cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
       window.removeEventListener('scrollend', syncScroll)
       observer.disconnect()
       track.style.removeProperty('--timeline-progress')
+      track.style.removeProperty('--phase-progress')
+
+      if (innerRef.current) {
+        innerRef.current.style.removeProperty('opacity')
+        innerRef.current.style.removeProperty('transform')
+      }
+
+      panelRefs.current.forEach((panel) => {
+        if (!panel) return
+        panel.style.removeProperty('--minimize')
+        panel.style.removeProperty('--compact-show')
+        panel.style.removeProperty('--open')
+        panel.style.removeProperty('--pop')
+      })
+
+      rowRefs.current.forEach((row) => {
+        if (!row) return
+        row.style.removeProperty('top')
+      })
+
+      yearRefs.current.forEach((year) => {
+        if (!year) return
+        year.style.removeProperty('--year-emphasis')
+      })
     }
   }, [reduceMotion])
 
@@ -220,7 +368,13 @@ export function CareerPath() {
 
   return (
     <div ref={scrollRef} className={styles.scrollTrack}>
-      <TimelineContent activeIndex={activeIndex} />
+      <TimelineContent
+        activeIndex={activeIndex}
+        panelRefs={panelRefs}
+        innerRef={innerRef}
+        rowRefs={rowRefs}
+        yearRefs={yearRefs}
+      />
     </div>
   )
 }

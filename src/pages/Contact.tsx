@@ -11,7 +11,7 @@ export function Contact() {
     <>
       <PageMeta
         title="Contact"
-        description={`${site.jobTitle} at Deloitte (${site.employer.sector}). Open to work, music, projects, or just saying hi.`}
+        description={`Contact ${site.name} — ${site.jobTitle} at Deloitte ${site.employer.division}. Open to data engineering, solutions engineering, and sales engineering opportunities. Based in ${site.seo.location.city}, ${site.seo.location.region}.`}
       />
       <div className={styles.page}>
         <div className={styles.backdrop} aria-hidden="true">

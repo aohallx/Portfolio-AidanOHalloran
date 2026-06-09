@@ -1,15 +1,20 @@
+import { useMemo } from 'react'
 import { PageMeta } from '../components/PageMeta'
 import { ProjectsMagazine } from '../components/ProjectsMagazine'
 import { projects } from '../data/projects'
 import { site } from '../data/site'
+import { buildProjectsItemListSchema } from '../lib/seoSchema'
 import styles from './Projects.module.css'
 
 export function Projects() {
+  const projectsSchema = useMemo(() => buildProjectsItemListSchema(), [])
+
   return (
     <>
       <PageMeta
         title="Projects"
-        description="Unreal Engine game, Reef Radar, stellar classification, and stock time-series analysis."
+        description="Portfolio projects: data engineering & ML (Python, scikit-learn, time-series), Reef Radar (React, TypeScript), and Unreal Engine game development."
+        schemaExtra={projectsSchema}
       />
       <div className={styles.page} data-nav-surface="light">
         <div className={styles.inner}>

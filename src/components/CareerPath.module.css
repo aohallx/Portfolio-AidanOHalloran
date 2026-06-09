@@ -2,8 +2,8 @@
   position: relative;
   z-index: 1;
   --timeline-progress: 0%;
-  /* Sticky viewport + two equal scroll steps (2024 → 2025 → 2026) */
-  height: 240vh;
+  /* Sticky viewport + scroll steps (2024 → 2025 → 2026) */
+  height: 245vh;
 }
 
 .staticTrack {
@@ -47,7 +47,7 @@
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: calc(var(--nav-height) + 1rem) clamp(0.75rem, 2vw, 1.25rem) 1.5rem
     clamp(0.5rem, 2vw, 1rem);
 }
@@ -70,13 +70,13 @@
   display: grid;
   grid-template-columns: minmax(10.5rem, 16vw) 1fr;
   gap: clamp(1.5rem, 4vw, 3rem);
-  align-items: center;
+  align-items: start;
 }
 
 .railWrap {
   position: relative;
   min-height: clamp(28rem, 72vh, 42rem);
-  align-self: center;
+  align-self: stretch;
   margin-left: -0.25rem;
 }
 
@@ -134,9 +134,7 @@
 }
 
 .rail {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  position: relative;
   height: 100%;
   min-height: inherit;
   margin: 0;
@@ -145,41 +143,209 @@
 }
 
 .row {
+  position: absolute;
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
-  min-height: 3.5rem;
+  transform: translateY(-50%);
+  transition: none;
+  will-change: top;
 }
 
 .year {
+  --year-emphasis: 0;
   font-family: var(--font-condensed);
-  font-size: clamp(1.1rem, 2.4vw, 1.35rem);
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  color: var(--text-on-light-muted);
-  opacity: 0.38;
+  font-size: calc(clamp(1rem, 2.2vw, 1.2rem) + var(--year-emphasis) * clamp(2.5rem, 9vw, 5.5rem));
+  font-weight: calc(500 + var(--year-emphasis) * 300);
+  letter-spacing: calc(0.04em - var(--year-emphasis) * 0.06em);
+  color: color-mix(
+    in srgb,
+    var(--text-on-light-muted) calc((1 - var(--year-emphasis)) * 100%),
+    var(--text-on-light) calc(var(--year-emphasis) * 100%)
+  );
+  opacity: calc(0.34 + var(--year-emphasis) * 0.66);
   line-height: 0.95;
   transition: none;
-}
-
-.rowActive .year {
-  font-size: clamp(3.75rem, 12vw, 7rem);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: var(--text-on-light);
-  opacity: 1;
-}
-
-.rowPast .year {
-  opacity: 0.55;
+  transform-origin: left center;
 }
 
 .contentCol {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: flex-start;
   min-height: clamp(28rem, 72vh, 42rem);
-  align-self: center;
+  align-self: stretch;
   width: 100%;
+}
+
+.phaseStack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0;
+}
+
+.phaseBlock {
+  --minimize: 0;
+  --compact-show: 0;
+  --open: 1;
+  --pop: 1;
+  max-height: calc(max(var(--compact-show) * 8.75rem, var(--open) * 72rem));
+  overflow: hidden;
+  transition: none;
+}
+
+.compactRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.35rem;
+  padding: 0.5rem 0 0.7rem;
+  margin-bottom: calc(var(--compact-show) * 0.45rem);
+  max-height: calc(var(--compact-show) * 8.75rem);
+  overflow: hidden;
+  pointer-events: none;
+  opacity: clamp(var(--compact-show) * 1.4, 0, 1);
+  transform: translateY(calc((1 - var(--compact-show)) * 4px));
+  transform-origin: left center;
+  transition: none;
+}
+
+.compactYear {
+  font-family: var(--font-condensed);
+  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-on-light);
+  line-height: 1;
+  flex-shrink: 0;
+  opacity: clamp(var(--compact-show) * 1.25, 0, 1);
+}
+
+.compactRoles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.85rem 1.75rem;
+  min-width: 0;
+  opacity: clamp((var(--compact-show) - 0.82) / 0.18, 0, 1);
+  transform: translateY(calc((1 - clamp((var(--compact-show) - 0.82) / 0.18, 0, 1)) * 3px));
+  transition: none;
+}
+
+.compactRole {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.compactLogo {
+  display: block;
+  height: 2.85rem;
+  width: auto;
+  max-width: 7.5rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.compactLogoLight {
+  height: 3.15rem;
+  max-width: 8.5rem;
+}
+
+.compactLogoWide {
+  height: 2.55rem;
+  max-width: 9.5rem;
+}
+
+.compactLogoSeal {
+  height: 2.85rem;
+  width: 2.85rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.compactTitle {
+  font-family: var(--font-condensed);
+  font-size: clamp(0.92rem, 1.85vw, 1.12rem);
+  font-weight: 800;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-on-light);
+  line-height: 1.15;
+}
+
+.phaseFull {
+  max-height: calc(
+    (1 - var(--compact-show) * 0.94) * 72rem + var(--compact-show) * 9.5rem
+  );
+  overflow: hidden;
+  transform: translateY(calc((1 - var(--pop)) * 18px))
+    scale(calc(0.94 + var(--pop) * 0.06));
+  transform-origin: left top;
+  transition: none;
+  will-change: transform;
+}
+
+.phaseFull .logoWrap {
+  margin-bottom: calc((1 - var(--minimize) * 0.78) * clamp(1.5rem, 3vh, 2.25rem));
+  overflow: visible;
+  opacity: calc(1 - clamp((var(--compact-show) - 0.9) / 0.1, 0, 1));
+  transform: translateY(
+      calc(
+        (1 - var(--pop)) * 10px + var(--minimize) * -12px + var(--compact-show) * -18px
+      )
+    )
+    scale(
+      calc(
+        0.9 + var(--pop) * 0.1 - var(--minimize) * 0.5 - var(--compact-show) * 0.4
+      )
+    );
+  transform-origin: left bottom;
+  transition: none;
+}
+
+.phaseFull .logo,
+.phaseFull .logoLight,
+.phaseFull .logoEmbedded,
+.phaseFull .logoDark,
+.phaseFull .logoSeal {
+  transform: none;
+  transition: none;
+}
+
+.phaseFull .logoLight,
+.compactLogoLight {
+  mix-blend-mode: multiply;
+}
+
+.phaseFull .org {
+  opacity: calc(var(--open) * (1 - var(--minimize) * 0.9));
+  max-height: calc(var(--open) * (1 - var(--minimize)) * 2.75rem);
+  overflow: hidden;
+  transition: none;
+}
+
+.phaseFull .title {
+  opacity: calc(1 - clamp((var(--compact-show) - 0.9) / 0.1, 0, 1));
+  transform: translateY(calc((1 - var(--pop)) * 6px + var(--minimize) * -4px))
+    scale(
+      calc(
+        0.94 + var(--pop) * 0.06 - var(--minimize) * 0.72 - var(--compact-show) * 0.2
+      )
+    );
+  transform-origin: left center;
+  margin-bottom: calc((1 - var(--minimize) * 0.65) * 1.15rem);
+  transition: none;
+}
+
+.phaseFull .copy {
+  opacity: calc(var(--open) * (1 - var(--minimize) * 0.95));
+  max-height: calc(var(--open) * (1 - var(--minimize)) * 24rem);
+  overflow: hidden;
+  transition: none;
 }
 
 .parallelGrid {
@@ -342,11 +508,41 @@
 
 @media (max-width: 720px) {
   .scrollTrack {
-    height: 210vh;
+    height: 195vh;
   }
 
-  .rowActive .year {
-    font-size: clamp(2.75rem, 16vw, 4.25rem);
+  .year {
+    font-size: calc(clamp(0.95rem, 4vw, 1.05rem) + var(--year-emphasis) * clamp(1.75rem, 12vw, 3.25rem));
+  }
+
+  .phaseBlock {
+    max-height: calc(max(var(--compact-show) * 11rem, var(--open) * 72rem));
+  }
+
+  .compactRow {
+    max-height: calc(var(--compact-show) * 11rem);
+  }
+
+  .compactRoles {
+    gap: 0.75rem 1.15rem;
+  }
+
+  .compactRole {
+    flex: 1 1 100%;
+  }
+
+  .compactLogo {
+    height: 2.5rem;
+    max-width: 6.5rem;
+  }
+
+  .compactLogoLight {
+    height: 2.75rem;
+    max-width: 7.5rem;
+  }
+
+  .compactTitle {
+    font-size: clamp(0.86rem, 3.8vw, 1rem);
   }
 
   .parallelGrid {
