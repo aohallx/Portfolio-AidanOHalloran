@@ -12,6 +12,7 @@ import styles from './ProjectMedia.module.css'
 type ProjectMediaProps = {
   media: ProjectMediaType
   autoplay?: boolean
+  onOpenLightbox?: () => void
 }
 
 function formatTime(seconds: number): string {
@@ -59,16 +60,29 @@ function ExitFullscreenIcon() {
   )
 }
 
+function GalleryIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M21 3H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14zM5 15h4v4H5v-4zm6 0h8v4h-8v-4zm-6-6h4v4H5V9zm6 0h8v4h-8V9z"
+      />
+    </svg>
+  )
+}
+
 function VideoPlayer({
   src,
   poster,
   alt,
   autoplay,
+  onOpenLightbox,
 }: {
   src: string
   poster: string
   alt: string
   autoplay: boolean
+  onOpenLightbox?: () => void
 }) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const shellRef = useRef<HTMLDivElement>(null)
@@ -275,6 +289,19 @@ function VideoPlayer({
             <span className={styles.timeCurrent}>{formatTime(currentTime)}</span>
             <span className={styles.timeDivider} aria-hidden="true" />
             <span className={styles.timeDuration}>{formatTime(duration)}</span>
+            {onOpenLightbox && (
+              <button
+                type="button"
+                className={styles.fullscreenBtn}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onOpenLightbox()
+                }}
+                aria-label="Open project gallery"
+              >
+                <GalleryIcon />
+              </button>
+            )}
             <button
               type="button"
               className={styles.fullscreenBtn}
@@ -299,8 +326,32 @@ function VideoPlayer({
   )
 }
 
-export function ProjectMedia({ media, autoplay = false }: ProjectMediaProps) {
+export function ProjectMedia({
+  media,
+  autoplay = false,
+  onOpenLightbox,
+}: ProjectMediaProps) {
   if (media.type === 'image') {
+    if (onOpenLightbox) {
+      return (
+        <div className={styles.wrap}>
+          <button
+            type="button"
+            className={styles.lightboxTrigger}
+            onClick={onOpenLightbox}
+            aria-label={`View larger: ${media.alt}`}
+          >
+            <img
+              src={media.src}
+              alt={media.alt}
+              className={styles.image}
+              loading="lazy"
+            />
+          </button>
+        </div>
+      )
+    }
+
     return (
       <div className={styles.wrap}>
         <img
@@ -320,6 +371,7 @@ export function ProjectMedia({ media, autoplay = false }: ProjectMediaProps) {
         poster={media.poster}
         alt={media.alt}
         autoplay={autoplay}
+        onOpenLightbox={onOpenLightbox}
       />
     </div>
   )

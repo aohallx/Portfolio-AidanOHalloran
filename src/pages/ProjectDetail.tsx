@@ -1,17 +1,30 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { PageMeta } from '../components/PageMeta'
+import { ProjectDeepDive } from '../components/ProjectDeepDive'
 import { ProjectDetailStack } from '../components/ProjectDetailStack'
+import { ProjectGalleryLightbox } from '../components/ProjectGalleryLightbox'
 import { ProjectMedia } from '../components/ProjectMedia'
 import { ProjectTagline } from '../components/ProjectTagline'
 import { ProjectTitle } from '../components/ProjectTitle'
+import { getProjectDeepDives } from '../data/projectDeepDives'
 import { getProjectBySlug } from '../data/projects'
+import { buildProjectGallery, getGalleryIndex } from '../lib/projectGallery'
 import { HOME_PROJECT_SCROLL_KEY } from '../lib/homeScroll'
 import styles from './ProjectDetail.module.css'
 
 export function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>()
   const project = slug ? getProjectBySlug(slug) : undefined
+  const deepDiveSections = slug ? getProjectDeepDives(slug) : undefined
+  const gallery = useMemo(
+    () =>
+      project
+        ? buildProjectGallery(project.media, deepDiveSections)
+        : { items: [], indexBySrc: new Map<string, number>() },
+    [project, deepDiveSections],
+  )
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
 
   useEffect(() => {
     if (slug) {
@@ -36,6 +49,14 @@ export function ProjectDetail() {
   return (
     <>
       <PageMeta title={project.title} description={project.tagline} />
+      {lightboxIndex !== null && (
+        <ProjectGalleryLightbox
+          items={gallery.items}
+          index={lightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+          onIndexChange={setLightboxIndex}
+        />
+      )}
       <article className={styles.page}>
         <header className={styles.header}>
           <div className={styles.titleRow}>
@@ -50,7 +71,17 @@ export function ProjectDetail() {
         </header>
 
         <div className={styles.mediaBlock}>
-          <ProjectMedia media={project.media} autoplay={isVideo} />
+          <ProjectMedia
+            media={project.media}
+            autoplay={isVideo}
+            onOpenLightbox={() => {
+              const index = getGalleryIndex(
+                gallery.indexBySrc,
+                project.media.src,
+              )
+              if (index !== undefined) setLightboxIndex(index)
+            }}
+          />
         </div>
 
         <div className={styles.detailsRow}>
@@ -66,6 +97,14 @@ export function ProjectDetail() {
             <ProjectDetailStack ids={project.stackIds} className={styles.stack} />
           </aside>
         </div>
+
+        {deepDiveSections && deepDiveSections.length > 0 && (
+          <ProjectDeepDive
+            sections={deepDiveSections}
+            indexBySrc={gallery.indexBySrc}
+            onOpenGallery={setLightboxIndex}
+          />
+        )}
 
         {(project.links.live || project.links.github || project.links.tableau) && (
           <div className={styles.actions}>
