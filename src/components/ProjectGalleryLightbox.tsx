@@ -46,6 +46,66 @@ function ExitFullscreenIcon() {
   )
 }
 
+const MAX_LIGHTBOX_UPSCALE = 1.35
+
+function computeLightboxImageSize(naturalWidth: number, naturalHeight: number) {
+  const maxWidth = window.innerWidth - 64
+  const maxHeight = window.innerHeight - 72
+  const fitScale = Math.min(
+    maxWidth / naturalWidth,
+    maxHeight / naturalHeight,
+  )
+  const scale = Math.min(fitScale, MAX_LIGHTBOX_UPSCALE)
+
+  return {
+    width: Math.round(naturalWidth * scale),
+    height: Math.round(naturalHeight * scale),
+  }
+}
+
+function LightboxImage({ src, alt }: { src: string; alt: string }) {
+  const imgRef = useRef<HTMLImageElement>(null)
+  const [size, setSize] = useState<{ width: number; height: number } | null>(
+    null,
+  )
+
+  const syncSize = useCallback(() => {
+    const img = imgRef.current
+    if (!img?.naturalWidth) return
+
+    setSize(
+      computeLightboxImageSize(img.naturalWidth, img.naturalHeight),
+    )
+  }, [])
+
+  useEffect(() => {
+    setSize(null)
+  }, [src])
+
+  useEffect(() => {
+    window.addEventListener('resize', syncSize)
+    return () => window.removeEventListener('resize', syncSize)
+  }, [syncSize])
+
+  return (
+    <img
+      ref={imgRef}
+      src={src}
+      alt={alt}
+      className={styles.media}
+      style={
+        size
+          ? { width: `${size.width}px`, height: `${size.height}px` }
+          : undefined
+      }
+      onLoad={syncSize}
+      loading="eager"
+      decoding="async"
+      fetchPriority="high"
+    />
+  )
+}
+
 export function ProjectGalleryLightbox({
   items,
   index,
@@ -85,6 +145,25 @@ export function ProjectGalleryLightbox({
       void document.exitFullscreen()
     }
   }, [index])
+
+  useEffect(() => {
+    if (total <= 0) return
+
+    const preloadIndices = new Set([
+      index,
+      (index - 1 + total) % total,
+      (index + 1) % total,
+    ])
+
+    for (const preloadIndex of preloadIndices) {
+      const preloadItem = items[preloadIndex]
+      if (preloadItem?.type !== 'image') continue
+
+      const img = new Image()
+      img.decoding = 'async'
+      img.src = preloadItem.src
+    }
+  }, [index, items, total])
 
   useEffect(() => {
     closeRef.current?.focus()
@@ -170,25 +249,13 @@ export function ProjectGalleryLightbox({
       <div className={styles.stage}>
         <div
           ref={mediaShellRef}
-          className={
-            item.type === 'image' && item.fullQuality
-              ? `${styles.mediaShell} ${styles.mediaShellFullQuality}`
-              : styles.mediaShell
-          }
+          className={styles.mediaShell}
           onClick={(event) => event.stopPropagation()}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
           {item.type === 'image' ? (
-            <img
-              src={item.src}
-              alt={item.alt}
-              className={
-                item.fullQuality
-                  ? `${styles.media} ${styles.mediaFullQuality}`
-                  : styles.media
-              }
-            />
+            <LightboxImage src={item.src} alt={item.alt} />
           ) : (
             <video
               key={item.src}
@@ -219,9 +286,9 @@ export function ProjectGalleryLightbox({
             </button>
           )}
         </div>
-
-        {item.caption && <p className={styles.caption}>{item.caption}</p>}
       </div>
+
+      {item.caption && <p className={styles.caption}>{item.caption}</p>}
 
       {total > 1 && (
         <button

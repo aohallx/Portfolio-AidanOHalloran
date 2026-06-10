@@ -150,6 +150,15 @@ export const projectDeepDives: Record<string, ProjectDeepDiveSection[]> = {
       ],
     },
   ],
+  'reef-radar': [
+    {
+      title: 'Building Reef Radar',
+      paragraphs: [
+        'Reef Radar started as a class idea in December 2025. A month later, a trip to Costa Rica with my best friends turned that seed into a full product vision: a free surf website where anyone could check live conditions, plan trips, and compare flights without paywalls.',
+        'Over the next seven months I built reefradar.com end to end on my own with React, TypeScript, and Python. I spent that time on in-depth surf and forecast research, NOAA-driven modeling, and data workflows that used AI agents to help web scrape and organize source material. The goal from the start was to give surfers one place to read live conditions, plan travel, and book trips around real surf data.',
+      ],
+    },
+  ],
 }
 
 export function getProjectDeepDives(slug: string): ProjectDeepDiveSection[] | undefined {

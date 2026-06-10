@@ -1,10 +1,13 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigationType } from 'react-router-dom'
 import {
-  HOME_PROJECT_SCROLL_KEY,
   clearReturnToHomeProjects,
+  clearSavedScrollPosition,
+  isProjectDetailPath,
+  isScrollRestorePath,
   markReturnToHomeProjects,
-  scrollToHomeProjectsSection,
+  restoreListScrollPosition,
+  saveScrollPosition,
   shouldReturnToHomeProjects,
 } from '../lib/homeScroll'
 
@@ -20,6 +23,7 @@ type HomeLocationState = { scrollToTop?: boolean }
 
 export function ScrollToTop() {
   const { pathname, hash, state } = useLocation()
+  const navigationType = useNavigationType()
   const prevPath = useRef(pathname)
 
   useEffect(() => {
@@ -28,17 +32,51 @@ export function ScrollToTop() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!isScrollRestorePath(pathname)) return
+
+    let ticking = false
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        saveScrollPosition(pathname)
+        ticking = false
+      })
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [pathname])
+
   useLayoutEffect(() => {
     const from = prevPath.current
     prevPath.current = pathname
     const homeState = state as HomeLocationState | null
 
-    if (from === '/' && (pathname === '/projects' || pathname.startsWith('/projects/'))) {
-      markReturnToHomeProjects()
+    if (isScrollRestorePath(from) && pathname !== from) {
+      saveScrollPosition(from)
+    }
+
+    if (isProjectDetailPath(pathname)) {
+      if (isScrollRestorePath(from)) {
+        markReturnToHomeProjects()
+      }
+      window.scrollTo(0, 0)
+      return
     }
 
     if (pathname === '/projects') {
-      sessionStorage.removeItem(HOME_PROJECT_SCROLL_KEY)
+      const returningFromProject = isProjectDetailPath(from)
+      const isPop = navigationType === 'POP'
+
+      if (returningFromProject || isPop) {
+        restoreListScrollPosition('/projects')
+        return
+      }
+
+      window.scrollTo(0, 0)
+      return
     }
 
     if (pathname !== '/') {
@@ -48,23 +86,25 @@ export function ScrollToTop() {
 
     if (homeState?.scrollToTop) {
       clearReturnToHomeProjects()
+      clearSavedScrollPosition('/')
       window.scrollTo(0, 0)
       return
     }
 
-    const fromProjects = from === '/projects' || from.startsWith('/projects/')
-    const shouldScrollToProjects = fromProjects || shouldReturnToHomeProjects()
+    const fromProjects = from === '/projects' || isProjectDetailPath(from)
+    const shouldRestore =
+      fromProjects || shouldReturnToHomeProjects() || navigationType === 'POP'
 
-    if (shouldScrollToProjects) {
+    if (shouldRestore) {
       clearReturnToHomeProjects()
-      scrollToHomeProjectsSection(from !== '/projects')
+      restoreListScrollPosition('/')
       return
     }
 
     if (hash) {
       requestAnimationFrame(() => scrollToId(hash.replace('#', '')))
     }
-  }, [pathname, hash, state])
+  }, [pathname, hash, state, navigationType])
 
   return null
 }
