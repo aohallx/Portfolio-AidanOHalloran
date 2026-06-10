@@ -2,9 +2,10 @@ import { ProjectCover } from './ProjectCover'
 import { ProjectStackIcons } from './ProjectStackIcons'
 import { ProjectTagline } from './ProjectTagline'
 import { ProjectTitle } from './ProjectTitle'
-import { type CSSProperties } from 'react'
-import { Link } from 'react-router-dom'
+import { type CSSProperties, useCallback } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import type { Project } from '../data/projects'
+import { captureListScrollForProjectNav } from '../lib/homeScroll'
 import styles from './ProjectsMagazine.module.css'
 
 type ProjectsMagazineProps = {
@@ -20,6 +21,12 @@ export function ProjectsMagazine({
   headingId,
   headshot,
 }: ProjectsMagazineProps) {
+  const { pathname } = useLocation()
+
+  const handleProjectNav = useCallback(() => {
+    captureListScrollForProjectNav(pathname)
+  }, [pathname])
+
   return (
     <div className={styles.wrap}>
       {showHeader && (
@@ -51,7 +58,11 @@ export function ProjectsMagazine({
               }`}
               style={{ '--i': index } as CSSProperties}
             >
-              <Link to={`/projects/${project.slug}`} className={styles.link}>
+              <Link
+                to={`/projects/${project.slug}`}
+                className={styles.link}
+                onClick={handleProjectNav}
+              >
                 <span className={styles.index} aria-hidden="true">
                   {String(index + 1).padStart(2, '0')}
                 </span>

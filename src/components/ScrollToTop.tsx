@@ -1,12 +1,11 @@
 import { useEffect, useLayoutEffect, useRef } from 'react'
-import { useLocation, useNavigationType } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import {
   clearReturnToHomeProjects,
   clearSavedScrollPosition,
   isProjectDetailPath,
   isScrollRestorePath,
-  markReturnToHomeProjects,
-  restoreListScrollPosition,
+  markProjectDetailEntry,
   saveScrollPosition,
   shouldReturnToHomeProjects,
 } from '../lib/homeScroll'
@@ -14,23 +13,16 @@ import {
 function scrollToId(id: string) {
   const el = document.getElementById(id)
   if (el) {
-    el.scrollIntoView({ behavior: 'instant', block: 'start' })
+    el.scrollIntoView({ behavior: 'auto', block: 'start' })
   }
 }
 
-/** Route-aware scroll — project pages start at top; home restores context */
+/** Route-aware scroll — project pages start at top; list pages restore via ListScrollRestore */
 type HomeLocationState = { scrollToTop?: boolean }
 
 export function ScrollToTop() {
   const { pathname, hash, state } = useLocation()
-  const navigationType = useNavigationType()
   const prevPath = useRef(pathname)
-
-  useEffect(() => {
-    if ('scrollRestoration' in history) {
-      history.scrollRestoration = 'manual'
-    }
-  }, [])
 
   useEffect(() => {
     if (!isScrollRestorePath(pathname)) return
@@ -59,22 +51,13 @@ export function ScrollToTop() {
     }
 
     if (isProjectDetailPath(pathname)) {
-      if (isScrollRestorePath(from)) {
-        markReturnToHomeProjects()
-      }
+      markProjectDetailEntry(from)
       window.scrollTo(0, 0)
       return
     }
 
     if (pathname === '/projects') {
-      const returningFromProject = isProjectDetailPath(from)
-      const isPop = navigationType === 'POP'
-
-      if (returningFromProject || isPop) {
-        restoreListScrollPosition('/projects')
-        return
-      }
-
+      if (shouldReturnToHomeProjects()) return
       window.scrollTo(0, 0)
       return
     }
@@ -91,20 +74,12 @@ export function ScrollToTop() {
       return
     }
 
-    const fromProjects = from === '/projects' || isProjectDetailPath(from)
-    const shouldRestore =
-      fromProjects || shouldReturnToHomeProjects() || navigationType === 'POP'
-
-    if (shouldRestore) {
-      clearReturnToHomeProjects()
-      restoreListScrollPosition('/')
-      return
-    }
+    if (shouldReturnToHomeProjects()) return
 
     if (hash) {
       requestAnimationFrame(() => scrollToId(hash.replace('#', '')))
     }
-  }, [pathname, hash, state, navigationType])
+  }, [pathname, hash, state])
 
   return null
 }

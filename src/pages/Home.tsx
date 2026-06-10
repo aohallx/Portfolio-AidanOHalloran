@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ListScrollRestore } from '../components/ListScrollRestore'
 import { ContactForm } from '../components/ContactForm'
 import { HeroLanding } from '../components/HeroLanding'
 import { HeroSignature } from '../components/HeroSignature'
@@ -14,6 +15,7 @@ export function Home() {
 
   return (
     <>
+      <ListScrollRestore pathname="/" />
       <PageMeta />
       <HeroLanding />
 

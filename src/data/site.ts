@@ -137,7 +137,7 @@ export const site = {
         hobbyId: 'guitarist',
         title: 'Invisible',
         subtitle: 'Album · Guitarist/Writer',
-        previewSrc: '/audio/no-peace.wav',
+        previewSrc: '/audio/invisible-instrumental.mp3',
         coverArt: '/hobbies/no-peace.png',
         coverAlt: 'Invisible album artwork',
         links: {
@@ -183,7 +183,7 @@ export const site = {
   contact: {
     eyebrow: '( Contact )',
     title: 'Open to opportunities',
-    topics: ['Data & Solutions roles', 'Music', 'Projects', 'Just saying hi'] as const,
+    topics: ['Work', 'Music', 'Projects', 'Misc'] as const,
     backgroundImage: '/contact/guitar-bg.png',
     backgroundAlt: 'Live guitar performance, black and white',
   },

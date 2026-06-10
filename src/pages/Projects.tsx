@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import { ListScrollRestore } from '../components/ListScrollRestore'
 import { PageMeta } from '../components/PageMeta'
 import { ProjectsMagazine } from '../components/ProjectsMagazine'
 import { projects } from '../data/projects'
@@ -11,6 +12,7 @@ export function Projects() {
 
   return (
     <>
+      <ListScrollRestore pathname="/projects" />
       <PageMeta
         title="Projects"
         description="Portfolio projects: data engineering & ML (Python, scikit-learn, time-series), Reef Radar (React, TypeScript), and Unreal Engine game development."

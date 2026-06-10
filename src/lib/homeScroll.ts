@@ -1,5 +1,6 @@
 export const HOME_PROJECT_SCROLL_KEY = 'portfolio:home-project-slug'
 export const HOME_RETURN_TO_PROJECTS_KEY = 'portfolio:return-to-home-projects'
+export const HOME_RETURN_FROM_PATH_KEY = 'portfolio:return-from-path'
 
 const SCROLL_Y_KEYS = {
   '/': 'portfolio:scroll-y:home',
@@ -7,6 +8,10 @@ const SCROLL_Y_KEYS = {
 } as const
 
 export type ScrollRestorePath = keyof typeof SCROLL_Y_KEYS
+
+if (typeof window !== 'undefined' && 'scrollRestoration' in history) {
+  history.scrollRestoration = 'manual'
+}
 
 export function isScrollRestorePath(pathname: string): pathname is ScrollRestorePath {
   return pathname === '/' || pathname === '/projects'
@@ -22,14 +27,41 @@ export function markReturnToHomeProjects() {
 
 export function clearReturnToHomeProjects() {
   sessionStorage.removeItem(HOME_RETURN_TO_PROJECTS_KEY)
+  sessionStorage.removeItem(HOME_RETURN_FROM_PATH_KEY)
 }
 
 export function shouldReturnToHomeProjects(): boolean {
   return sessionStorage.getItem(HOME_RETURN_TO_PROJECTS_KEY) === '1'
 }
 
+export function getReturnFromPath(): ScrollRestorePath | null {
+  const from = sessionStorage.getItem(HOME_RETURN_FROM_PATH_KEY)
+  if (!isScrollRestorePath(from ?? '')) return null
+  return from as ScrollRestorePath
+}
+
+export function markProjectDetailEntry(fromPath: string) {
+  markReturnToHomeProjects()
+  if (isScrollRestorePath(fromPath)) {
+    sessionStorage.setItem(HOME_RETURN_FROM_PATH_KEY, fromPath)
+  }
+}
+
+export function shouldRestoreListPage(pathname: ScrollRestorePath): boolean {
+  return shouldReturnToHomeProjects() && getReturnFromPath() === pathname
+}
+
 export function saveScrollPosition(pathname: ScrollRestorePath) {
-  sessionStorage.setItem(SCROLL_Y_KEYS[pathname], String(window.scrollY))
+  const y = window.scrollY
+  if (y <= 0) return
+  sessionStorage.setItem(SCROLL_Y_KEYS[pathname], String(y))
+}
+
+export function captureListScrollForProjectNav(pathname: string) {
+  if (!isScrollRestorePath(pathname)) return
+  saveScrollPosition(pathname)
+  markReturnToHomeProjects()
+  sessionStorage.setItem(HOME_RETURN_FROM_PATH_KEY, pathname)
 }
 
 export function getSavedScrollPosition(pathname: ScrollRestorePath): number | null {
@@ -43,64 +75,75 @@ export function clearSavedScrollPosition(pathname: ScrollRestorePath) {
   sessionStorage.removeItem(SCROLL_Y_KEYS[pathname])
 }
 
-function scrollToElement(el: HTMLElement) {
-  el.scrollIntoView({ behavior: 'instant', block: 'start' })
+function getNavOffset(): number {
+  const raw = getComputedStyle(document.documentElement)
+    .getPropertyValue('--nav-height')
+    .trim()
+  const parsed = Number.parseInt(raw, 10)
+  return Number.isFinite(parsed) ? parsed : 72
 }
 
-/** Restore an exact scroll offset once layout has enough height. */
-export function restoreScrollPosition(y: number) {
-  const tryRestore = (attempt = 0) => {
-    window.scrollTo(0, y)
-
-    const maxScroll =
-      document.documentElement.scrollHeight - window.innerHeight
-    const settled = maxScroll <= 0 || Math.abs(window.scrollY - y) <= 2
-
-    if (!settled && attempt < 12) {
-      requestAnimationFrame(() => tryRestore(attempt + 1))
-    }
-  }
-
-  requestAnimationFrame(() => tryRestore())
+function scrollToY(y: number) {
+  window.scrollTo({ top: Math.max(0, y), left: 0, behavior: 'auto' })
 }
 
-/** Scroll home to the projects magazine, or a specific featured project card. */
-export function scrollToHomeProjectsSection(preferProjectSlug = true) {
-  const tryScroll = (attempt = 0) => {
-    const slug = preferProjectSlug
-      ? sessionStorage.getItem(HOME_PROJECT_SCROLL_KEY)
-      : null
-    const projectEl = slug ? document.getElementById(`project-${slug}`) : null
-    const sectionEl =
-      document.getElementById('projects-magazine') ??
-      document.getElementById('projects')
+export function scrollToProjectsTarget(): boolean {
+  const slug = sessionStorage.getItem(HOME_PROJECT_SCROLL_KEY)
+  const projectEl = slug ? document.getElementById(`project-${slug}`) : null
+  const sectionEl =
+    document.getElementById('projects-magazine') ??
+    document.getElementById('projects')
 
-    const target = projectEl ?? sectionEl
-    if (target) {
-      scrollToElement(target)
-      return
-    }
+  const target = projectEl ?? sectionEl
+  if (!target) return false
 
-    if (attempt < 8) {
-      requestAnimationFrame(() => tryScroll(attempt + 1))
-    }
-  }
-
-  requestAnimationFrame(() => tryScroll())
+  const top =
+    target.getBoundingClientRect().top + window.scrollY - getNavOffset()
+  scrollToY(top)
+  return true
 }
 
-/** Prefer saved offset; fall back to projects section / project card. */
-export function restoreListScrollPosition(pathname: ScrollRestorePath) {
-  const savedY = getSavedScrollPosition(pathname)
-  if (savedY !== null) {
-    restoreScrollPosition(savedY)
-    return true
+function runWithRetries(run: () => boolean, delays = [0, 50, 120, 250, 400]) {
+  const attempt = () => {
+    if (run()) return
   }
 
+  for (const delay of delays) {
+    if (delay === 0) {
+      requestAnimationFrame(attempt)
+    } else {
+      window.setTimeout(attempt, delay)
+    }
+  }
+}
+
+/** Scroll home (or projects list) to the projects magazine / opened project card. */
+export function scrollToHomeProjectsSection() {
+  runWithRetries(scrollToProjectsTarget)
+}
+
+export function tryRestoreListPageAfterProject(
+  pathname: ScrollRestorePath,
+): boolean {
   if (pathname === '/') {
-    scrollToHomeProjectsSection()
+    return scrollToProjectsTarget()
+  }
+
+  const savedY = getSavedScrollPosition('/projects')
+  if (savedY !== null && savedY > 0) {
+    scrollToY(savedY)
     return true
   }
 
-  return false
+  return scrollToProjectsTarget()
+}
+
+export function restoreListPageAfterProject(pathname: ScrollRestorePath) {
+  runWithRetries(() => {
+    const restored = tryRestoreListPageAfterProject(pathname)
+    if (restored) {
+      clearReturnToHomeProjects()
+    }
+    return restored
+  })
 }

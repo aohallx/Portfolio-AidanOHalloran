@@ -62,9 +62,9 @@ export const projects: Project[] = [
   },
   {
     slug: 'reef-radar',
-    title: 'Reef Radar',
+    title: 'Reefradar.com',
     tagline:
-      'Free surf forecast and trip planning platform with 900+ live spots, NOAA physics-based forecasts, and monthly ratings for 200+ destinations.',
+      'Free surf forecast and trip planning platform with 900+ live surf spots, NOAA physics-based forecasts, and monthly ratings for 200+ destinations.',
     coverImage: '/projects/reef-radar/cover.svg',
     coverAlt: 'Reef Radar surf forecast demo preview',
     media: {

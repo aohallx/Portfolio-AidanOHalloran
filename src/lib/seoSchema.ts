@@ -45,7 +45,7 @@ export function buildPersonSchema(pathname: string) {
         knowsAbout: site.seo.expertise,
         additionalProperty: {
           '@type': 'PropertyValue',
-          name: 'Open to roles',
+          name: 'Open to talk',
           value: site.seo.rolesOpenTo.join(', '),
         },
       },

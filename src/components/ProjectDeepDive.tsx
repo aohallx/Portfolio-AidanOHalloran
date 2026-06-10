@@ -3,8 +3,33 @@ import type {
   ProjectEquation,
   ProjectGalleryImage,
 } from '../data/projectDeepDives'
+import { reefRadarBrand } from '../data/reefRadar'
 import { getGalleryIndex } from '../lib/projectGallery'
 import styles from './ProjectDeepDive.module.css'
+
+function DeepDiveParagraph({ text }: { text: string }) {
+  const parts = text.split(/(reefradar\.com)/i)
+
+  return (
+    <p className={styles.lead}>
+      {parts.map((part, index) =>
+        part.toLowerCase() === 'reefradar.com' ? (
+          <a
+            key={`${part}-${index}`}
+            href={reefRadarBrand.liveUrl}
+            className={`chrome-link ${styles.inlineChromeLink}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {part}
+          </a>
+        ) : (
+          part
+        ),
+      )}
+    </p>
+  )
+}
 
 type ProjectDeepDiveProps = {
   sections: ProjectDeepDiveSection[]
@@ -80,9 +105,7 @@ function DeepDiveSection({
       <h2 className={styles.sectionTitle}>{section.title}</h2>
 
       {section.paragraphs?.map((paragraph) => (
-        <p key={paragraph} className={styles.lead}>
-          {paragraph}
-        </p>
+        <DeepDiveParagraph key={paragraph} text={paragraph} />
       ))}
 
       {section.equations && section.equations.length > 0 && (

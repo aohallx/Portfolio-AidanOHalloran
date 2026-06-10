@@ -32,6 +32,10 @@
   color: var(--text-muted);
 }
 
+.inlineChromeLink {
+  color: var(--text);
+}
+
 .equations {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
