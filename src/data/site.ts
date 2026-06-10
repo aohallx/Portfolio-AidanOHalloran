@@ -79,7 +79,7 @@ export const site = {
     titleSub: 'SOLUTIONS ANALYST',
     bioLocation: 'Based in Orlando, Florida.',
     bioMemo:
-      'I build data pipelines and analytics for government clients, working directly with stakeholders to turn data into decisions. Interested in data engineering, analytics engineering, and solutions / sales engineering.',
+      'I build data pipelines and analytics for government clients, working directly with stakeholders to turn data into decisions that may affect millions of people.',
     employerPrefix: '@',
   },
   projects: {

@@ -20,7 +20,6 @@ export type ExperienceRole = {
 export type ExperiencePhase = {
   id: string
   year: string
-  period: string
   simultaneous?: boolean
   roles: ExperienceRole[]
 }
@@ -30,19 +29,14 @@ export const experiencePhases: ExperiencePhase[] = [
   {
     id: 'intern',
     year: '2024',
-    period: 'Jul – Oct 2024',
     roles: [
       {
         org: 'LANRover Network Services',
-        title: 'IT Intern',
+        title: 'Data Science Intern',
         location: 'Wantagh, NY',
         bullets: [
           [
-            'Cleaned hardware inventory ',
-            { text: 'datasets', tone: 'chrome' },
-            ' for ',
-            { text: '3+', tone: 'chrome' },
-            ' school districts, with validation, normalization, and cross-district reporting.',
+            'Applied data science fundamentals to clean hardware inventory datasets with validation, normalization, and cross-district reporting.',
           ],
         ],
         logo: '/employers/lanrover.png',
@@ -54,7 +48,6 @@ export const experiencePhases: ExperiencePhase[] = [
   {
     id: 'long-island',
     year: '2025',
-    period: 'Sep 2024 – Aug 2026',
     simultaneous: true,
     roles: [
       {
@@ -63,11 +56,7 @@ export const experiencePhases: ExperiencePhase[] = [
         location: 'New York, NY',
         bullets: [
           [
-            'Led HSI Explorer Post 601, ',
-            { text: 'mentored', tone: 'chrome' },
-            ' recruits, ran weekly ops, co-built the post site (+',
-            { text: '25%', tone: 'chrome' },
-            ' engagement).',
+            'Led HSI Explorer Post 601 with Federal agents, mentoring recruits and co-developing the website to increase engagement by 25%.',
           ],
         ],
         logo: '/employers/hsi.png?v=3',
@@ -80,11 +69,7 @@ export const experiencePhases: ExperiencePhase[] = [
         location: 'Bohemia, NY',
         bullets: [
           [
-            'Thermal stress testing and ',
-            { text: 'SPC', tone: 'chrome' },
-            ' on ',
-            { text: '200+', tone: 'chrome' },
-            ' daily semiconductor results with engineering partners.',
+            'Collaborated with engineers to run thermal stress and data analysis on 200+ semiconductors daily.',
           ],
         ],
         logo: '/employers/power-device.png?v=4',
@@ -97,7 +82,6 @@ export const experiencePhases: ExperiencePhase[] = [
   {
     id: 'deloitte',
     year: '2026',
-    period: 'Sep 2026 – Present',
     roles: [
       {
         org: 'Deloitte Government & Public Services',
@@ -105,11 +89,7 @@ export const experiencePhases: ExperiencePhase[] = [
         location: 'Orlando, FL',
         bullets: [
           [
-            'Build ',
-            { text: 'end-to-end data pipelines', tone: 'chrome' },
-            ' for government clients and present analytics to ',
-            { text: 'client stakeholders', tone: 'chrome' },
-            '.',
+            'Build end-to-end data pipelines for government clients and present analytics to client stakeholders.',
           ],
         ],
         logo: '/employers/deloitte.svg?v=2',

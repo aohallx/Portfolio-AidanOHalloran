@@ -76,7 +76,7 @@ export function ProjectDetail() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Live site
+                REEFRADAR.COM
               </a>
             )}
             {project.links.tableau && (

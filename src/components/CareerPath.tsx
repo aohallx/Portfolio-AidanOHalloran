@@ -40,8 +40,10 @@ function RoleEntry({ role }: { role: ExperienceRole }) {
         />
       </div>
       <div className={styles.roleCopy}>
-        <h3 className={styles.title}>{role.title}</h3>
-        <p className={styles.org}>{role.org}</p>
+        <h3 className={styles.roleHeadline}>
+          <span className={styles.title}>{role.title}</span>
+          <span className={styles.orgName}>{role.org}</span>
+        </h3>
       </div>
       {role.bullets[0] && (
         <div className={styles.summary}>
@@ -57,7 +59,6 @@ function PhaseBlock({ phase }: { phase: ExperiencePhase }) {
     <li className={styles.phase}>
       <div className={styles.marker}>
         <span className={styles.year}>{phase.year}</span>
-        <span className={styles.period}>{phase.period}</span>
       </div>
 
       <div className={styles.phaseContent}>
