@@ -7,6 +7,7 @@ export type ProjectMedia =
 export type ProjectLinks = {
   live?: string
   github?: string
+  tableau?: string
 }
 
 export type Project = {
@@ -27,9 +28,9 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'unreal-game',
-    title: 'Unreal Engine 5 Video Game',
+    title: '3D Level-Based Survival Game',
     tagline:
-      'Full Unreal game built by hand, before the surge of IDE LLMs and coding assistants.',
+      'Non-commercial Unreal Engine project built by hand with survival mechanics, combat logic, and AI enemies.',
     coverImage: '/projects/unreal/poster.webp',
     coverAlt: 'UE5 third-person action prototype gameplay preview',
     media: {
@@ -41,11 +42,19 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/aohallx/UE5-3D-demo1',
     },
-    stack: ['Unreal Engine', 'C++', 'Blueprints'],
-    stackIds: ['unreal', 'cpp'],
+    stack: [
+      'Unreal Engine',
+      'C++',
+      'Blueprints',
+      'Blender',
+      'Photoshop',
+      'Premiere Pro',
+      'After Effects',
+    ],
+    stackIds: ['unreal', 'cpp', 'photoshop', 'premiere', 'after-effects'],
     tools: [],
     highlights: [
-      'Developed 3D maps and 30+ assets in Unreal Engine/Blender, with survival mechanics inspired by Call of Duty: Zombies.',
+      'Developed 3D maps and 30+ assets in Unreal Engine/Blender, with textures in Photoshop and trailers cut in Premiere Pro.',
       'Scripted 1000+ Blueprint/C++ functions to enhance animation, 3D-object modeling and optimized performance.',
       'Engineered 3 AI-enemy types with pathfinding, perception and combat-state logic for responsive gameplay.',
     ],
@@ -78,9 +87,9 @@ export const projects: Project[] = [
   },
   {
     slug: 'stellar-classification',
-    title: 'Stellar Classification',
+    title: 'HR Diagram-Based Stellar Classification',
     tagline:
-      'Exoplanet research via Hertzsprung–Russell diagram analysis.',
+      'Exoplanet research via Hertzsprung–Russell diagram analysis and linear regression on 240 stellar records.',
     coverImage: '/projects/stellar/poster.webp',
     coverAlt: 'Stellar classification Hertzsprung–Russell diagram preview',
     media: {
@@ -93,20 +102,21 @@ export const projects: Project[] = [
       github:
         'https://github.com/aohallx/Stellar-Classification-via-Log-Scaled-HR-Diagram-Analysis',
     },
-    stack: ['Python', 'scikit-learn', 'pandas', 'matplotlib'],
-    stackIds: ['python', 'sklearn', 'pandas', 'jupyter'],
+    stack: ['Python', 'pandas', 'NumPy', 'scikit-learn', 'matplotlib', 'Seaborn'],
+    stackIds: ['python', 'sklearn', 'pandas', 'numpy', 'matplotlib', 'seaborn', 'jupyter'],
     tools: ['Jupyter'],
     highlights: [
-      'Log-scaled Hertzsprung–Russell diagram feature engineering',
-      'Classification pipeline with evaluation and visualization',
-      'Documented in Jupyter with reproducible notebook workflow',
+      'Processed 240 stellar records and engineered 5 features (Pandas + NumPy), including log-scaled temperature and luminosity.',
+      'Trained a linear regression model to view spectral patterns and show HR diagram groupings (main sequence, giants, dwarfs).',
+      'Applied IQR-based outlier filtering and visualized raw vs log-scaled relationships in 2 plots using Matplotlib and Seaborn.',
     ],
     featured: true,
   },
   {
     slug: 'stock-time-series',
-    title: 'Time-Series Stock Analysis',
-    tagline: 'Exploratory and predictive analysis on equity time series.',
+    title: 'Tesla Stock Reversal Prediction',
+    tagline:
+      'Stock market reversal prediction research via SQL preprocessing, scikit-learn RandomForest, and an end-to-end ETL pipeline.',
     coverImage: '/projects/stocks/poster.webp',
     coverAlt: 'Tesla stock time-series analysis preview',
     media: {
@@ -118,13 +128,13 @@ export const projects: Project[] = [
     links: {
       github: 'https://github.com/aohallx/time-series-stock-analysis',
     },
-    stack: ['Python', 'pandas', 'statsmodels'],
-    stackIds: ['python', 'pandas', 'jupyter', 'tableau'],
+    stack: ['Python', 'SQL', 'scikit-learn', 'Tableau'],
+    stackIds: ['python', 'sql', 'sklearn', 'jupyter', 'tableau'],
     tools: ['Jupyter', 'Tableau'],
     highlights: [
-      'Time-series decomposition, trends, and forecasting experiments',
-      'Interactive exploration in Jupyter notebooks',
-      'Tableau dashboards for stakeholder-friendly views',
+      'Engineered 7 ML features from Tesla stock data via SQL preprocessing and Python feature derivation (1st/2nd derivatives).',
+      'Trained a scikit-learn RandomForest on 339 time steps with 5-fold TimeSeriesSplit for a 0.75 F1-score on reversal detection.',
+      'Integrated an end-to-end ETL pipeline (SQL → Python → Tableau) with reversal markers across 16 months of Tesla stock data.',
     ],
     featured: true,
   },

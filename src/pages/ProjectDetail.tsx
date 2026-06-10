@@ -67,7 +67,7 @@ export function ProjectDetail() {
           </aside>
         </div>
 
-        {(project.links.live || project.links.github) && (
+        {(project.links.live || project.links.github || project.links.tableau) && (
           <div className={styles.actions}>
             {project.links.live && (
               <a
@@ -77,6 +77,16 @@ export function ProjectDetail() {
                 rel="noopener noreferrer"
               >
                 Live site
+              </a>
+            )}
+            {project.links.tableau && (
+              <a
+                href={project.links.tableau}
+                className={`${styles.btn} ${styles.btnGithub}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Tableau dashboard
               </a>
             )}
             {project.links.github && (

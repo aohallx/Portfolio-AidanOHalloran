@@ -95,6 +95,40 @@ export function SkillIcon({ id, className }: SkillIconProps) {
           </text>
         </svg>
       )
+    case 'photoshop':
+      return (
+        <svg {...props}>
+          <rect width="24" height="24" rx="4" fill="currentColor" />
+          <text
+            x="12"
+            y="16"
+            textAnchor="middle"
+            fill="#0a0a0a"
+            fontSize="9"
+            fontWeight="700"
+            fontFamily="var(--font-condensed), sans-serif"
+          >
+            Ps
+          </text>
+        </svg>
+      )
+    case 'premiere':
+      return (
+        <svg {...props}>
+          <rect width="24" height="24" rx="4" fill="currentColor" />
+          <text
+            x="12"
+            y="16"
+            textAnchor="middle"
+            fill="#0a0a0a"
+            fontSize="9"
+            fontWeight="700"
+            fontFamily="var(--font-condensed), sans-serif"
+          >
+            Pr
+          </text>
+        </svg>
+      )
     case 'pandas':
       return (
         <svg {...props}>
@@ -172,7 +206,15 @@ export function SkillIcon({ id, className }: SkillIconProps) {
         <svg {...props}>
           <path
             fill="currentColor"
-            d="M12 2 4 20h4.5l1.2-3h5.6l1.2 3H20L12 2zm0 6.5 2.8 6.5H9.2L12 8.5z"
+            d="M5.27 21.01 11.72 9.31 9.72 3.02 3.05 13.71l2.22 7.3z"
+          />
+          <path
+            fill="currentColor"
+            d="M13.27 9.31 11.57 3.01 3.05 13.71h9.65l.57-4.4z"
+          />
+          <path
+            fill="currentColor"
+            d="M21.9 13.71 11.57 3.01l1.7 6.3 4.48 8.3 4.15-3.9z"
           />
         </svg>
       )

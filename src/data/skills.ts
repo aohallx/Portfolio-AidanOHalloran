@@ -1,5 +1,7 @@
 export type SkillId =
   | 'after-effects'
+  | 'photoshop'
+  | 'premiere'
   | 'python'
   | 'pandas'
   | 'numpy'
@@ -46,5 +48,7 @@ export const skills: Skill[] = [
   { id: 'firebase', name: 'Firebase' },
   { id: 'unreal', name: 'Unreal Engine' },
   { id: 'git', name: 'GitHub' },
+  { id: 'photoshop', name: 'Photoshop' },
+  { id: 'premiere', name: 'Premiere Pro' },
   { id: 'after-effects', name: 'After Effects' },
 ]

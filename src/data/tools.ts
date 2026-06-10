@@ -71,6 +71,8 @@ export const toolCategories: { title: string; items: ToolItem[] }[] = [
       { kind: 'skill', id: 'typescript', name: 'TypeScript' },
       { kind: 'skill', id: 'firebase', name: 'Firebase' },
       { kind: 'skill', id: 'unreal', name: 'Unreal Engine' },
+      { kind: 'skill', id: 'photoshop', name: 'Photoshop' },
+      { kind: 'skill', id: 'premiere', name: 'Premiere Pro' },
       { kind: 'skill', id: 'after-effects', name: 'After Effects' },
     ],
   },

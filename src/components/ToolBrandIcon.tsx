@@ -174,6 +174,24 @@ export function ToolBrandIcon({ id, className }: ToolBrandIconProps) {
           </text>
         </IconShell>
       )
+    case 'photoshop':
+      return (
+        <IconShell className={className}>
+          <rect width="24" height="24" rx="3" fill="#31A8FF" />
+          <text x="12" y="16" textAnchor="middle" fill="#001E36" fontSize="8.5" fontWeight="700" fontFamily="sans-serif">
+            Ps
+          </text>
+        </IconShell>
+      )
+    case 'premiere':
+      return (
+        <IconShell className={className}>
+          <rect width="24" height="24" rx="3" fill="#9999FF" />
+          <text x="12" y="16" textAnchor="middle" fill="#00005B" fontSize="8.5" fontWeight="700" fontFamily="sans-serif">
+            Pr
+          </text>
+        </IconShell>
+      )
     case 'cpp':
       return <CppMark className={className} />
     case 'java':
