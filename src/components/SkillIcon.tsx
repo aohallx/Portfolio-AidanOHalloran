@@ -1,3 +1,4 @@
+import { SKILL_IMAGE_SRC } from '../data/skillAssets'
 import type { SkillId } from '../data/skills'
 
 type SkillIconProps = {
@@ -7,6 +8,20 @@ type SkillIconProps = {
 
 /** Monochrome marks for the skills ribbon (fill via currentColor) */
 export function SkillIcon({ id, className }: SkillIconProps) {
+  const imageSrc = SKILL_IMAGE_SRC[id]
+  if (imageSrc) {
+    return (
+      <img
+        src={imageSrc}
+        alt=""
+        className={className}
+        loading="lazy"
+        decoding="async"
+        aria-hidden
+      />
+    )
+  }
+
   const props = {
     className,
     viewBox: '0 0 24 24',
@@ -198,23 +213,6 @@ export function SkillIcon({ id, className }: SkillIconProps) {
           <path
             fill="currentColor"
             d="M4 18h16v2H4v-2zm2-4h3v3H6v-3zm5-2h3v5h-3v-5zm5-3h3v8h-3V9z"
-          />
-        </svg>
-      )
-    case 'firebase':
-      return (
-        <svg {...props}>
-          <path
-            fill="currentColor"
-            d="M5.27 21.01 11.72 9.31 9.72 3.02 3.05 13.71l2.22 7.3z"
-          />
-          <path
-            fill="currentColor"
-            d="M13.27 9.31 11.57 3.01 3.05 13.71h9.65l.57-4.4z"
-          />
-          <path
-            fill="currentColor"
-            d="M21.9 13.71 11.57 3.01l1.7 6.3 4.48 8.3 4.15-3.9z"
           />
         </svg>
       )

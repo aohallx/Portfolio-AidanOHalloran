@@ -221,23 +221,6 @@ export function ToolBrandIcon({ id, className }: ToolBrandIconProps) {
           <path fill="#fff" d="M6 17h12v2H6v-2zm1-3h3v3H7v-3zm4-2h3v5h-3v-5zm4-3h3v8h-3V9z" />
         </IconShell>
       )
-    case 'firebase':
-      return (
-        <IconShell className={className} viewBox="0 0 24 24">
-          <path
-            fill="#FF9100"
-            d="M5.27 21.01 11.72 9.31 9.72 3.02 3.05 13.71l2.22 7.3z"
-          />
-          <path
-            fill="#FFC400"
-            d="M13.27 9.31 11.57 3.01 3.05 13.71h9.65l.57-4.4z"
-          />
-          <path
-            fill="#DD2C00"
-            d="M21.9 13.71 11.57 3.01l1.7 6.3 4.48 8.3 4.15-3.9z"
-          />
-        </IconShell>
-      )
     case 'sql-server':
       return (
         <IconShell className={className}>

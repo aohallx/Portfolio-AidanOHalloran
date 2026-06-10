@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import { ExperienceRichText } from './ExperienceRichText'
 import {
   experiencePhases,
@@ -5,6 +6,21 @@ import {
   type ExperienceRole,
 } from '../data/experience'
 import styles from './CareerPath.module.css'
+
+function logoStyleFor(role: ExperienceRole): CSSProperties | undefined {
+  if (role.logoScale === undefined && role.mobileLogoScale === undefined) {
+    return undefined
+  }
+
+  return {
+    ...(role.logoScale !== undefined
+      ? { '--logo-scale': role.logoScale }
+      : {}),
+    ...(role.mobileLogoScale !== undefined
+      ? { '--logo-scale-mobile': role.mobileLogoScale }
+      : {}),
+  } as CSSProperties
+}
 
 function logoClassFor(role: ExperienceRole): string {
   return [
@@ -27,14 +43,7 @@ function RoleEntry({ role }: { role: ExperienceRole }) {
           src={role.logo}
           alt={role.logoAlt}
           className={logoClassFor(role)}
-          style={
-            role.logoScale
-              ? {
-                  transform: `scale(${role.logoScale})`,
-                  transformOrigin: 'left center',
-                }
-              : undefined
-          }
+          style={logoStyleFor(role)}
           loading="eager"
           decoding="async"
         />

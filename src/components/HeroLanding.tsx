@@ -27,6 +27,7 @@ export function HeroLanding() {
         <div className={styles.panelLight}>
           <div className={styles.rightStack}>
             <div className={styles.titleBlock}>
+              <p className={styles.megaDarkMobile}>{hero.titleDark}</p>
               <p className={styles.megaLight}>{hero.titleLight}</p>
               <p className={styles.megaSub}>{hero.titleSub}</p>
               <EmployerBadge variant="hero" tone="light" />

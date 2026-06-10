@@ -110,12 +110,13 @@
   object-fit: contain;
   object-position: left center;
   border-radius: 0;
+  transform: scale(var(--logo-scale, 1));
+  transform-origin: left center;
 }
 
 .logoLight,
 .logoBadge {
-  transform: scale(1.16);
-  transform-origin: left center;
+  --logo-scale: 1.16;
 }
 
 .logoLight {
@@ -218,9 +219,19 @@
 }
 
 @media (max-width: 720px) {
+  .inner {
+    padding-left: clamp(1rem, 4.5vw, 1.35rem);
+    padding-right: clamp(1rem, 4.5vw, 1.35rem);
+  }
+
+  .eyebrow {
+    font-size: 0.88rem;
+    margin-bottom: 1.5rem;
+  }
+
   .phase {
     --year-col: 100%;
-    --phase-gap: 0.75rem;
+    --phase-gap: 1.35rem;
     grid-template-columns: 1fr;
   }
 
@@ -230,19 +241,92 @@
     flex-wrap: wrap;
     gap: 0.45rem 0.75rem;
     padding-top: 0;
+    margin-bottom: 0.15rem;
+  }
+
+  .year {
+    font-size: clamp(3.1rem, 13vw, 4.5rem);
+  }
+
+  .phases {
+    gap: 2.25rem;
   }
 
   .timeline {
-    --logo-slot: clamp(8rem, 32vw, 11.5rem);
-    --logo-height: clamp(4rem, 11vh, 5.25rem);
+    --logo-slot: 100%;
+    --logo-height: clamp(6rem, 28vw, 8.25rem);
+  }
+
+  .role {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    row-gap: 1rem;
   }
 
   .logoWrap {
+    grid-column: 1;
     grid-row: 1;
+    width: 100%;
+    max-width: 100%;
+    min-height: calc(
+      var(--logo-height) * var(--logo-scale-mobile, var(--logo-scale, 1))
+    );
+    margin-bottom: 0.35rem;
+    overflow: hidden;
+  }
+
+  .roleCopy {
+    grid-column: 1;
+    grid-row: 2;
+    padding-top: 0.15rem;
+    align-items: flex-start;
+  }
+
+  .logo,
+  .logoLight,
+  .logoEmbedded,
+  .logoDark,
+  .logoBadge,
+  .logoSeal {
+    transform: none;
+    height: calc(
+      var(--logo-height) * var(--logo-scale-mobile, var(--logo-scale, 1))
+    );
+  }
+
+  .logoLight {
+    --logo-scale: 1.28;
+  }
+
+  .logoBadge {
+    --logo-scale: 1.22;
+    object-position: left center;
+  }
+
+  .roleHeadline {
+    gap: 0.3rem;
+  }
+
+  .title {
+    font-size: clamp(1.4rem, 5.4vw, 1.95rem);
+    line-height: 1.08;
+  }
+
+  .orgName {
+    font-size: clamp(1.12rem, 4.4vw, 1.5rem);
+    line-height: 1.15;
   }
 
   .summary {
-    grid-column: 1 / -1;
+    grid-column: 1;
+    grid-row: 3;
     max-width: none;
+    font-size: clamp(0.98rem, 3.9vw, 1.08rem);
+    line-height: 1.55;
+  }
+
+  .parallelItem + .parallelItem {
+    padding-top: 2.35rem;
+    margin-top: 0.35rem;
   }
 }

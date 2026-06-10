@@ -15,6 +15,7 @@ export type ExperienceRole = {
   logoAlt: string
   logoTone?: 'light' | 'dark' | 'embedded' | 'seal' | 'badge'
   logoScale?: number
+  mobileLogoScale?: number
 }
 
 export type ExperiencePhase = {
@@ -42,6 +43,7 @@ export const experiencePhases: ExperiencePhase[] = [
         logo: '/employers/lanrover.png',
         logoAlt: 'LANRover Network Services logo',
         logoTone: 'light',
+        mobileLogoScale: 1.36,
       },
     ],
   },
@@ -62,6 +64,7 @@ export const experiencePhases: ExperiencePhase[] = [
         logo: '/employers/hsi.png?v=3',
         logoAlt: 'HSI Explorer Post 601 New York seal',
         logoTone: 'badge',
+        mobileLogoScale: 1.39,
       },
       {
         org: 'Power Device Corporation',
@@ -76,6 +79,7 @@ export const experiencePhases: ExperiencePhase[] = [
         logoAlt: 'Power Device Corporation logo',
         logoTone: 'embedded',
         logoScale: 1.09,
+        mobileLogoScale: 1.27,
       },
     ],
   },

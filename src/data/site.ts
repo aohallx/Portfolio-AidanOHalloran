@@ -109,7 +109,7 @@ export const site = {
       },
       {
         id: 'film',
-        label: 'Film composer',
+        label: 'Film Composer / Producer',
         image: '/hobbies/film-composer.png',
         imageAlt: '5 Bison Lessons film score artwork with bison silhouette',
       },

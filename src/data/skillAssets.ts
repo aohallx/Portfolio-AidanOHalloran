@@ -2,6 +2,7 @@ import type { SkillId } from './skills'
 
 /** Raster or vector brand marks served from /public/tool-icons */
 export const SKILL_IMAGE_SRC: Partial<Record<SkillId, string>> = {
+  firebase: '/tool-icons/firebase.svg',
   unreal: '/tool-icons/unreal.png',
 }
 

@@ -124,6 +124,10 @@
   white-space: nowrap;
 }
 
+.megaDarkMobile {
+  display: none;
+}
+
 .megaLight {
   font-size: clamp(2.75rem, 25cqi, 12rem);
   text-align: left;
@@ -196,10 +200,22 @@
   }
 
   .megaDark {
-    font-size: clamp(3rem, 16vw, 5.5rem);
-    padding: 0 1.25rem;
-    text-align: center;
-    text-shadow: 0 2px 28px rgba(0, 0, 0, 0.5);
+    display: none;
+  }
+
+  .megaDarkMobile {
+    display: block;
+    margin: 0;
+    width: 100%;
+    font-family: var(--font-condensed);
+    font-weight: 800;
+    font-size: clamp(2.5rem, 16vw, 4.5rem);
+    line-height: 0.86;
+    letter-spacing: -0.045em;
+    text-transform: uppercase;
+    text-align: left;
+    color: #0a0a0a;
+    white-space: nowrap;
   }
 
   .portrait {
@@ -207,7 +223,7 @@
   }
 
   .panelLight {
-    padding-top: 2rem;
+    padding-top: 1.35rem;
   }
 
   .rightStack {
