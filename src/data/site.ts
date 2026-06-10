@@ -18,7 +18,7 @@ export const site = {
   jobTitle: 'AI & Data Engineering Solutions Analyst',
   tagline: 'Data engineering, solutions delivery, and stakeholder-facing technical work',
   seo: {
-    siteUrl: 'https://aidanohalloran.com',
+    siteUrl: 'https://www.aidanohalloran.com',
     title: "Aidan O'Halloran | AI & Data Engineering Solutions Analyst | Deloitte",
     description:
       "AI & Data Engineering Solutions Analyst at Deloitte Government & Public Services (Orlando, FL). Python, SQL, ML pipelines, ETL, and client-facing demos. Interested in data engineering, analytics engineering, and solutions / sales engineering.",
