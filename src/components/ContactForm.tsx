@@ -1,12 +1,12 @@
 import { useState, type FormEvent } from 'react'
 import { track } from '@vercel/analytics'
 import { site } from '../data/site'
-import { submitContactForm } from '../lib/contactForm'
+import { openContactMailto, submitContactForm } from '../lib/contactForm'
 import styles from './ContactForm.module.css'
 
 type Topic = (typeof site.contact.topics)[number]
 
-type FormStatus = 'idle' | 'sending' | 'success' | 'error'
+type FormStatus = 'idle' | 'sending' | 'success' | 'mailto_fallback'
 
 type ContactFormProps = {
   variant?: 'light' | 'dark'
@@ -17,8 +17,6 @@ export function ContactForm({ variant = 'light' }: ContactFormProps) {
   const [message, setMessage] = useState('')
   const [topic, setTopic] = useState<Topic>(site.contact.topics[0])
   const [status, setStatus] = useState<FormStatus>('idle')
-  const [errorMessage, setErrorMessage] = useState('')
-
   const isReady =
     status !== 'sending' &&
     name.trim().length > 0 &&
@@ -29,15 +27,16 @@ export function ContactForm({ variant = 'light' }: ContactFormProps) {
     if (!isReady) return
 
     setStatus('sending')
-    setErrorMessage('')
 
     track('Contact Form Click', { topic })
 
-    const result = await submitContactForm({
+    const payload = {
       name: name.trim(),
       topic,
       message: message.trim(),
-    })
+    }
+
+    const result = await submitContactForm(payload)
 
     if (result.ok) {
       track('Contact Form Sent', { topic })
@@ -48,8 +47,9 @@ export function ContactForm({ variant = 'light' }: ContactFormProps) {
       return
     }
 
-    setStatus('error')
-    setErrorMessage(result.message)
+    track('Contact Form Mailto Fallback', { topic, reason: result.reason })
+    openContactMailto(payload)
+    setStatus('mailto_fallback')
   }
 
   return (
@@ -69,7 +69,7 @@ export function ContactForm({ variant = 'light' }: ContactFormProps) {
           value={name}
           onChange={(e) => {
             setName(e.target.value)
-            if (status === 'success' || status === 'error') setStatus('idle')
+            if (status === 'success' || status === 'mailto_fallback') setStatus('idle')
           }}
           className={styles.input}
           disabled={status === 'sending'}
@@ -89,7 +89,7 @@ export function ContactForm({ variant = 'light' }: ContactFormProps) {
               aria-pressed={topic === item}
               onClick={() => {
                 setTopic(item)
-                if (status === 'success' || status === 'error') setStatus('idle')
+                if (status === 'success' || status === 'mailto_fallback') setStatus('idle')
               }}
             >
               {item}
@@ -107,7 +107,7 @@ export function ContactForm({ variant = 'light' }: ContactFormProps) {
           value={message}
           onChange={(e) => {
             setMessage(e.target.value)
-            if (status === 'success' || status === 'error') setStatus('idle')
+            if (status === 'success' || status === 'mailto_fallback') setStatus('idle')
           }}
           className={styles.textarea}
           disabled={status === 'sending'}
@@ -120,12 +120,23 @@ export function ContactForm({ variant = 'light' }: ContactFormProps) {
         </p>
       )}
 
-      {status === 'error' && (
-        <p className={`${styles.feedback} ${styles.feedbackError}`} role="alert">
-          {errorMessage}{' '}
-          <a href={`mailto:${site.email}`} className={styles.feedbackLink}>
-            Email me directly
-          </a>
+      {status === 'mailto_fallback' && (
+        <p className={styles.feedback} role="status">
+          Couldn&apos;t send from the site. Your email app should open with your message
+          ready — hit send there to finish.{' '}
+          <button
+            type="button"
+            className={styles.feedbackLink}
+            onClick={() =>
+              openContactMailto({
+                name: name.trim(),
+                topic,
+                message: message.trim(),
+              })
+            }
+          >
+            Open email again
+          </button>
         </p>
       )}
 

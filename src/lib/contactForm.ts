@@ -1,4 +1,6 @@
-type ContactPayload = {
+import { site } from '../data/site'
+
+export type ContactPayload = {
   name: string
   topic: string
   message: string
@@ -6,7 +8,15 @@ type ContactPayload = {
 
 type ContactSubmitResult =
   | { ok: true }
-  | { ok: false; reason: 'missing_key' | 'request_failed'; message: string }
+  | { ok: false; reason: 'missing_key' | 'request_failed' | 'network_error'; message: string }
+
+export function openContactMailto({ name, topic, message }: ContactPayload): void {
+  const subject = encodeURIComponent(`Portfolio — ${topic}`)
+  const body = encodeURIComponent(
+    `Topic: ${topic}\nFrom: ${name}\n\n${message}`,
+  )
+  window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`
+}
 
 export async function submitContactForm({
   name,
@@ -23,31 +33,39 @@ export async function submitContactForm({
     }
   }
 
-  const response = await fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    body: JSON.stringify({
-      access_key: accessKey,
-      subject: `Portfolio — ${topic}`,
-      name,
-      from_name: name,
-      message: `Topic: ${topic}\nFrom: ${name}\n\n${message}`,
-      botcheck: false,
-    }),
-  })
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        access_key: accessKey,
+        subject: `Portfolio — ${topic}`,
+        name,
+        from_name: name,
+        message: `Topic: ${topic}\nFrom: ${name}\n\n${message}`,
+        botcheck: false,
+      }),
+    })
 
-  const data = (await response.json()) as { success?: boolean; message?: string }
+    const data = (await response.json()) as { success?: boolean; message?: string }
 
-  if (!response.ok || !data.success) {
+    if (!response.ok || !data.success) {
+      return {
+        ok: false,
+        reason: 'request_failed',
+        message: data.message ?? 'Could not send your message.',
+      }
+    }
+
+    return { ok: true }
+  } catch {
     return {
       ok: false,
-      reason: 'request_failed',
-      message: data.message ?? 'Could not send your message. Please try again.',
+      reason: 'network_error',
+      message: 'Could not reach the contact service.',
     }
   }
-
-  return { ok: true }
 }
