@@ -147,7 +147,7 @@ export function ContactForm({ variant = 'light' }: ContactFormProps) {
         }
         disabled={!isReady}
       >
-        {status === 'sending' ? 'Sending…' : 'Send message'}
+        {status === 'sending' ? 'Sending…' : 'Send'}
       </button>
     </form>
   )
