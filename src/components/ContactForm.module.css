@@ -13,18 +13,6 @@
   min-width: 0;
 }
 
-.fieldRow {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.75rem 1rem;
-}
-
-@media (max-width: 520px) {
-  .fieldRow {
-    grid-template-columns: 1fr;
-  }
-}
-
 .fieldMessage {
   gap: 0.5rem;
 }
@@ -148,6 +136,31 @@
 
 .submit:disabled {
   cursor: default;
+}
+
+.feedback {
+  margin: 0;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--text-on-light);
+}
+
+.feedbackError {
+  color: #9b3b3b;
+}
+
+.feedbackLink {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.formDark .feedback {
+  color: var(--silver);
+}
+
+.formDark .feedbackError {
+  color: #e8a0a0;
 }
 
 .formDark .label {
