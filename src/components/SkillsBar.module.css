@@ -4,6 +4,7 @@
   background: #0a0a0a;
   border-block: 1px solid rgba(255, 255, 255, 0.06);
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 .viewport {
@@ -27,6 +28,7 @@
   padding: 1.35rem clamp(2rem, 5vw, 3rem);
   list-style: none;
   animation: skills-scroll 42s linear infinite;
+  will-change: transform;
 }
 
 .item {
@@ -67,6 +69,24 @@
   }
   to {
     transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 900px) {
+  .viewport {
+    mask-image: none;
+    overflow: visible;
+  }
+
+  .track {
+    animation: none;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.15rem 1.65rem;
+    padding: 1.2rem 0.85rem;
+    transform: none;
+    will-change: auto;
   }
 }
 

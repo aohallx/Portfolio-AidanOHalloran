@@ -29,7 +29,8 @@ export function useActiveNavItem(): NavItemId {
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
 
         if (visible.length > 0) {
-          setScrollSection(visible[0].target.id as NavItemId)
+          const next = visible[0].target.id as NavItemId
+          setScrollSection((prev) => (prev === next ? prev : next))
         }
       },
       {

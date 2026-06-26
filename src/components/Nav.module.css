@@ -9,6 +9,8 @@
   align-items: center;
   background: transparent;
   pointer-events: none;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .inner {

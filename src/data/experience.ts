@@ -89,13 +89,9 @@ export const experiencePhases: ExperiencePhase[] = [
     roles: [
       {
         org: 'Deloitte Government & Public Services',
-        title: 'AI & Data Engineering Solutions Analyst',
+        title: 'Incoming AI & Data Engineering Solutions Analyst',
         location: 'Orlando, FL',
-        bullets: [
-          [
-            'Build end-to-end data pipelines for government clients and present analytics to client stakeholders.',
-          ],
-        ],
+        bullets: [],
         logo: '/employers/deloitte.svg?v=2',
         logoAlt: 'Deloitte logo',
         logoTone: 'embedded',

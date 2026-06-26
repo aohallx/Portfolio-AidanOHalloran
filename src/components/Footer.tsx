@@ -7,12 +7,15 @@ export function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <p className={styles.copy}>
-          © {year} {site.name}
-        </p>
-        <a href={`mailto:${site.email}`} className={styles.email}>
-          {site.email}
-        </a>
+        <div className={styles.meta}>
+          <p className={styles.copy}>
+            © {year} {site.name}
+          </p>
+          <a href={`mailto:${site.email}`} className={styles.email}>
+            {site.email}
+          </a>
+        </div>
+        <p className={styles.disclaimer}>{site.footerDisclaimer}</p>
       </div>
     </footer>
   )

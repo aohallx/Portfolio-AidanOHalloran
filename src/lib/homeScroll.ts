@@ -103,16 +103,46 @@ export function scrollToProjectsTarget(): boolean {
   return true
 }
 
-function runWithRetries(run: () => boolean, delays = [0, 50, 120, 250, 400]) {
-  const attempt = () => {
-    if (run()) return
+function runWithRetries(run: () => boolean, delays = [0, 32, 120, 280]) {
+  let settled = false
+  const timeoutIds: number[] = []
+  let rafId = 0
+
+  const listenerOpts: AddEventListenerOptions = { passive: true, capture: true }
+
+  const cleanup = () => {
+    window.removeEventListener('touchstart', onUserInput, listenerOpts)
+    window.removeEventListener('wheel', onUserInput, listenerOpts)
+    timeoutIds.forEach((id) => window.clearTimeout(id))
+    if (rafId) cancelAnimationFrame(rafId)
   }
+
+  const finish = (success: boolean) => {
+    if (settled) return
+    if (success) {
+      settled = true
+      cleanup()
+    }
+  }
+
+  const onUserInput = () => {
+    settled = true
+    cleanup()
+  }
+
+  const attempt = () => {
+    if (settled) return
+    finish(run())
+  }
+
+  window.addEventListener('touchstart', onUserInput, listenerOpts)
+  window.addEventListener('wheel', onUserInput, listenerOpts)
 
   for (const delay of delays) {
     if (delay === 0) {
-      requestAnimationFrame(attempt)
+      rafId = requestAnimationFrame(attempt)
     } else {
-      window.setTimeout(attempt, delay)
+      timeoutIds.push(window.setTimeout(attempt, delay))
     }
   }
 }

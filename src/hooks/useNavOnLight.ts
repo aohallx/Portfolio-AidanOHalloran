@@ -25,7 +25,16 @@ export function useNavOnLight(): boolean {
   const [onLight, setOnLight] = useState(false)
 
   useEffect(() => {
-    const update = () => setOnLight(isNavOverLightSurface())
+    let rafId = 0
+
+    const update = () => {
+      if (rafId) return
+      rafId = requestAnimationFrame(() => {
+        rafId = 0
+        setOnLight(isNavOverLightSurface())
+      })
+    }
+
     update()
 
     window.addEventListener('scroll', update, { passive: true })
@@ -40,6 +49,7 @@ export function useNavOnLight(): boolean {
     surfaces.forEach((el) => observer.observe(el))
 
     return () => {
+      if (rafId) cancelAnimationFrame(rafId)
       window.removeEventListener('scroll', update)
       window.removeEventListener('resize', update)
       observer.disconnect()

@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { skills, WORDMARK_SKILL_IDS } from '../data/skills'
 import { SkillIcon } from './SkillIcon'
 import styles from './SkillsBar.module.css'
@@ -16,7 +17,17 @@ function SkillMark({ name, id }: (typeof skills)[number]) {
 }
 
 export function SkillsBar() {
-  const track = [...skills, ...skills]
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 900px)')
+    const onChange = () => setIsMobile(mq.matches)
+    onChange()
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
+  const track = isMobile ? skills : [...skills, ...skills]
 
   return (
     <div className={styles.bar} aria-label="Tools and technologies">

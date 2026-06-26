@@ -15,13 +15,13 @@ export type HobbyMusic = {
 
 export const site = {
   name: "Aidan O'Halloran",
-  jobTitle: 'AI & Data Engineering Solutions Analyst',
+  jobTitle: 'Incoming AI & Data Engineering Solutions Analyst',
   tagline: 'Data engineering, solutions delivery, and stakeholder-facing technical work',
   seo: {
     siteUrl: 'https://www.aidanohalloran.com',
-    title: "Aidan O'Halloran | AI & Data Engineering Solutions Analyst | Deloitte",
+    title: "Aidan O'Halloran | Incoming AI & Data Engineering Solutions Analyst | Deloitte",
     description:
-      "AI & Data Engineering Solutions Analyst at Deloitte Government & Public Services (Orlando, FL). Python, SQL, ML pipelines, ETL, and client-facing demos. Interested in data engineering, analytics engineering, and solutions / sales engineering.",
+      "Incoming AI & Data Engineering Solutions Analyst joining Deloitte Government & Public Services (Orlando, FL). Portfolio of Python, SQL, ML, and data engineering projects. Open to data engineering, analytics engineering, and solutions opportunities.",
     keywords: [
       "Aidan O'Halloran",
       'data engineer',
@@ -38,7 +38,6 @@ export const site = {
       'machine learning',
       'ETL pipelines',
       'Orlando Florida',
-      'government consulting',
       'stakeholder presentations',
     ],
     rolesOpenTo: [
@@ -65,7 +64,7 @@ export const site = {
     },
   },
   employer: {
-    label: 'Currently at',
+    label: 'Incoming at',
     sector: 'Government & Public Services',
     name: 'Deloitte',
     division: 'GPS',
@@ -79,7 +78,7 @@ export const site = {
     titleSub: 'SOLUTIONS ANALYST',
     bioLocation: 'Based in Orlando, Florida.',
     bioMemo:
-      'I build data pipelines and analytics for government clients, working directly with stakeholders to turn data into decisions that may affect millions of people.',
+      'Incoming AI & Data Engineering Solutions Analyst at Deloitte GPS. I build data pipelines and analytics in data science and engineering projects.',
     employerPrefix: '@',
   },
   projects: {
@@ -187,4 +186,6 @@ export const site = {
     backgroundImage: '/contact/guitar-bg.png',
     backgroundAlt: 'Live guitar performance, black and white',
   },
+  footerDisclaimer:
+    'This is a personal website. The views and projects presented here are my own and do not represent Deloitte or any other current or future employer.',
 } as const
