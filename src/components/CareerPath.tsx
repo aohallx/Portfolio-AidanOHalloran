@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import { useState, type CSSProperties } from 'react'
 import { ExperienceRichText } from './ExperienceRichText'
 import {
   experiencePhases,
@@ -36,6 +36,9 @@ function logoClassFor(role: ExperienceRole): string {
 }
 
 function RoleEntry({ role }: { role: ExperienceRole }) {
+  const [expanded, setExpanded] = useState(false)
+  const hasDetails = Boolean(role.details)
+
   return (
     <article className={styles.role}>
       <div className={styles.logoWrap}>
@@ -54,11 +57,22 @@ function RoleEntry({ role }: { role: ExperienceRole }) {
           <span className={styles.orgName}>{role.org}</span>
         </h3>
       </div>
-      {role.bullets[0] && (
-        <div className={styles.summary}>
-          <ExperienceRichText paragraph={role.bullets[0]} />
-        </div>
-      )}
+      <div className={styles.summary}>
+        <ExperienceRichText paragraph={role.summary} />
+        {expanded && role.details && (
+          <ExperienceRichText paragraph={role.details} />
+        )}
+        {hasDetails && (
+          <button
+            type="button"
+            className={styles.moreBtn}
+            aria-expanded={expanded}
+            onClick={() => setExpanded((open) => !open)}
+          >
+            {expanded ? 'Less' : 'More'}
+          </button>
+        )}
+      </div>
     </article>
   )
 }

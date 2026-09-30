@@ -49,8 +49,24 @@ export function ConceptIcon({ id, className }: ConceptIconProps) {
       return (
         <svg {...props}>
           <path
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            d="M4 17c2.2-6 4.4-9 8-9s5.8 3 8 9"
+          />
+          <path
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeDasharray="2.2 2.2"
+            d="M5 13.5h14"
+          />
+          <circle cx="12" cy="8" r="1.8" fill="currentColor" />
+          <path
             fill="currentColor"
-            d="m12 4 2.2 4.5 5 .7-3.6 3.5.9 5L12 15.8 7.5 17.7l.9-5L4.8 9.2l5-.7L12 4z"
+            d="M11.2 4.2h1.6v2.4h-1.6V4.2zm-2.1 1.5 1.1-1.1 1.7 1.7-1.1 1.1-1.7-1.7zm5.8 0-1.1-1.1-1.7 1.7 1.1 1.1 1.7-1.7z"
           />
         </svg>
       )
@@ -58,8 +74,24 @@ export function ConceptIcon({ id, className }: ConceptIconProps) {
       return (
         <svg {...props}>
           <path
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            d="M5 18c1.5-3.5 3.5-5.5 7-5.5S17.5 14.5 19 18"
+          />
+          <circle cx="12" cy="7.5" r="2.4" fill="currentColor" />
+          <path
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeDasharray="1.8 2"
+            d="M12 10v4.2"
+          />
+          <path
             fill="currentColor"
-            d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18zm0 2a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm-1 3v5.5l4.5 2.6.8-1.4-3.7-2.1V8h-1.6z"
+            d="M10.6 14.8h2.8l.9 3.4H9.7l.9-3.4z"
           />
         </svg>
       )
@@ -99,10 +131,35 @@ export function ConceptIcon({ id, className }: ConceptIconProps) {
     case 'etl':
       return (
         <svg {...props}>
-          <path
-            fill="currentColor"
-            d="M4 8h6v3H7.5l4.5 5 4.5-5H14V8h6v8h-4v-3h-2.5l-3 3.3-3-3.3H10v3H6V8z"
+          <rect
+            x="3.2"
+            y="4.5"
+            width="5.2"
+            height="5.2"
+            rx="1.1"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
           />
+          <rect
+            x="15.6"
+            y="14.3"
+            width="5.2"
+            height="5.2"
+            rx="1.1"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+          />
+          <path
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9.2 7h3.2c1.4 0 2.5 1.1 2.5 2.5v5M14.9 14.5l2.2 2.2 2.2-2.2"
+          />
+          <circle cx="12" cy="12" r="1.35" fill="currentColor" />
         </svg>
       )
     case 'time-series':

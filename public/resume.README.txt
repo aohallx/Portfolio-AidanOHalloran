@@ -1,3 +1,5 @@
-Drop your web-safe resume here as resume.pdf (omit street address).
+Replace this file with a web-safe resume.pdf (omit street address).
 
-The site links to /resume.pdf from the footer and contact page.
+Keep it aligned with the site: Data Engineer at Deloitte Consulting LLP,
+Python / SQL / Databricks / AWS, and no client names beyond what you already
+publish on LinkedIn.

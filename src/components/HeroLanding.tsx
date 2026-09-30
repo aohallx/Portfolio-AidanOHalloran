@@ -14,8 +14,8 @@ export function HeroLanding() {
             className={styles.portrait}
             src={hero.portraitSrc}
             alt={hero.portraitAlt}
-            width={900}
-            height={1200}
+            width={2750}
+            height={1536}
             fetchPriority="high"
             decoding="async"
           />
@@ -29,8 +29,9 @@ export function HeroLanding() {
             <div className={styles.titleBlock}>
               <p className={styles.megaDarkMobile}>{hero.titleDark}</p>
               <p className={styles.megaLight}>{hero.titleLight}</p>
-              <p className={styles.megaSub}>{hero.titleSub}</p>
-              <EmployerBadge variant="hero" tone="light" />
+              <div className={styles.metaIndent}>
+                <EmployerBadge variant="hero" tone="light" />
+              </div>
             </div>
 
             <div className={styles.bio}>

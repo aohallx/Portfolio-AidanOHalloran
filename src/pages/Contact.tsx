@@ -11,7 +11,7 @@ export function Contact() {
     <>
       <PageMeta
         title="Contact"
-        description={`Contact ${site.name} — ${site.jobTitle} at Deloitte ${site.employer.division}. Open to data engineering, analytics engineering, and solutions opportunities. Based in ${site.seo.location.city}, ${site.seo.location.region}.`}
+        description={`Contact ${site.name} — Data Engineer at ${site.employer.legalName}. Open to data engineering, solutions engineering, and sales engineering conversations. Based in ${site.seo.location.city}, ${site.seo.location.region}.`}
       />
       <div className={styles.page}>
         <div className={styles.backdrop} aria-hidden="true">
@@ -38,7 +38,8 @@ export function Contact() {
               <strong className={styles.emphasis}>
                 Homeland Security Investigations
               </strong>{' '}
-              in NYC while working as a test technician at{' '}
+              in NYC while working as a data analyst and semiconductor test
+              technician at{' '}
               <strong className={styles.emphasis}>
                 Power Device Corporation
               </strong>{' '}
@@ -46,13 +47,14 @@ export function Contact() {
             </p>
 
             <p className={styles.copy}>
-              I&apos;m joining{' '}
+              I work as a Data Engineer at{' '}
               <strong className={styles.emphasis}>
-                Deloitte Government &amp; Public Services
-              </strong>{' '}
-              as an AI &amp; Data Engineering Solutions Analyst. Sharing ideas
-              and collaborating with people is a passion of mine. On my own time,
-              I&apos;ve built a{' '}
+                Deloitte Consulting LLP
+              </strong>
+              {' '}
+              (GPS) in Orlando, building cloud data pipelines with Python, SQL,
+              Databricks, and AWS. I like talking through ideas with people, at
+              work or outside it. On my own time I&apos;ve built a{' '}
               <Link
                 to="/projects/unreal-game"
                 className={`chrome-link ${styles.projectLink}`}

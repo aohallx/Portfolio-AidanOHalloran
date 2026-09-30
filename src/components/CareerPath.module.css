@@ -175,6 +175,29 @@
   margin: 0;
 }
 
+.summary p + p {
+  margin-top: 0.55rem;
+}
+
+.moreBtn {
+  display: inline-block;
+  margin-top: 0.45rem;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: var(--font-condensed);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-on-light);
+  cursor: pointer;
+}
+
+.moreBtn:hover {
+  color: var(--accent-dark);
+}
+
 .parallelGrid {
   display: flex;
   flex-direction: column;

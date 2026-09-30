@@ -38,7 +38,7 @@ export function buildPersonSchema(pathname: string) {
         },
         worksFor: {
           '@type': 'Organization',
-          name: site.employer.name,
+          name: site.employer.legalName,
           department: `${site.employer.division} · ${site.employer.sector}`,
         },
         sameAs: [site.linkedin, site.github],

@@ -51,6 +51,9 @@ export const toolCategories: { title: string; items: ToolItem[] }[] = [
     title: 'Tools & Tech',
     items: [
       { kind: 'skill', id: 'python', name: 'Python' },
+      { kind: 'skill', id: 'sql', name: 'SQL' },
+      { kind: 'skill', id: 'databricks', name: 'Databricks' },
+      { kind: 'skill', id: 'aws', name: 'AWS' },
       { kind: 'skill', id: 'pandas', name: 'pandas' },
       { kind: 'skill', id: 'numpy', name: 'NumPy' },
       { kind: 'skill', id: 'matplotlib', name: 'Matplotlib' },
