@@ -64,7 +64,7 @@ export const projects: Project[] = [
     slug: 'reef-radar',
     title: 'Reefradar.com',
     tagline:
-      'Free surf forecast and trip planning platform with 900+ live surf spots, NOAA physics-based forecasts, and monthly ratings for 200+ destinations.',
+      'Actively building a free surf forecast and trip planning platform with 1,000+ beaches, NOAA physics-based forecasts, and monthly ratings for 200+ destinations. One year in and counting.',
     coverImage: '/projects/reef-radar/cover.svg',
     coverAlt: 'Reef Radar surf forecast demo preview',
     media: {
@@ -76,13 +76,12 @@ export const projects: Project[] = [
     links: {
       live: 'https://reefradar.com',
     },
-    stack: ['React', 'TypeScript', 'Python', 'Photoshop', 'After Effects'],
-    stackIds: ['react', 'typescript', 'python', 'photoshop', 'after-effects'],
+    stack: ['React', 'TypeScript', 'Python', 'Firebase', 'Photoshop', 'After Effects'],
+    stackIds: ['react', 'typescript', 'python', 'firebase', 'photoshop', 'after-effects'],
     tools: [],
     highlights: [
-      'Shipped live surf forecast product at reefradar.com with 900+ spots, real-time conditions, beach alerts, and full access at no cost.',
-      'Built NOAA-driven physics forecasts showing swell height, period, conditions, monthly temperature averages, and incoming storms.',
-      'Surf trip planner for 200+ locations with monthly scores, ratings, and flight data for full surf travel planning.',
+      'Developing the world\'s most in-depth surf trip planner covering all 147 global surf destinations, with monthly scores, surf ratings, and flight data for travel planning.',
+      'Engineering NOAA-driven physics forecasts and Machine Learning models for swell height, period, conditions, monthly temperature averages, and storm tracking.',
     ],
     featured: true,
   },

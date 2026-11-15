@@ -104,7 +104,7 @@
 .playBtn:not(:disabled):hover {
   color: var(--sage);
   border-color: var(--sage);
-  background: rgba(143, 163, 134, 0.1);
+  background: var(--accent-soft-bg);
 }
 
 .waveform {

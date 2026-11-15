@@ -154,8 +154,10 @@ export const projectDeepDives: Record<string, ProjectDeepDiveSection[]> = {
     {
       title: 'Building Reef Radar',
       paragraphs: [
-        'Reef Radar started as a class idea in December 2025. A month later, a trip to Costa Rica with my best friends turned that seed into a full product vision: a free surf website where anyone could check live conditions, plan trips, and compare flights without paywalls.',
-        'Over the next seven months I built reefradar.com end to end on my own with React, TypeScript, and Python. I spent that time on in-depth surf and forecast research, NOAA-driven modeling, and data workflows that used AI agents to help web scrape and organize source material. The goal from the start was to give surfers one place to read live conditions, plan travel, and book trips around real surf data.',
+        'Reef Radar started as a class idea in November 2025. A month later, a trip to Costa Rica with my best friends turned that seed into a wild vision: a 100% free surf website where anyone could check live conditions, plan trips, and compare flights without paywalls.',
+        'I\'ve been building reefradar.com end to end on my own for over a year now, and the lessons I\'ve learned are invaluable. Building a product from scratch is a great way to learn and understand not only how tech stacks work, but the business and user needs that drive them. I\'m grateful for the opportunity to connect the surf community, and to build something I\'m passionate about.',
+        'I want to thank the following for their support in developing the site: My family, Brendan O\'Halloran, our cousin, Damon and Justin Pellegrino, and friends Aiden Callahan, Victor Barsotti, Riley Thomas, J.P Armenia, Charles Blanthorn, Tristan Sweeney, Hannah Kelly, and more.',
+        'The images shown throughout the site are taken from Riley Thomas and Victor Barsotti, so check them out for photography and videography work, as they are local filmmakers on Long Island.'
       ],
     },
   ],

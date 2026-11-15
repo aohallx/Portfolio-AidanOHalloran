@@ -43,7 +43,7 @@
 }
 
 .videoShell:focus-visible {
-  box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px rgba(143, 163, 134, 0.25);
+  box-shadow: 0 0 0 2px var(--accent), 0 0 0 4px rgba(var(--accent-rgb), 0.25);
 }
 
 .videoShell:fullscreen,
@@ -142,7 +142,7 @@
 }
 
 .playToggle:hover {
-  background: rgba(143, 163, 134, 0.22);
+  background: rgba(var(--accent-rgb), 0.22);
   color: #fff;
   box-shadow:
     0 0 0 1px rgba(184, 201, 173, 0.45),
@@ -210,8 +210,8 @@
   border-radius: 999px;
   background: linear-gradient(
     90deg,
-    rgba(143, 163, 134, 0.15),
-    rgba(143, 163, 134, 0.45)
+    rgba(var(--accent-rgb), 0.15),
+    rgba(var(--accent-rgb), 0.45)
   );
   filter: blur(4px);
   pointer-events: none;
@@ -303,7 +303,7 @@
 }
 
 .fullscreenBtn:hover {
-  background: rgba(143, 163, 134, 0.2);
+  background: rgba(var(--accent-rgb), 0.2);
   border-color: rgba(184, 201, 173, 0.55);
   color: #fff;
   transform: scale(1.04);

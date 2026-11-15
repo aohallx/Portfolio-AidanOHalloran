@@ -1,0 +1,52 @@
+.wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.swatch {
+  width: 0.85rem;
+  height: 0.85rem;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 2px;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    outline-color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.sage {
+  background: #8fa386;
+}
+
+.gold {
+  background: #a89b7e;
+}
+
+.ocean {
+  background: #7f968e;
+}
+
+.swatch:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.selected {
+  outline: 1px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 2px;
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .swatch {
+    transition: none;
+  }
+
+  .swatch:hover {
+    transform: none;
+  }
+}

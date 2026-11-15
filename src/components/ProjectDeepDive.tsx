@@ -7,26 +7,33 @@ import { reefRadarBrand } from '../data/reefRadar'
 import { getGalleryIndex } from '../lib/projectGallery'
 import styles from './ProjectDeepDive.module.css'
 
+const DEEP_DIVE_LINKS: Record<string, string> = {
+  'reefradar.com': reefRadarBrand.liveUrl,
+  'riley thomas': 'https://www.instagram.com/rileythomas22/',
+  'victor barsotti': 'https://victorbarsotti.myportfolio.com/work',
+}
+
 function DeepDiveParagraph({ text }: { text: string }) {
-  const parts = text.split(/(reefradar\.com)/i)
+  const parts = text.split(/(reefradar\.com|Riley Thomas|Victor Barsotti)/i)
 
   return (
     <p className={styles.lead}>
-      {parts.map((part, index) =>
-        part.toLowerCase() === 'reefradar.com' ? (
+      {parts.map((part, index) => {
+        const href = DEEP_DIVE_LINKS[part.toLowerCase()]
+        if (!href) return part
+
+        return (
           <a
             key={`${part}-${index}`}
-            href={reefRadarBrand.liveUrl}
+            href={href}
             className={`chrome-link ${styles.inlineChromeLink}`}
             target="_blank"
             rel="noopener noreferrer"
           >
             {part}
           </a>
-        ) : (
-          part
-        ),
-      )}
+        )
+      })}
     </p>
   )
 }

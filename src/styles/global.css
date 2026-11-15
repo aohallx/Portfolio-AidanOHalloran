@@ -1,4 +1,5 @@
-:root {
+:root,
+[data-theme='sage'] {
   --bg: #0a0b0d;
   --bg-elevated: #12141a;
   --bg-card: #161922;
@@ -16,13 +17,16 @@
   --text-on-light-dim: #8a9187;
   --sage: #b8c9ad;
   --sage-dim: #8fa386;
+  --sage-rgb: 184, 201, 173;
   --nav-gradient-start: #555d50;
   --nav-gradient-end: #9ca595;
   --nav-link-active: #d4e8c8;
   --accent: #8fa386;
   --accent-dark: #5c6b54;
+  --accent-rgb: 143, 163, 134;
   --accent-soft: rgba(143, 163, 134, 0.4);
   --accent-soft-bg: rgba(143, 163, 134, 0.1);
+  --theme-swatch: linear-gradient(145deg, #b8c9ad 0%, #8fa386 55%, #5c6b54 100%);
   --deloitte-green: #86bc25;
   --gold: #d4a853;
   --silver: #c0c5ce;
@@ -35,6 +39,50 @@
   --max-width: 1200px;
   --font: 'DM Sans', system-ui, -apple-system, sans-serif;
   --font-condensed: 'Barlow Condensed', 'DM Sans', system-ui, sans-serif;
+}
+
+[data-theme='gold'] {
+  --bg-sage: #b5ae9a;
+  --bg-sage-deep: #9a937e;
+  --sage: #c9c0aa;
+  --sage-dim: #a89b7e;
+  --sage-rgb: 201, 192, 170;
+  --nav-gradient-start: #585348;
+  --nav-gradient-end: #a89f88;
+  --nav-link-active: #e4dcc8;
+  --accent: #a89b7e;
+  --accent-dark: #6b6452;
+  --accent-rgb: 168, 155, 126;
+  --accent-soft: rgba(168, 155, 126, 0.32);
+  --accent-soft-bg: rgba(168, 155, 126, 0.09);
+  --theme-swatch: linear-gradient(145deg, #c9c0aa 0%, #a89b7e 55%, #6b6452 100%);
+  --text-on-light-muted: #5a554a;
+  --text-on-light-dim: #8a8476;
+}
+
+[data-theme='ocean'] {
+  --bg-sage: #9aafa8;
+  --bg-sage-deep: #7e948c;
+  --sage: #b0c4bc;
+  --sage-dim: #7f968e;
+  --sage-rgb: 176, 196, 188;
+  --nav-gradient-start: #455652;
+  --nav-gradient-end: #8aa199;
+  --nav-link-active: #d0e4dc;
+  --accent: #7f968e;
+  --accent-dark: #4f625c;
+  --accent-rgb: 127, 150, 142;
+  --accent-soft: rgba(127, 150, 142, 0.32);
+  --accent-soft-bg: rgba(127, 150, 142, 0.09);
+  --theme-swatch: linear-gradient(145deg, #b0c4bc 0%, #7f968e 55%, #4f625c 100%);
+  --text-on-light-muted: #4a5854;
+  --text-on-light-dim: #758a84;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: ease;
 }
 
 *,

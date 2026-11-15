@@ -163,11 +163,17 @@ export const site = {
       },
       {
         hobbyId: 'dev',
-        title: 'Releasing soon',
-        placeholder: true,
-        coverArt: '/hobbies/music-blank.svg',
-        coverAlt: 'Upcoming release artwork placeholder',
-        links: {},
+        title: 'Conscious',
+        subtitle: 'Single · Writer/Producer',
+        previewSrc: '/audio/conscious.wav',
+        coverArt: '/hobbies/conscious.jpg',
+        coverAlt: 'Conscious single artwork by Aidan O\'Halloran',
+        links: {
+          spotify:
+            'https://open.spotify.com/track/1UAF1kZCDOBX3Xs5olWbJW?si=b1562d6ff7e447ec',
+          youtube: 'https://www.youtube.com/watch?v=QNKJUiDLrj0',
+          appleMusic: 'https://music.apple.com/au/song/conscious/6795787413',
+        },
       },
       {
         hobbyId: 'surf',

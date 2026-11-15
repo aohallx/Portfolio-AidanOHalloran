@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { SocialIconRow } from './SocialIconRow'
+import { ThemeSwitcher } from './ThemeSwitcher'
 import { site } from '../data/site'
 import styles from './HeroSignature.module.css'
 
@@ -25,6 +26,15 @@ export function HeroSignature() {
             EMAIL: {site.email.toUpperCase()}
           </a>
         </p>
+
+        <ThemeSwitcher />
+
+        <div className={styles.legal}>
+          <p className={styles.disclaimer}>{site.footerDisclaimer}</p>
+          <p className={styles.copy}>
+            © {new Date().getFullYear()} {site.name}
+          </p>
+        </div>
       </div>
       <p className={styles.ghost} aria-hidden="true">
         {site.roleGhost}
